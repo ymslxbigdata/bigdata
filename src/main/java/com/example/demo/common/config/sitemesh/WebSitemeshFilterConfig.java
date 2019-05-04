@@ -1,4 +1,4 @@
-package com.example.demo.config.sitemesh;
+package com.example.demo.common.config.sitemesh;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
