@@ -1,16 +1,16 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.dashboard;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("")
-public class HomepageController {
+@RequestMapping("dashboard")
+public class GlobalTradeController {
 
 	
-	  @RequestMapping("/homepage") 
+	  @RequestMapping("/globalTrade") 
 	  public String getScreen(final Model model){
-		  return "homepage/homepage"; 
+		  return "dashboard/globalTrade/globalTrade"; 
 	  }
 }

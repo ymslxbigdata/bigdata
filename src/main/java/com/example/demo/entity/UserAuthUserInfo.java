@@ -12,9 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
-import com.example.demo.common.constants.UserAuthConstants;
 
 import lombok.Getter;
 import lombok.Setter;

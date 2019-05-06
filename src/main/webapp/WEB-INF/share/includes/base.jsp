@@ -4,3 +4,6 @@
 <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/common.css'>
 <script src='${pageContext.request.contextPath}/global/vue/vue-all.min.js'></script>
 <script src='${pageContext.request.contextPath}/global/vue/vue-component-all.min.js'></script>
+<script>
+	var contextPath = "${pageContext.request.contextPath}"; 
+</script>
