@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration  SYSTEM "hibernate-tools/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://10.191.5.144:5432/a1-scada</property>
+	<property name="hibernate.default_schema">public</property>
+    <property name="hibernate.connection.username">a1-scada</property>
+    <property name="hibernate.connection.password">a1-scada</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+  </session-factory>
+</hibernate-configuration>
