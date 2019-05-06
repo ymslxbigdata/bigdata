@@ -18,6 +18,8 @@ configurations {
 }
 
 repositories {
+	// 添加阿里云仓库
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
 	mavenCentral()
 }
 
@@ -25,6 +27,7 @@ dependencies {
 	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-taglibs'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

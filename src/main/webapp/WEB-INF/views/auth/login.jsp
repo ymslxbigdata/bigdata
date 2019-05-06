@@ -11,6 +11,8 @@
 <html>
 <head>
   	<title>Login</title>
+  	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/> 
 </head>
 <body>
 	<div style=" position: fixed;float: left;width: 100%;height: 100%;background: url(${pageContext.request.contextPath}/resources/images/login-background.jpg) no-repeat center fixed;background-size: cover; "></div> 

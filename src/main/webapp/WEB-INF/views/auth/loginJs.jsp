@@ -22,12 +22,14 @@
 				var self = this;
 				self.$refs[formName].validate(function(valid) {
 					if (valid) { 
-						debugger
-						
+
 						var loginForm = document.getElementById("loginForm");
+						
+						var token = document.querySelector('meta[name=_csrf]').getAttribute('content');
+					    var csrfField = document.getElementById("csrfField");
+					    csrfField.setAttribute("value", token);
 						loginForm.submit();
 					}
-// 					return false;
 				});
 			}
 		}
