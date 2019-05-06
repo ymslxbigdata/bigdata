@@ -1,0 +1,58 @@
+apply plugin: 'java'
+
+repositories {
+  def nexusNation = "$System.env.ARCHITECTURE_NEXUS_REGION"
+  
+  repositories {
+    mavenCentral()
+    // if ("$nexusNation" == "jp"){
+	//   maven { url 'http://10.145.150.200:8082/nexus/content/groups/YNA2.0/'  }
+	// } else {
+	//   maven { url 'http://10.191.5.149:8080/nexus/content/repositories/YNA2.0/'  }
+	// }
+  }
+}
+
+dependencies {
+    compile 'org.hibernate:hibernate-tools:5.2.5.Final'
+    compile 'postgresql:postgresql:9.1-901-1.jdbc4'
+    compile 'ch.qos.logback:logback-classic:0.9.15'
+    // compile 'jp.co.yamaha_motor.yna2:yna2-base:2.0.+'
+}
+
+
+task generate {
+    doLast {
+        ant {
+            taskdef(
+                    name: 'hibernatetool',
+                    classname: 'org.hibernate.tool.ant.HibernateToolTask',
+                    classpath: configurations.compile.asPath
+            )
+            hibernatetool(destdir: "src/main/java"){
+                jdbcconfiguration(
+                        configurationfile: "hibernate-tools/hibernate.cfg.xml",
+                        revengfile: "hibernate-tools/hibernate.reveng.xml",
+                        packagename: "com.example.demo.entity",
+                        detectManytoMany: "true",
+                        detectOptimisticLock: "true"
+                )
+                hbm2java(jdk5: true, ejb3: true)
+            }
+        }
+    }
+}
+
+task ddl {
+    doLast {
+        ant {
+            taskdef(name: 'hibernatetool',
+                    classname: 'org.hibernate.tool.ant.HibernateToolTask',
+                    classpath: configurations.compile.asPath + ";build\\classes\\main")
+            hibernatetool(destdir: "build") {
+                annotationconfiguration(configurationfile: "hibernate-tools/hibernate.cfg-ddl.xml")
+                hbm2ddl(export: false, format: true, outputfilename: 'schema.ddl')
+            }
+        }
+    }
+}
