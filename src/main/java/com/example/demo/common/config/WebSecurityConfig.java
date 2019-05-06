@@ -22,13 +22,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Override
-    protected void configure(HttpSecurity http) throws Exception {  
+    protected void configure(HttpSecurity http) throws Exception { 
+    	http.csrf().disable();
     http.authorizeRequests() // 定义哪些URL需要被保护、哪些不需要被保护
-        .antMatchers("/global/**", "/resources/**","/public/**","/homepage","/dashboard", LOGIN_URL).permitAll()// 设置所有人都可以访问登录页面
+        .antMatchers("/global/**", "/resources/**","/public/**","/homepage","/dashboard/**", LOGIN_URL,"/").permitAll()// 设置所有人都可以访问登录页面
         .anyRequest().authenticated()  // 任何请求,登录后可以访问
         .and()
         .formLogin().loginPage(LOGIN_URL)
-        .defaultSuccessUrl("/homepage", true)
+        .defaultSuccessUrl("/dataMantance/dataHome", true)
         .failureUrl(LOGIN_URL + "?error").permitAll();
     }
 }

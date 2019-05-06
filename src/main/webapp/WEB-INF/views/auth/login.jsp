@@ -13,30 +13,49 @@
   	<title>Login</title>
 </head>
 <body>
-	<div id="login-form">
-		<c:url value="/login" var="loginUrl" />
-    	<form:form id="loginForm" action="${loginUrl}">
-    		<div>
-	        	<label for="sitecode">Sitecode:</label>
-	        	<input type="text"  id="siteCode" name="siteCode" value="00" placeholder="Sitecode" />
-	      	</div>
-	      	<div>
-	        	<label for="username">Username:</label>
-	        	<input type="text"  id="username" name="username" value="" placeholder="Username" />
-	      	</div>
-	      	<div>
-	       		<label for="password">Password TEST:</label>
-	        	<input type="password" id="password" name="password" placeholder="Password" />
-	      	</div>
-	        <ul class="form-messages">
-	        	<c:if test="${param.error != null}">
-	          		<li class="ui-state-error-text">Invalid username and password.</li>
-	        	</c:if>
-	        </ul>
-		 	<div>
-		    	<input id="submit-button" type="submit" value="Log in"/>
-			</div>
-    	</form:form>
+	<div style=" position: fixed;float: left;width: 100%;height: 100%;background: url(${pageContext.request.contextPath}/resources/images/login-background.jpg) no-repeat center fixed;background-size: cover; "></div> 
+	<div style=" position: fixed;float: left;width: 100%;height: 100%;background-color: rgba(87, 99, 109, 0.73);"></div> 
+	<div id="login" v-cloak >  
+		<vue-row  type="flex" justify="center" > 
+			<div class='main-container bg-overlay'> 
+				<vue-row  type="flex" justify="center"  >
+					<vue-col :span="24" > 
+						<vue-card >
+							<c:url value="/login" var="loginUrl"/>
+							<vue-form :model='loginForm' :rules="rules" ref='loginForm' id="loginForm" action="${pageContext.request.contextPath}/login" method="post">
+								<strong class="no-margins" style="font-size: 30px;">Welcome</strong>
+								<p class=""></p>
+								<vue-form-item prop="siteCode" v-show="false">
+									<label>Sitecode:</label>
+				        			<vue-input name="siteCode" v-model="loginForm.siteCode"></vue-input>
+				      			</vue-form-item>
+								<vue-form-item  prop="username" label="UserName">
+									<vue-input v-model='loginForm.username' placeholder="用户名" name='username' icon='icon-user'></vue-input>
+								</vue-form-item>
+								<vue-form-item  prop="password" label="Password">
+									<vue-input v-model='loginForm.password' placeholder="密码" type='password' name='password' icon='icon-lock'></vue-input>
+								</vue-form-item>  
+								<div class="margin-top20 font-color-red" v-if="${param.error != null}">用户名或密码错误！</div>
+								<p class=""></p>
+								<vue-button circle class='submit-button' type="success" @click="onSubmit('loginForm')" >登&nbsp;&nbsp;&nbsp;录</vue-button>
+								
+									<input type="hidden" name="_csrf" value="" id="csrfField"/>
+							</vue-form>
+						</vue-card>
+					</vue-col>
+				</vue-row> 
+				<vue-row  type="flex" justify="center">
+					<vue-col :span="24" > 
+						<div class="signup-footer">
+							<div class="pull-left">
+								&copy; 2019 All Rights Reserved.
+							</div>
+						</div>
+					</vue-col>
+				</vue-row> 
+			</div>  
+		</vue-row> 
 	</div>
+	<jsp:include page="loginJs.jsp" />
 </body>
 </html>

@@ -1,4 +1,16 @@
 @charset "UTF-8";
+
+*
+{
+	margin:0px;
+	padding:0px;
+}
+html, body
+{
+	width:100%;
+	height:100%;
+}
+
 body {
     font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial,
         sans-serif !important;
@@ -9,13 +21,84 @@ body {
 	background-color:#0D1633
 }
 
+.margin-top20 {
+    margin-top: 20px !important;
+}
+
+.font-color-red {
+    color: #FF0000;
+}
+
+/**START***************************LOGIN *************************************START**/
+.login{
+	height: 100%;
+	min-height: 600px; 
+}  
+.logo img {
+	height: 80px; 
+	width: 240px;
+	margin-bottom: 10px;
+} 
+.vue-card {
+	border: 0px ;
+	background-color: transparent;
+	color: #fff; 
+}
+.main-container { 
+	position: relative;
+	z-index: 10;
+	font-family: "sans-serif","Helvetica Neue",Helvetica,"Microsoft YaHei","微软雅黑",Arial,sans-serif;
+	font-weight: 300;
+	margin-top: 100px;
+	width: 350px;
+	height: 400px;
+	text-align: center;
+}
+.submit-button {
+	font-size: 16px;
+	width:150px;
+	margin-top:30px;
+}
+.signup-footer {
+	border-top: solid 1px rgba(255,255,255,.3);
+	margin: 20px 10px;
+	padding-top: 15px;
+	text-align: center;
+	color: hsla(0,0%,100%,.6);
+}
+.bg-overlay {
+	background: radial-gradient(circle at top,#104357,rgba(0, 0, 0, 0.67));
+	background-image: -webkit-radial-gradient(top center,#225F77,#232323); 
+	opacity: .9;
+	border-radius: 10px;
+}
+.vue-card  input{
+	background-color: hsla(0,0%,100%,.1);
+	transition: opacity .3s ease;
+	color: #fff;
+}
+.vue-card  label{ 
+	color: #fff;
+}
+.vue-card  a{ 
+	color: #21AF8F;
+}
+
+@media screen and (max-width: 768px) {
+	.main-container {
+		margin-top: 20px
+	}
+}
+/**END***************************LOGIN *************************************END**/
+
+/**START***************************LOGIN *************************************END**/
 .menu-bar {
     height: 80px;
     background-color: #324157;
     color: white
 }
 
-.menu-bar  .menu-title  {
+.menu-bar .menu-title  {
 	font-size: 24px;
 	font-weight: bold;
 	
@@ -43,3 +126,5 @@ body {
 	width:100%;
 	height:auto;
 }
+
+/**********************/
