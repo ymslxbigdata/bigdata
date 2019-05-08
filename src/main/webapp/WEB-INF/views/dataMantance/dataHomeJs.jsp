@@ -90,7 +90,7 @@ var app = new Vue({
 		var self = this;
 		window.onresize = function() {
 			return self.bodySize();
-		}
+		} 
 	},
 }).$mount("#app");
 </script>
