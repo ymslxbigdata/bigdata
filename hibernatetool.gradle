@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     compile 'org.hibernate:hibernate-tools:5.2.5.Final'
-    compile 'postgresql:postgresql:9.1-901-1.jdbc4'
+    compile 'postgresql:postgresql:9.4.1212'
     compile 'ch.qos.logback:logback-classic:0.9.15'
     // compile 'jp.co.yamaha_motor.yna2:yna2-base:2.0.+'
 }

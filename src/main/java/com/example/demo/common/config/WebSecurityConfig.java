@@ -31,5 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .formLogin().loginPage(LOGIN_URL)
         .defaultSuccessUrl("/dataMantance/dataHome", true)
         .failureUrl(LOGIN_URL + "?error").permitAll();
+    
+    http.headers().frameOptions().disable();
     }
 }
