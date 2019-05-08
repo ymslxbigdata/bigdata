@@ -32,6 +32,11 @@ dependencies {
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// easypoi
+	implementation 'cn.afterturn:easypoi-base:3.2.0'
+	implementation 'cn.afterturn:easypoi-web:3.2.0'
+	implementation 'cn.afterturn:easypoi-annotation:3.2.0'
+	
 	//JPA + Hibernate + PostgreSQL
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly "org.postgresql:postgresql:9.4.1212"
