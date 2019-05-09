@@ -17,6 +17,12 @@ body {
     overflow: auto;
 }
 
+.vue-tabs__content {
+	overflow: hidden;
+	position: relative;
+	height: calc(100% - 50px);
+}
+
 .height-100 {
 	height:100%	
 }
