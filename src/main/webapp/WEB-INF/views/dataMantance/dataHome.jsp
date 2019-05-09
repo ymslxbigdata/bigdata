@@ -22,14 +22,14 @@
 						</vue-menu-item>
 						
 						<vue-menu-item index="1-2">
-							<div @click="addTab(tabs['globalEshopTradeData'])">
+							<div @click="addTab(tabs['globalEshopUsersData'])">
 								<i class="fa fa-list-alt" aria-hidden="true"></i> 
 								全球跨境电商平台用户数据
 							</div>
 						</vue-menu-item>
 						
 						<vue-menu-item index="1-3">
-							<div @click="addTab(tabs['globalEshopUsersData'])">
+							<div @click="addTab(tabs['globalEshopTradeData'])">
 								<i class="fa fa-users" aria-hidden="true"></i>
 								全球跨境电商平台交易数据
 							</div>

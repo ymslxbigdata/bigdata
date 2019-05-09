@@ -16,13 +16,13 @@ var app = new Vue({
 					title: '全球跨境电商平台信息',
 					url: 'globalEshopInfo/info'
 				},
-				globalEshopTradeData: {
-					title: '全球跨境电商平台用户数据',
-					url: 'globalEshopTradeData/info',
-				},
 				globalEshopUsersData: {
-					title: '全球跨境电商平台交易数据',
+					title: '全球跨境电商平台用户数据',
 					url: 'globalEshopUsersData/info',
+				},
+				globalEshopTradeData: {
+					title: '全球跨境电商平台交易数据 ',
+					url: 'globalEshopTradeData/info',
 				},
 			},
 		}
