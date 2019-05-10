@@ -57,13 +57,13 @@ body {
 
 /**START************************** VUE- OVERRIDE *************************************START**/
 
-.vue-table__body-wrapper,
+/* .vue-table__body-wrapper,
 .vue-table__cell,
 .vue-table {
     background-color: #0d1633;
     color: #ffffff !important;
     border: 0;
-}
+} */
 
 .vue-table__column {
     background-color: #15214e !important;

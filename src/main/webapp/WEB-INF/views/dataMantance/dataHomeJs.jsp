@@ -5,26 +5,22 @@ var app = new Vue({
 		return {
 			iframeName: "",
 			tableData: [],
-			openItem: ['1'],
+			openItem: ['0','1','2'],
 
 			editableTabsValue: "0",
 			editableTabs: [],
 			tabIndex: 0,
-			navMenuList: [],
-			tabs: {
-				globalEshopInfo: {
-					title: '全球跨境电商平台信息',
-					url: 'globalEshopInfo/info'
-				},
-				globalEshopUsersData: {
-					title: '全球跨境电商平台用户数据',
-					url: 'globalEshopUsersData/info',
-				},
-				globalEshopTradeData: {
-					title: '全球跨境电商平台交易数据 ',
-					url: 'globalEshopTradeData/info',
-				},
-			},
+			navMenuList: [{mainMenu:'全球交易大数据维护',subMenu:[{title: '全球跨境电商平台信息',url: 'globalEshopInfo/info'}
+                                                          ,{title: '全球跨境电商平台用户数据',url: 'globalEshopUsersData/info'}
+                                                          ,{title: '全球跨境电商平台交易数据 ',url: 'globalEshopTradeData/info'}]
+                          }
+                         ,{mainMenu:'家具大数据维护',subMenu:[{title: '家具种类信息',url: 'globalEshopInfo/info'}
+                                                       ,{title: '家具热销产品交易数据',url: 'globalEshopUsersData/info'}
+                                                       ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info'}
+                                                       ,{title: '家具热销品牌信息',url: 'globalEshopTradeData/info'}]
+                          }
+                        ,{mainMenu:'海外仓维护',subMenu:[{title: '海外仓信息',url: 'globalEshopInfo/info'}]} 
+            ],
 		}
 	},
 	methods: {
@@ -64,13 +60,7 @@ var app = new Vue({
 				return tab.name !== targetName
 			});
 		},
-		navMenuSelect: function(index, indexPath) {
-
-			if (index == "1-1") {
-				this.iframeUrl = "compInfoMaintenController/info";
-				this.iframeName = "compInfoMaintenFrm";
-			}
-		},
+		
 		
 		bodySize: function() {
 			document.getElementById("contentBodyId").style.height = document.documentElement.clientHeight - 80 + "px";
@@ -78,12 +68,7 @@ var app = new Vue({
 		},
 	},
 	created: function() {
-// 		var rootPage = window.parent.parent;
-// 		//初始化style
-// // 		rootPage.getVueInstance().setChildFrameResolution(rootPage);
-		
-// 		// 加载菜单
-// 		this.getNavMenuList();
+
 	},
 	mounted: function() {
 		this.bodySize();
