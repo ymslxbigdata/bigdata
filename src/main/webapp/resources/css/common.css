@@ -17,6 +17,14 @@ body {
     overflow: auto;
 }
 
+.width-50 {
+	width: 50%;
+}
+
+.width-100 {
+	width: 100%;
+}
+
 .height-100 {
 	height:100%	
 }
@@ -29,9 +37,16 @@ body {
 	background-color:#324157
 }
 
-
 .margin-top20 {
     margin-top: 20px !important;
+}
+
+.margin-left10 {
+	margin-left: 10px !important;
+}
+
+.padding-top-1 {
+	padding-top: 1% !important;
 }
 
 .font-color-red {
@@ -137,3 +152,126 @@ body {
 }
 
 /**END***************************HOMEPAGE *************************************END**/
+
+
+/**START***************************GLOBALTRADE********************************START**/
+.first-class-title {
+	height: 8vh;
+	font-family: '微软雅黑 Bold', '微软雅黑';
+	font-weight: 700;
+	font-style: normal;
+	font-size: 36px;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.second-class-title {
+	height: 36px;
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-style: normal;
+	color: #FFFFFF;
+	line-height: 36px;
+}
+
+.time-filter-text {
+	height: 36px;
+	width: 80px;
+	text-align: right;
+	display: inline-block;
+}
+
+.time-filter-item {
+	width: 12%;
+	width: 120px;
+	display: inline-block;
+}
+
+.detail-area {
+	height: calc(92% - 45px);
+}
+
+.data-panel-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.data-panel {
+	flex: 1;
+	overflow: hidden !important;
+	margin: 5px;
+	background-color:#1A2960;
+	border: 1px solid;
+	overflow: auto;
+}
+
+.data-panel .vue-table__body-wrapper,
+.data-panel .vue-table__cell,
+.vue-table {
+	background-color: #0d1633;
+	color: #ffffff !important;
+	border: 0;
+}
+
+.vue-table__column {
+	background-color: #15214e !important;
+	color: #ffffff !important;
+}
+
+.map-panel {
+	height: calc(100% - 10px);
+	margin: 5px;
+	background-color:#1A2960;
+	border: 1px solid;
+}
+
+.map-frame {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.chart-frame {
+	border: 0;
+	width: 100%;
+	height: calc(100% - 35px);
+}
+
+.table-headers {
+	height: 35px;
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-style: normal;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 36px;
+}
+
+
+
+/**END***************************GLOBALTRADE********************************END**/
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1d75bd
+}
+
+::-webkit-scrollbar-thumb,::-webkit-scrollbar-track {
+	border-radius: 0;
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,
+	.2)
+}
+
+::-webkit-scrollbar-track {
+	background: #1441b8
+}
+
+::-webkit-scrollbar-corner {
+	background: #82afff
+}
