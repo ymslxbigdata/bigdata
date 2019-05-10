@@ -45,8 +45,8 @@
 			</vue-col>
 			<vue-col :span="20" style="background-color:white;">
 				<div id="contentBodyId" style="border:0px;width:100%;height:100%;margin:0px;padding:0px;padding:10px;">
-					<vue-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-						<vue-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.title" :name="item.name">
+					<vue-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" style="width:100%;height:100%;border: 0">
+						<vue-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.title" :name="item.name" style="width:100%;height:100%;border: 0">
 							{{ item.content }}
 							<iframe :src="item.url" style="width:100%;height:100%;border: 0"></iframe>
 						</vue-tab-pane>
