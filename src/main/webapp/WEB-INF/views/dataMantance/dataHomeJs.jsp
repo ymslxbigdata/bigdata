@@ -10,16 +10,16 @@ var app = new Vue({
 			editableTabsValue: "0",
 			editableTabs: [],
 			tabIndex: 0,
-			navMenuList: [{mainMenu:'全球交易大数据维护',subMenu:[{title: '全球跨境电商平台信息',url: 'globalEshopInfo/info'}
-                                                          ,{title: '全球跨境电商平台用户数据',url: 'globalEshopUsersData/info'}
-                                                          ,{title: '全球跨境电商平台交易数据 ',url: 'globalEshopTradeData/info'}]
+			navMenuList: [{mainMenu:'全球交易大数据维护',mainIndex:'1',subMenu:[{title: '全球跨境电商平台信息',url: 'globalEshopInfo/info',subIndex:'1-1'}
+                                                                        ,{title: '全球跨境电商平台用户数据',url: 'globalEshopUsersData/info',subIndex:'1-2'}
+                                                                        ,{title: '全球跨境电商平台交易数据 ',url: 'globalEshopTradeData/info',subIndex:'1-3'}]
                           }
-                         ,{mainMenu:'家具大数据维护',subMenu:[{title: '家具种类信息',url: 'globalEshopInfo/info'}
-                                                       ,{title: '家具热销产品交易数据',url: 'globalEshopUsersData/info'}
-                                                       ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info'}
-                                                       ,{title: '家具热销品牌信息',url: 'globalEshopTradeData/info'}]
+                         ,{mainMenu:'家具大数据维护',mainIndex:'2',subMenu:[{title: '家具种类信息',url: 'globalEshopInfo/info',subIndex:'2-1'}
+                                                                     ,{title: '家具热销产品交易数据',url: 'globalEshopUsersData/info',subIndex:'2-2'}
+                                                                     ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info',subIndex:'2-3'}
+                                                                     ,{title: '家具热销品牌信息',url: 'globalEshopTradeData/info',subIndex:'2-4'}]
                           }
-                        ,{mainMenu:'海外仓维护',subMenu:[{title: '海外仓信息',url: 'globalEshopInfo/info'}]} 
+                        ,{mainMenu:'海外仓维护',mainIndex:'3',subMenu:[{title: '海外仓信息',url: 'globalEshopInfo/info',subIndex:'3-1'}]} 
             ],
 		}
 	},
