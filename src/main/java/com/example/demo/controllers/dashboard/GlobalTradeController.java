@@ -5,11 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("dashboard")
+@RequestMapping("dashboard/globalTrade")
 public class GlobalTradeController {
-
 	
-	@RequestMapping("/globalTrade")
+	@RequestMapping("/info")
 	public String getScreen(final Model model){
 		  return "dashboard/globalTrade/globalTrade"; 
 	  }

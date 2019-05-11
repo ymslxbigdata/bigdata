@@ -31,12 +31,24 @@ body {
     height: 100%
 }
 
+.height-100-10 {
+    height: calc(100% - 10px);
+}
+
 .background-color-0D1633 {
     background-color: #0D1633
 }
 
 .background-color-324157 {
     background-color: #324157
+}
+
+.background-color-1A2960 {
+    background-color: #1A2960;
+}
+
+.margin5 {
+    margin: 5px;
 }
 
 .margin-top20 {
@@ -55,15 +67,27 @@ body {
     color: #FF0000;
 }
 
-/**START************************** VUE- OVERRIDE *************************************START**/
+.flex-1 {
+    flex: 1;
+}
 
-/* .vue-table__body-wrapper,
-.vue-table__cell,
-.vue-table {
+.flex-3 {
+    flex: 3;
+}
+
+.flex-5 {
+    flex: 5;
+}
+
+/**START************************** VUE - OVERRIDE *************************************START**/
+
+.data-panel .vue-table__body-wrapper,
+.data-panel .vue-table__cell,
+.data-panel .vue-table {
     background-color: #0d1633;
     color: #ffffff !important;
     border: 0;
-} */
+}
 
 .vue-table__column {
     background-color: #15214e !important;
@@ -212,21 +236,29 @@ body {
     line-height: 36px;
 }
 
-.time-filter-text {
+.large-div-title {
+    text-align: center;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-size: 50px;
+    color: #FFFFFF;
+}
+
+.filter-text {
     height: 36px;
     width: 80px;
     text-align: right;
     display: inline-block;
 }
 
-.time-filter-item {
+.filter-item {
     width: 12%;
     width: 120px;
     display: inline-block;
 }
 
 .detail-area {
-    height: calc(92% - 45px);
+    height: calc(92% - 41px);
 }
 
 .data-panel-container {
@@ -274,6 +306,9 @@ body {
     line-height: 36px;
 }
 
+#warehouse-cnt-span-id {
+    line-height: calc(14vh - -3px);
+}
 
 
 /**END***************************GLOBALTRADE********************************END**/

@@ -6,10 +6,10 @@
 			return{
                 tableHeight: 0,
 
-                mapUrl: contextPath + '/dashboard/worldMap',
-                xBorderTotalSalesUrl: contextPath + '/dashboard/xBorderTotalSales',
-                mainStreamTotalSalesUrl: contextPath + '/dashboard/mainStreamTotalSales',
-                mainStreamUserCnt: contextPath + '/dashboard/mainStreamUserCnt',
+                mapUrl: contextPath + '/dashboard/globalTrade/worldMap',
+                xBorderTotalSalesUrl: contextPath + '/dashboard/globalTrade/xBorderTotalSales',
+                mainStreamTotalSalesUrl: contextPath + '/dashboard/globalTrade/mainStreamTotalSales',
+                mainStreamUserCnt: contextPath + '/dashboard/globalTrade/mainStreamUserCnt',
 
 
 			    developingCountry: [{platForm:'阿里巴巴',userCnt: '1500万', totalSales:'56839亿美元'}
@@ -42,7 +42,6 @@
                 let detailAreaHeight = parseInt(getComputedStyle(document.getElementsByClassName('detail-area')[0]).height.replace('px',''));
                 this.tablePanelHeight = (detailAreaHeight / 3 - 12) * 0.9 ;
             }
-
 		},
 
          mounted: function() {

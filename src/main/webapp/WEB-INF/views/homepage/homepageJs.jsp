@@ -7,9 +7,9 @@
 				
 				menuList:[
 					{label:"首页",url:contextPath+"/homepage"},
-					{label:"全球交易大数据",url:contextPath+"/dashboard/globalTrade"},
-					{label:"家具交易大数据",url:contextPath+"/dashboard/globalTrade"},
-					{label:"海外仓大数据",url:contextPath+"/dashboard/globalTrade"},
+					{label:"全球交易大数据",url:contextPath+"/dashboard/globalTrade/info"},
+					{label:"家具交易大数据",url:contextPath+"/dashboard/furnitureTrade/info"},
+					{label:"海外仓大数据",url:contextPath+"/dashboard/overseasTrade/info"},
 				]
 			}
 		},

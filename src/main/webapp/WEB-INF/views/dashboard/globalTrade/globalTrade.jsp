@@ -14,16 +14,16 @@
 
 		<vue-row class="second-class-title">
 			<div class="margin-left10 width-50" >
-				<div class="time-filter-text">
+				<div class="filter-text">
 					<span>统计时间:</span>
 				</div>
-				<div class="time-filter-item">
+				<div class="filter-item">
 					<vue-input :placeholder="'2018'" size="200"></vue-input>
 				</div>
-				<div class="time-filter-item">
+				<div class="filter-item">
 					<vue-input :placeholder="'第一季度'"></vue-input>
 				</div>
-				<div class="time-filter-item">
+				<div class="filter-item">
 					<vue-input :placeholder="'一月份'"></vue-input>
 				</div>
 			</div>
