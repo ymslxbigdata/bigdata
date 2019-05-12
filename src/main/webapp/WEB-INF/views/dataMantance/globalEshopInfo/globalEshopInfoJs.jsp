@@ -66,7 +66,7 @@ var app = new Vue({
 			});
     	}, 
     	
-    	// edit button click
+    	// 修改行数据
 		onEditRow: function(row) {
 			var self = this;
 // 			self.$refs.userdtlform.resetFields();

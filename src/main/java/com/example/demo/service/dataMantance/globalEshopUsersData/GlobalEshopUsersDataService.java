@@ -1,6 +1,7 @@
 package com.example.demo.service.dataMantance.globalEshopUsersData;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,17 @@ public class GlobalEshopUsersDataService {
 		}
 		
 		return dataList;
+	}
+	
+	public void newOrModifyEshopUserData(GlobalEshopUsersData para) {
+		globalEshopUsersDataRepository.save(para);
+	}
+	
+	public Optional<GlobalEshopUsersData> getGlobalEshopUserDataDetail(GlobalEshopUsersData para) {
+		return globalEshopUsersDataRepository.findById(para.getEshopId());
+	}
+	
+	public void deleteEshopUsersData(String eshopId) {
+		globalEshopUsersDataRepository.deleteById(eshopId);
 	}
 }
