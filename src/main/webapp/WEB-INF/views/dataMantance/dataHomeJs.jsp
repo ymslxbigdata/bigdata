@@ -14,8 +14,8 @@ var app = new Vue({
                                                                         ,{title: '全球跨境电商平台用户数据',url: 'globalEshopUsersData/info',subIndex:'1-2'}
                                                                         ,{title: '全球跨境电商平台交易数据 ',url: 'globalEshopTradeData/info',subIndex:'1-3'}]
                           }
-                         ,{mainMenu:'家具大数据维护',mainIndex:'2',subMenu:[{title: '家具种类信息',url: 'globalEshopInfo/info',subIndex:'2-1'}
-                                                                     ,{title: '家具热销产品交易数据',url: 'globalEshopUsersData/info',subIndex:'2-2'}
+                         ,{mainMenu:'家具大数据维护',mainIndex:'2',subMenu:[{title: '家具种类信息',url: 'furnitureTypesInfo/info',subIndex:'2-1'}
+                                                                     ,{title: '家具热销产品交易数据',url: 'furnitureHotSaleTradeData/info',subIndex:'2-2'}
                                                                      ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info',subIndex:'2-3'}
                                                                      ,{title: '家具热销品牌信息',url: 'globalEshopTradeData/info',subIndex:'2-4'}]
                           }

@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class FurnitureHotSaleTradeData  implements java.io.Serializable {
 
 
-     private Serializable saleTradeId;
+     private String saleTradeId;
      private String typeId;
      private String typeNm;
      private String productId;
@@ -40,12 +40,12 @@ public class FurnitureHotSaleTradeData  implements java.io.Serializable {
     }
 
 	
-    public FurnitureHotSaleTradeData(Serializable saleTradeId, String typeId, String typeNm) {
+    public FurnitureHotSaleTradeData(String saleTradeId, String typeId, String typeNm) {
         this.saleTradeId = saleTradeId;
         this.typeId = typeId;
         this.typeNm = typeNm;
     }
-    public FurnitureHotSaleTradeData(Serializable saleTradeId, String typeId, String typeNm, String productId, String productNm, String hotSalePlace, String productPlace, String tradeDate, BigDecimal tradeVolume, BigDecimal tradeAmazon, BigDecimal tradeAli, BigDecimal tradeWish, BigDecimal tradeEbay, BigDecimal tradeOthers) {
+    public FurnitureHotSaleTradeData(String saleTradeId, String typeId, String typeNm, String productId, String productNm, String hotSalePlace, String productPlace, String tradeDate, BigDecimal tradeVolume, BigDecimal tradeAmazon, BigDecimal tradeAli, BigDecimal tradeWish, BigDecimal tradeEbay, BigDecimal tradeOthers) {
        this.saleTradeId = saleTradeId;
        this.typeId = typeId;
        this.typeNm = typeNm;
@@ -62,15 +62,15 @@ public class FurnitureHotSaleTradeData  implements java.io.Serializable {
        this.tradeOthers = tradeOthers;
     }
    
-     @Id 
+    @Id
   	@GeneratedValue(generator = "uid")
   	@GenericGenerator(name = "uid", strategy = "uuid")
-    @Column(name="sale_trade_id", unique=true, nullable=false)
-    public Serializable getSaleTradeId() {
+    @Column(name="sale_trade_id", unique=true, nullable=false, length=64)
+    public String getSaleTradeId() {
         return this.saleTradeId;
     }
     
-    public void setSaleTradeId(Serializable saleTradeId) {
+    public void setSaleTradeId(String saleTradeId) {
         this.saleTradeId = saleTradeId;
     }
 
