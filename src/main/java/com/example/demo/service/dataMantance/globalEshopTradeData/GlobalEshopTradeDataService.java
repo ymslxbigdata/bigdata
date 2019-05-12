@@ -31,16 +31,16 @@ public class GlobalEshopTradeDataService {
 		List<GlobalEshopTradeData> dataList;
 		
 		String eshopId = para.getEshopId();
-		String tradeMonth = para.getTradeMonth();
+		String tradeDate = para.getTradeDate();
 		
-		if(!StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeMonth)) {
-			dataList = globalEshopTradeDataRepository.findByEshopIdAndTradeMonth(eshopId, tradeMonth);
+		if(!StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeDate)) {
+			dataList = globalEshopTradeDataRepository.findByEshopIdAndTradeDate(eshopId, tradeDate);
 		}
-		else if(!StringUtils.isEmpty(eshopId) && StringUtils.isEmpty(tradeMonth)) {
+		else if(!StringUtils.isEmpty(eshopId) && StringUtils.isEmpty(tradeDate)) {
 			dataList = globalEshopTradeDataRepository.findByEshopId(eshopId);
 		}
-		else if(StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeMonth)) {
-			dataList = globalEshopTradeDataRepository.findByTradeMonth(tradeMonth);
+		else if(StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeDate)) {
+			dataList = globalEshopTradeDataRepository.findByTradeDate(tradeDate);
 		}
 		else {
 			dataList = globalEshopTradeDataRepository.findAll();
