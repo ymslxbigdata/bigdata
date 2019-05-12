@@ -29,6 +29,7 @@ var app = new Vue({
     		
     		var self = this;
 			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getEshopOptions', {}).then(function(response) {
+				debugger
 				self.eshopOptions = response.body;
 			}, function(response) {
 				console.log(response.body.reason);
