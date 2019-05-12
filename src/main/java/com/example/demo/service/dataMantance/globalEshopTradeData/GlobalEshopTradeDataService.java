@@ -30,16 +30,16 @@ public class GlobalEshopTradeDataService {
 		
 		List<GlobalEshopTradeData> dataList;
 		
-		String eshopNm = para.getEshopNm();
+		String eshopId = para.getEshopId();
 		String tradeMonth = para.getTradeMonth();
 		
-		if(!StringUtils.isEmpty(eshopNm) && !StringUtils.isEmpty(tradeMonth)) {
-			dataList = globalEshopTradeDataRepository.findByEshopNmAndTradeMonth(eshopNm, tradeMonth);
+		if(!StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeMonth)) {
+			dataList = globalEshopTradeDataRepository.findByEshopIdAndTradeMonth(eshopId, tradeMonth);
 		}
-		else if(!StringUtils.isEmpty(eshopNm) && StringUtils.isEmpty(tradeMonth)) {
-			dataList = globalEshopTradeDataRepository.findByEshopNm(eshopNm);
+		else if(!StringUtils.isEmpty(eshopId) && StringUtils.isEmpty(tradeMonth)) {
+			dataList = globalEshopTradeDataRepository.findByEshopId(eshopId);
 		}
-		else if(StringUtils.isEmpty(eshopNm) && !StringUtils.isEmpty(tradeMonth)) {
+		else if(StringUtils.isEmpty(eshopId) && !StringUtils.isEmpty(tradeMonth)) {
 			dataList = globalEshopTradeDataRepository.findByTradeMonth(tradeMonth);
 		}
 		else {
@@ -47,5 +47,9 @@ public class GlobalEshopTradeDataService {
 		}
 		
 		return dataList;
+	}
+	
+	public void saveData(GlobalEshopTradeData para) {
+		globalEshopTradeDataRepository.save(para);
 	}
 }

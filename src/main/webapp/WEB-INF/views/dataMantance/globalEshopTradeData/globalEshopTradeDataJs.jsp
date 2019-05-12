@@ -3,10 +3,12 @@
 var app = new Vue({
     data: function() {
         return {
-        	eshop:'',
-        	eshopOptions:[],
-        	month:'',
-        	monthOptions:[{value:'1',label:'1月份'}
+        	
+        	eshopId: '',
+        	eshopNm: '',
+        	month: '',
+        	eshopOptions: [],
+        	monthOptions: [{value:'1',label:'1月份'}
         	          ,{value:'2',label:'2月份'}
         	          ,{value:'3',label:'3月份'}
         	          ,{value:'4',label:'4月份'}
@@ -18,14 +20,23 @@ var app = new Vue({
         	          ,{value:'10',label:'10月份'}
         	          ,{value:'11',label:'11月份'}
         	          ,{value:'12',label:'12月份'}],
-        	globalEshopTradeData:[],
-        	tableHeight:0,
+        	          
+        	globalEshopTradeData: [],
+        	
+        	currentData: {},
+        	currentIndex: 0,
+        	
+        	showAside: false,
+        	showAsideEshopId: false,
+        	
+        	disabledAsideEshopNm: false,
+        	disabledAsideTradeMonth: false,
         	       
         }
     },
     methods: {
     	
-    	getEshopList: function() {
+    	getEshopOption: function() {
     		
     		var self = this;
 			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getEshopOptions', {}).then(function(response) {
@@ -35,26 +46,92 @@ var app = new Vue({
 			});
     	},
     	
+    	getEshopNmById: function() {
+    		
+    		for(var item in this.eshopOptions) {
+    			if(this.eshopOptions[item].eshopId == this.eshopId) {
+    				this.eshopNm = this.eshopOptions[item].eshopNm;
+    				break;
+    			}
+    		}
+    	},
+    	
     	getTableList: function() {
     		var self = this;
-			var eshop = self.eshop;
+			var eshopId = self.eshopId;
 			var month = self.month;
-			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getGlobalEshopTradeData', {"eshopNm":eshop,"tradeMonth":month}).then(function(response) {
+			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getGlobalEshopTradeData', {"eshopId":eshopId,"tradeMonth":month}).then(function(response) {
 				self.globalEshopTradeData = response.body;
 			}, function(response) {
 				errorMsg(response.body.reason);
 			});
-    	}, 
+    	},
+    	
+    	changeCondition: function() {
+    		this.globalEshopTradeData = [];
+    		this.getEshopNmById();
+    	},
     	
     	searchDataHandle: function() {
     		this.getTableList();
-    	}
+    	},
+    	
+    	editInsertHandle: function(rowData,handleType) {
+    		
+    		this.showAside = true;
+    		
+    		
+    		if(handleType == 'edit') {
+    			
+    			this.currentData = VueUtil.merge({}, rowData);
+    			this.currentIndex = this.globalEshopTradeData.indexOf(rowData);
+    			
+    			this.showAsideEshopId = false;
+        		this.disabledAsideEshopNm = true;
+        		this.disabledAsideTradeMonth = this.month != '' ? true : false;
+    		}
+    		else {
+    			
+    			this.currentData = {};
+    			
+    			this.showAsideEshopId = true;
+    			this.disabledAsideEshopNm = this.eshopNm != '' ? true : false;
+    			this.disabledAsideTradeMonth = this.month != '' ? true : false;
+				
+    			this.currentData.eshopNm = this.eshopNm;
+    			this.currentData.eshopId = this.eshopId;
+    			this.currentData.tradeMonth = this.month;
+    		}
+        },
+    	
+    	editInsertSaveHandle: function() {
+    		
+    		var self = this;
+    		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', self.currentData).then(function(response) {
+    			self.getTableList();
+    			self.showAside = false;
+			}, function(response) {
+				console.log(response.body.reason);
+			});
+    	},
+    	
+    	deleteSaveHandle: function() {
+    		
+    	},
+    	
+    	importHandle: function() {
+    		
+    	},
+    	
+    	exportHandle: function() {
+    		
+    	},
     },
     
     mounted: function() {
     	var self = this;
-    	self.getEshopList();
-    	self.getTableList();
+    	self.getEshopOption();
+    	self.searchDataHandle();
     },
     
 }).$mount("#app")

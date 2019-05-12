@@ -10,7 +10,7 @@ import com.example.demo.entity.GlobalEshopTradeData;
 @Repository
 public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEshopTradeData, String> {
 	
-	List<GlobalEshopTradeData> findByEshopNm(String eshopNm);
+	List<GlobalEshopTradeData> findByEshopId(String eshopId);
 	List<GlobalEshopTradeData> findByTradeMonth(String tradeMonth);
-	List<GlobalEshopTradeData> findByEshopNmAndTradeMonth(String eshopNm,String tradeMonth);
+	List<GlobalEshopTradeData> findByEshopIdAndTradeMonth(String eshopId,String tradeMonth);
 }
