@@ -12,9 +12,9 @@
 		<vue-row>
 			<vue-col id="leftNavId" class="background-color-324157" :xs="4" :sm="4" :md="4" :lg="4">
 				<vue-menu theme="dark" default-active="0" :default-openeds="openItem">
-					<vue-submenu v-for="(mainMenu, index) in navMenuList" :index="mainMenu.mainIndex">
+					<vue-submenu v-for="(mainMenu, index) in navMenuList" :index="mainMenu.mainIndex" :key="index">
 						<template slot="title"><i class="vue-icon-message"></i>{{mainMenu.mainMenu}}</template>
-						<vue-menu-item v-for="(subMenu,index) in mainMenu.subMenu" :index="subMenu.subIndex">
+						<vue-menu-item v-for="(subMenu,index) in mainMenu.subMenu" :index="subMenu.subIndex" :key="index">
 							<div @click="addTab(subMenu)">
 								<i class="fa fa-building-o" aria-hidden="true"> {{subMenu.title}}</i>
 							</div>
