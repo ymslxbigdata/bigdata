@@ -49,6 +49,7 @@ var app = new Vue({
     	
     	getEshopNmById: function() {
     		
+    		this.eshopNm = '';
     		for(var item in this.eshopOptions) {
     			if(this.eshopOptions[item].eshopId == this.eshopId) {
     				this.eshopNm = this.eshopOptions[item].eshopNm;
@@ -60,7 +61,7 @@ var app = new Vue({
     	getTableList: function() {
     		var self = this;
 			var eshopId = self.eshopId;
-			var month = self.month;
+			var month = VueUtil.formatDate(self.month,"yyyy-MM");
 			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getGlobalEshopTradeData', {"eshopId":eshopId,"tradeMonth":month}).then(function(response) {
 				self.globalEshopTradeData = response.body;
 			}, function(response) {
@@ -71,6 +72,17 @@ var app = new Vue({
     	changeCondition: function() {
     		this.globalEshopTradeData = [];
     		this.getEshopNmById();
+    	},
+    	
+    	changeAsideConditon: function() {
+    		
+    		this.currentData.eshopNm = '';
+    		for(var item in this.eshopOptions) {
+    			if(this.eshopOptions[item].eshopId == this.currentData.eshopId) {
+    				this.currentData.eshopNm = this.eshopOptions[item].eshopNm;
+    				break;
+    			}
+    		}
     	},
     	
     	searchDataHandle: function() {
@@ -93,9 +105,8 @@ var app = new Vue({
     		}
     		else {
     			
-    			this.currentData = {};
+    			this.currentData = {tradeMonth:'',eshopId:'',eshopNm:''};
     			
-    			this.showAsideEshopId = true;
     			this.disabledAsideEshopNm = this.eshopNm != '' ? true : false;
     			this.disabledAsideTradeMonth = this.month != '' ? true : false;
 				
@@ -108,6 +119,7 @@ var app = new Vue({
     	editInsertSaveHandle: function() {
     		
     		var self = this;
+    		this.currentData.tradeMonth = VueUtil.formatDate(this.currentData.tradeMonth,"yyyy-MM");
     		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', self.currentData).then(function(response) {
     			self.getTableList();
     			self.showAside = false;
