@@ -9,5 +9,19 @@ package com.example.demo.service.dataDisplay;
  *  1.0.0     2019-05-12    Lin Lijian    New making
  */
 
+import com.example.demo.repository.GlobalEshopTradeDataRepository;
+import com.example.demo.repository.GlobalEshopUsersDataRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class globalTradeService {
+
+    @Autowired
+    GlobalEshopTradeDataRepository globalEshopTradeDataRepository;
+
+    @Autowired
+    GlobalEshopUsersDataRepository globalEshopUsersDataRepository;
+
+
 }
