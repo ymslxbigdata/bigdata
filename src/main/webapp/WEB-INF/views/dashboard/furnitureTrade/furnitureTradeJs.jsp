@@ -1,21 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script>
-	 var app = new Vue({
-		
-		data:function(){
-			return{
-
+    var app = new Vue({
+        mixins: [autoScrollMixin],
+        data: function () {
+            return {
                 tableHeight: 0,
                 mapUrl: contextPath + '/dashboard/furnitureTrade/worldMap',
                 areaPlatformFurnitureSales: contextPath + '/dashboard/furnitureTrade/areaPlatformFurnitureSales',
-                hotBrandRanking:  contextPath + '/dashboard/furnitureTrade/hotBrandRanking',
+                hotBrandRanking: contextPath + '/dashboard/furnitureTrade/hotBrandRanking',
 
-                hotSellingOnPlatforms:[{prodName: '北欧实木双人床', amazon: 1000, eBay: 900, wish: 800, ali: 800, other: 1100, total: 4600}],
+                hotSellingOnPlatforms: [{
+                    prodName: '北欧实木双人床',
+                    amazon: 1000,
+                    eBay: 900,
+                    wish: 800,
+                    ali: 800,
+                    other: 1100,
+                    total: 4600
+                }],
                 productTradingSituation: [{prodName: '床', turnover: 56000, territories: '欧洲', producingArea: '中国'}],
-			}
-		},
-		
-		methods: {
+            }
+        },
+
+        methods: {
             // 初始化所有表格的滚动
             initScrollElement: function () {
 
@@ -74,24 +81,23 @@
                 });
             },
 
-            calculateTableHeight: function(){
-                let detailAreaHeight = parseInt(getComputedStyle(document.getElementsByClassName('detail-area')[0]).height.replace('px',''));
+            calculateTableHeight: function () {
+                let detailAreaHeight = parseInt(getComputedStyle(document.getElementsByClassName('detail-area')[0]).height.replace('px', ''));
                 this.tableHeight = Math.floor((detailAreaHeight / 3 - 12) * 0.9);
             }
         },
-         mounted: function() {
+        mounted: function () {
 
 
+            let self = this;
+            this.calculateTableHeight();
 
-             let self = this;
-             this.calculateTableHeight();
+            window.onresize = function () {
+                self.calculateTableHeight();
+            };
+            setTimeout(() => self.initScrollElement(), 800);
+        },
 
-             window.onresize = function(){
-                 self.calculateTableHeight();
-             }
-             setTimeout(() => self.initScrollElement(), 800)
-         },
+    }).$mount("#app")
 
-	}).$mount("#app")
-	
 </script>

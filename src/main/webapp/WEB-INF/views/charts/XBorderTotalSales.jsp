@@ -9,13 +9,16 @@
 <script>
 
 
+    var area = ['欧洲', '南美洲', '俄罗斯', '澳洲', '东南亚','中国','日本','韩国'];
+    var data = [56000, 38000, 32000, 29000, 26000, 9000, 8000, 6000];
+
 
     var totalSalesChart = echarts.init(document.getElementById('totalSalesChart'));
 
     option = {
         xAxis: {
             type: 'category',
-            data: ['欧洲', '南美洲', '俄罗斯', '澳洲', '东南亚','中国','日本','韩国'],
+            data: area,
             axisLabel:{
                 rotate: -30
             },
@@ -35,7 +38,7 @@
             }
         },
         series: [{
-            data: [56000, 38000, 32000, 29000, 26000, 9000, 8000, 6000],
+            data: data,
             type: 'bar'
         }]
     };
