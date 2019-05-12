@@ -1,5 +1,6 @@
 package com.example.demo.controllers.dashboard;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.dataDisplay.globalTradeService;
+
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("dashboard/globalTrade")
 public class GlobalTradeController {
 	
+	@Autowired
+	globalTradeService globalTradeService;
 	@RequestMapping("/info")
 	public String getScreen(final Model model){
 		  return "dashboard/globalTrade/globalTrade"; 
@@ -41,7 +47,9 @@ public class GlobalTradeController {
 	)
 	@ResponseBody
 	public void getDevelopedData() {
-
+		globalTradeService.getDevelopedData("2019-01");
+		globalTradeService.getDevelopingData("2019-01");
+		String aString = "我是案例";
 	}
 
 	@RequestMapping(value="getXBorderTotalSales"

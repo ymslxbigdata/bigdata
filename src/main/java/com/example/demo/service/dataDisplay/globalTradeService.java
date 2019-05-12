@@ -9,10 +9,14 @@ package com.example.demo.service.dataDisplay;
  *  1.0.0     2019-05-12    Lin Lijian    New making
  */
 
-import com.example.demo.repository.GlobalEshopTradeDataRepository;
-import com.example.demo.repository.GlobalEshopUsersDataRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.beans.TradeDisplayModel;
+import com.example.demo.repository.GlobalEshopTradeDataRepository;
+import com.example.demo.repository.GlobalEshopUsersDataRepository;
 
 @Service
 public class globalTradeService {
@@ -24,4 +28,11 @@ public class globalTradeService {
     GlobalEshopUsersDataRepository globalEshopUsersDataRepository;
 
 
+	public List<Object[]> getDevelopedData(String tradeDate) {
+		return globalEshopTradeDataRepository.getDevelopedData(tradeDate);
+	}
+	
+	public List<Object[]> getDevelopingData(String tradeDate) {
+		return globalEshopTradeDataRepository.getDevelopingData(tradeDate);
+	}
 }
