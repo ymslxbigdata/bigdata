@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div id="wordMap" class="width-100 height-100" onload="drawMap()"></div>
+<div id="worldMap" class="width-100 height-100" onload="drawMap()"></div>
 <script>
 
     var globalCountry = [
@@ -46,7 +46,7 @@
             region.push({name: country, itemStyle: {areaColor: area.color, color: 'red'}});
         });
     });
-    var wordMap = echarts.init(document.getElementById('wordMap'));
+    var worldMap = echarts.init(document.getElementById('worldMap'));
     var option = {
         geo: {
             map: 'world',
@@ -76,9 +76,9 @@
             regions: region,
         },
     };
-    wordMap.setOption(option);
+    worldMap.setOption(option);
     window.addEventListener('resize', function () {
-        wordMap.resize()
+        worldMap.resize()
     });
 
 </script>

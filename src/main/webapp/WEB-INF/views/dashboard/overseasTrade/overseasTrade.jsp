@@ -37,18 +37,21 @@
 
 	<vue-row class="detail-area">
 		<vue-col :span="16" class="height-100">
-			<div id="wordMap" class="map-panel">
+			<div id="worldMap" class="map-panel">
 				<iframe class="map-frame" :src="mapUrl"></iframe>
 			</div>
 		</vue-col>
 		<vue-col :span="8" class="data-panel-container">
-			<div class="flex-1 background-color-1A2960 margin5 large-div-title">
+			<div class="flex-1 background-color-1A2960 margin5 large-div-title border-1px-solid-black">
 				<span id="warehouse-cnt-span-id">海外仓个数: {{ warehouseCnt }}</span>
 			</div>
-			<div class="flex-5 background-color-1A2960 margin5">
+			<div id="ware-house-data-div" class="data-panel flex-5">
 				<vue-table :data="wareHouseData" :height="tableHeight">
-					<vue-table-column prop="" label=""></vue-table-column>
-
+					<vue-table-column align="center" prop="platForm" label="所属平台"></vue-table-column>
+					<vue-table-column align="center" prop="wareHouseLoc" label="海外仓"></vue-table-column>
+					<vue-table-column align="center" prop="capacitance" label="容量(立方)"></vue-table-column>
+					<vue-table-column align="center" prop="stock" label="库存"></vue-table-column>
+					<vue-table-column align="center" prop="availStock" label="可用库存"></vue-table-column>
 				</vue-table>
 			</div>
 		</vue-col>

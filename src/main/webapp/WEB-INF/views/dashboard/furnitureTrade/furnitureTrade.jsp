@@ -37,7 +37,7 @@
 
 		<vue-row class="detail-area">
 			<vue-col :span="12" class="height-100">
-				<div id="wordMap" class="map-panel">
+				<div id="worldMap" class="map-panel">
 					<iframe class="map-frame" :src="mapUrl"></iframe>
 				</div>
 			</vue-col>
@@ -48,13 +48,13 @@
 						<span>热销产品各平台交易数据</span>
 					</div>
 					<vue-table :data="hotSellingOnPlatforms" :height="tableHeight">
-						<vue-table-column prop="prodName" label="热销产品"></vue-table-column>
-						<vue-table-column prop="amazon" label="亚马逊"></vue-table-column>
-						<vue-table-column prop="eBay" label="eBay"></vue-table-column>
-						<vue-table-column prop="wish" label="wish"></vue-table-column>
-						<vue-table-column prop="ali" label="阿里巴巴"></vue-table-column>
-						<vue-table-column prop="other" label="其他"></vue-table-column>
-						<vue-table-column prop="total" label="总交易额"></vue-table-column>
+						<vue-table-column align="center" prop="prodName" label="热销产品"></vue-table-column>
+						<vue-table-column align="center" prop="amazon" label="亚马逊"></vue-table-column>
+						<vue-table-column align="center" prop="eBay" label="eBay"></vue-table-column>
+						<vue-table-column align="center" prop="wish" label="wish"></vue-table-column>
+						<vue-table-column align="center" prop="ali" label="阿里巴巴"></vue-table-column>
+						<vue-table-column align="center" prop="other" label="其他"></vue-table-column>
+						<vue-table-column align="center" prop="total" label="总交易额"></vue-table-column>
 					</vue-table>
 					</iframe>
 				</div>
@@ -65,10 +65,10 @@
 								<span>各类产品交易情况</span>
 							</div>
 							<vue-table :data="productTradingSituation" :height="tableHeight">
-								<vue-table-column prop="prodName" label="热销产品"></vue-table-column>
-								<vue-table-column prop="turnover" label="交易额"></vue-table-column>
-								<vue-table-column prop="territories" label="热销地"></vue-table-column>
-								<vue-table-column prop="producingArea" label="主要产地"></vue-table-column>
+								<vue-table-column align="center" prop="prodName" label="热销产品"></vue-table-column>
+								<vue-table-column align="center" prop="turnover" label="交易额"></vue-table-column>
+								<vue-table-column align="center" prop="territories" label="热销地"></vue-table-column>
+								<vue-table-column align="center" prop="producingArea" label="主要产地"></vue-table-column>
 							</vue-table>
 						</div>
 					</vue-col>

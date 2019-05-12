@@ -76,17 +76,26 @@ body {
 }
 
 .flex-5 {
-    flex: 5;
+    flex: 5 !important;
+}
+
+.border-1px-solid-black {
+    border: 1px solid black;
 }
 
 /**START************************** VUE - OVERRIDE *************************************START**/
 
+/* 修改data-panel下的vue table 默认样式 */
 .data-panel .vue-table__body-wrapper,
 .data-panel .vue-table__cell,
 .data-panel .vue-table {
     background-color: #0d1633;
     color: #ffffff !important;
     border: 0;
+}
+/* 修改鼠标悬浮时的背景色 */
+.data-panel .vue-table__body .vue-table__row.hover-row>.vue-table__cell {
+    background-color: #1A2960;
 }
 
 .vue-table__column {
@@ -165,9 +174,6 @@ body {
     opacity: .9;
     border-radius: 10px;
 }
-
-
-
 
 @media screen and (max-width: 768px) {
     .main-container {
