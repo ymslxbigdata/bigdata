@@ -37,9 +37,9 @@
                         <span>发展中国家</span>
                     </div>
 					<vue-table :data="developingCountry" class="width-100" :height="tableHeight">
-						<vue-table-column prop="platForm" label="平台"></vue-table-column>
-						<vue-table-column prop="userCnt" align="right" label="用户数"></vue-table-column>
-						<vue-table-column prop="totalSales" align="right" label="总销售额"></vue-table-column>
+						<vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
+						<vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
+						<vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
 					</vue-table>
 				</div>
 
@@ -48,15 +48,15 @@
                         <span>发达国家</span>
                     </div>
                     <vue-table :data="developedCountry" class="width-100" :height="tableHeight">
-                        <vue-table-column prop="platForm" label="平台"></vue-table-column>
-                        <vue-table-column prop="userCnt" align="right" label="用户数"></vue-table-column>
-                        <vue-table-column prop="totalSales" align="right" label="总销售额"></vue-table-column>
+                        <vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
+                        <vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
+                        <vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
                     </vue-table>
                 </div>
 			</vue-col>
 
 			<vue-col :span="12" class="height-100">
-				<div id="wordMap" class="map-panel">
+				<div id="worldMap" class="map-panel">
 					<iframe class="map-frame" :src="mapUrl"></iframe>
 				</div>
 			</vue-col>
@@ -74,7 +74,6 @@
 						<span>主流跨境电商平台交易额(亿美元)</span>
 					</div>
 					<iframe class="chart-frame" :src="mainStreamTotalSalesUrl"></iframe>
-
 				</div>
 				<div class="data-panel">
 					<div class="table-headers">
@@ -83,10 +82,7 @@
 						<iframe class="chart-frame" :src="mainStreamUserCnt"></iframe>
 				</div>
 			</vue-col>
-
 		</vue-row>
-
-
 	</div>
 	<jsp:include page="globalTradeJs.jsp" />
 </body>
