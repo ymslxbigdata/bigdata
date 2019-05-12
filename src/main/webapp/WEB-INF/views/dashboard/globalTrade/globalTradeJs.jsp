@@ -41,7 +41,6 @@
                 this.getXBorderTotalSales(date);
                 this.getMainStreamTotalSales(date);
                 this.getMainStreamUserCnt(date);
-
             },
 
             getDevelopingData: function(date){
@@ -140,7 +139,7 @@
             },
             dateFilter(val){
                 if(val){
-                    this.retrieve(val);
+                    this.retrive(val);
                 }
             }
         },

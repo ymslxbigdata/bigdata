@@ -24,6 +24,21 @@ public class GlobalTradeController {
 	  	return "charts/worldMap";
 	  }
 
+	@RequestMapping("/xBorderTotalSales")
+	public String getXBorderTotalSalesChart() {
+		return "charts/XBorderTotalSales";
+	}
+
+	@RequestMapping("/mainStreamTotalSales")
+	public String getMainStreamTotalSalesChart(){
+		return "charts/mainStreamTotalSales";
+	}
+
+	@RequestMapping("/mainStreamUserCnt")
+	public String getMainStreamUserCntChart(){
+		return "charts/mainStreamUserCnt";
+	}
+
 	@RequestMapping(value="getDevelopingData"
 			, method = RequestMethod.POST
 			, consumes = MediaType.APPLICATION_JSON_VALUE

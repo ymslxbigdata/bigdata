@@ -2,9 +2,12 @@
 <script>
     var app = new Vue({
         // 混入表格自动滚动
-        mixins: [autoScrollMixin],
+        mixins: [autoScrollMixin, dateOptionsMixin],
         data: function () {
             return {
+                filterYear: '',
+                filterMonth: '',
+                filterQuarter: '',
                 tableHeight: 0,
                 warehouseCnt: 108,
                 wareHouseData: [{
@@ -27,12 +30,47 @@
         methods: {
 
             retrive: function () {
+
             },
+
+            getOverSeasInventoryCnt: function(){},
+
+            getOverSeasInventoryData: function(){},
 
             calculateTableHeight: function () {
                 let height = getComputedStyle(document.getElementById('ware-house-data-div')).height.replace('px', '');
                 this.tableHeight = Math.floor(height) - 2;
             },
+        },
+        computed: {
+            dateFilter: function(){
+                if(this.filterMonth && this.filterYear){
+                    return new Date(this.filterYear + '/' + this.filterMonth + '/01');
+                }
+            },
+        },
+        watch: {
+            filterMonth(val){
+                switch (val) {
+                    case 1: case 2: case 3:
+                        this.filterQuarter = 1;
+                        break;
+                    case 4: case 5: case 6:
+                        this.filterQuarter = 2;
+                        break;
+                    case 7: case 8: case 9:
+                        this.filterQuarter = 3;
+                        break;
+                    case 10: case 11: case 12:
+                        this.filterQuarter = 4;
+                        break;
+                }
+            },
+            dateFilter(val){
+                if(val){
+                    this.retrive(val);
+                }
+            }
         },
         mounted: function () {
 
@@ -42,6 +80,8 @@
             window.onresize = function () {
                 self.calculateTableHeight();
             };
+
+            setTimeout(() => self.initScrollElement(), 800);
         },
 
     }).$mount("#app")

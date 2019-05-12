@@ -18,13 +18,20 @@
 				<span>统计时间:</span>
 			</div>
 			<div class="filter-item">
-				<vue-input :placeholder="'2018'" size="200"></vue-input>
+				<vue-select v-model="filterYear" clearable>
+					<vue-option v-for="year in years" :key="year.text" :label="year.text" :value="year.text"></vue-option>
+				</vue-select>
 			</div>
 			<div class="filter-item">
-				<vue-input :placeholder="'第一季度'"></vue-input>
+				<vue-select v-model="filterQuarter" clearable>
+					<vue-option v-for="quarter in quarters" :key="quarter.index" :label="quarter.text" :value="quarter.index"></vue-option>
+
+				</vue-select>
 			</div>
 			<div class="filter-item">
-				<vue-input :placeholder="'一月份'"></vue-input>
+				<vue-select v-model="filterMonth" clearable>
+					<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
+				</vue-select>
 			</div>
 			<div class="filter-text">
 				<span>产品类型:</span>
