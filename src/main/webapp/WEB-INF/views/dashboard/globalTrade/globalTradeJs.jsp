@@ -12,23 +12,9 @@
                 mapUrl: contextPath + '/dashboard/globalTrade/worldMap',
                 xBorderTotalSalesUrl: contextPath + '/dashboard/globalTrade/xBorderTotalSales',
                 mainStreamTotalSalesUrl: contextPath + '/dashboard/globalTrade/mainStreamTotalSales',
-                mainStreamUserCnt: contextPath + '/dashboard/globalTrade/mainStreamUserCnt',
-                developingCountry: [{platForm: '阿里巴巴', userCnt: '1500万', totalSales: '56839亿美元'}
-                    , {platForm: '亚马逊', userCnt: '1200万', totalSales: '36800亿美元'}
-                    , {platForm: 'eBay', userCnt: '900万', totalSales: '32800亿美元'}
-                    , {platForm: 'wish', userCnt: '800万', totalSales: '30800亿美元'}
-                    , {platForm: '123', userCnt: '9020万', totalSales: '328400亿美元'}
-                    , {platForm: '33', userCnt: '8001万', totalSales: '308200亿美元'}
-                    , {platForm: '22', userCnt: '9030万', totalSales: '328200亿美元'}
-                    , {platForm: '31243', userCnt: '80qwt01万', totalSales: '3082wtq00亿美元'}
-                    , {platForm: '21552', userCnt: '90qwt30万', totalSales: '3282q00亿美元'}
-                    , {platForm: '3tw3', userCnt: '8001qwt万', totalSales: '30820qwt0亿美元'}
-                    , {platForm: '2wrq2', userCnt: '90qwt30万', totalSales: '328200qwt亿美元'}
-                    , {platForm: '11', userCnt: '2', totalSales: '30800亿美元'}],
-                developedCountry: [{platForm: '亚马逊', userCnt: '1900万', totalSales: '196800亿美元'}
-                    , {platForm: 'eBay', userCnt: '900万', totalSales: '86800亿美元'}
-                    , {platForm: '阿里巴巴', userCnt: '800万', totalSales: '56839亿美元'}
-                    , {platForm: 'wish', userCnt: '700万', totalSales: '48800亿美元'}]
+                mainStreamUserCntUrl: contextPath + '/dashboard/globalTrade/mainStreamUserCnt',
+                developingCountryData: [],
+                developedCountryData: [],
             }
         },
 
@@ -47,10 +33,13 @@
 
                 let self = this;
 
-                self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopingData' , {
+                self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopingData' ,
                     date
-                }).then(function(response) {
-
+                ).then(function(response) {
+                    result = response.data.map(function(val){
+                        return {platForm: val[0], userCnt: val[1], totalSales: val[2]}
+                    });
+                    self.developingCountryData = result;
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -60,10 +49,13 @@
 
                 let self = this;
 
-                self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopedData' , {
+                self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopedData' ,
                     date
-                }).then(function(response) {
-
+                ).then(function(response) {
+                    result = response.data.map(function(val){
+                        return {platForm: val[0], userCnt: val[1], totalSales: val[2]}
+                    });
+                    self.developedCountryData = result;
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -74,16 +66,29 @@
                 let self = this;
 
                 self.$http.post(contextPath + '/dashboard/globalTrade/getXBorderTotalSales' , date)
-                    .then(function(response) {}, function(response) {errorMsg(response.body.reason);});
+                    .then(function(response) {
+
+                        let result = response.data[0];
+                        debugger;
+                        let chartFrame = document.getElementById('xBorderTotalSales').contentWindow;
+                        this.$nextTick(()=>{
+                            chartFrame.totalSalesChart.setOption({series: [{
+                                    data: result
+                                }]});
+                        });
+                        console.log(result)
+                    }, function(response) {
+                        errorMsg(response.body.reason);
+                    });
             },
 
             getMainStreamTotalSales: function(date){
 
                 let self = this;
 
-                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamTotalSales' , {
+                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamTotalSales' ,
                     date
-                }).then(function(response) {
+                ).then(function(response) {
 
                 }, function(response) {
                     errorMsg(response.body.reason);
@@ -94,9 +99,9 @@
 
                 let self = this;
 
-                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt' , {
+                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt' ,
                     date
-                }).then(function(response) {
+                ).then(function(response) {
 
                 }, function(response) {
                     errorMsg(response.body.reason);
@@ -116,14 +121,14 @@
         computed: {
             dateFilter: function(){
                 if(this.filterMonth && this.filterYear){
-                    return new Date(this.filterYear + '/' + this.filterMonth + '/01');
+                    return this.filterYear + '-' + this.filterMonth ;
                 }
             },
         },
         watch: {
             filterMonth(val){
                 switch (val) {
-                    case 1: case 2: case 3:
+                    case '01': case 2: case 3:
                         this.filterQuarter = 1;
                         break;
                     case 4: case 5: case 6:

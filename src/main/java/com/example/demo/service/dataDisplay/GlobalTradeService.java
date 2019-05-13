@@ -9,12 +9,12 @@ package com.example.demo.service.dataDisplay;
  *  1.0.0     2019-05-12    Lin Lijian    New making
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.beans.TradeDisplayModel;
 import com.example.demo.repository.GlobalEshopTradeDataRepository;
 import com.example.demo.repository.GlobalEshopUsersDataRepository;
 
@@ -34,5 +34,9 @@ public class GlobalTradeService {
 	
 	public List<Object[]> getDevelopingData(String tradeDate) {
 		return globalEshopTradeDataRepository.getDevelopingData(tradeDate);
+	}
+
+	public List<Object[]> getXBorderTotalSales(String tradeDate) {
+		return globalEshopTradeDataRepository.getXBorderTotalSales(tradeDate);
 	}
 }
