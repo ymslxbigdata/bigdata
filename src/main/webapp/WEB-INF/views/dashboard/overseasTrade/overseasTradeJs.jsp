@@ -10,32 +10,27 @@
                 filterQuarter: '',
                 tableHeight: 0,
                 warehouseCnt: 108,
-                wareHouseData: [{
-                    platForm: 'eBay',
-                    wareHouseLoc: '香港仓',
-                    capacitance: '150000',
-                    stock: '29000',
-                    availStock: '900'
-                }
-                    , {
-                        platForm: 'ebay',
-                        wareHouseLoc: '日本仓',
-                        capacitance: '150000',
-                        stock: '29000',
-                        availStock: '901'
-                    }],
+                wareHouseData: [],
                 mapUrl: contextPath + '/dashboard/overseasTrade/worldMap',
             }
         },
         methods: {
 
             retrieve: function () {
-
+                this.getOverSeasInventoryData();
             },
 
-            getOverSeasInventoryCnt: function(){},
-
-            getOverSeasInventoryData: function(){},
+            getOverSeasInventoryData: function(){
+                this.$http.post(contextPath + '/dashboard/overseasTrade/getOverSeasInventoryData')
+                    .then(
+                        function(response){
+                            console.log(response);
+                        },
+                        function(response){
+                            errorMsg(response.body.reason);
+                        }
+                    )
+            },
 
             calculateTableHeight: function () {
                 let height = getComputedStyle(document.getElementById('ware-house-data-div')).height.replace('px', '');
@@ -45,23 +40,31 @@
         computed: {
             dateFilter: function(){
                 if(this.filterMonth && this.filterYear){
-                    return new Date(this.filterYear + '/' + this.filterMonth + '/01');
+                    return this.filterYear + '-' + this.filterMonth;
                 }
             },
         },
         watch: {
-            filterMonth(val){
+            filterMonth(val) {
                 switch (val) {
-                    case 1: case 2: case 3:
+                    case '01':
+                    case '02':
+                    case '03':
                         this.filterQuarter = 1;
                         break;
-                    case 4: case 5: case 6:
+                    case '04':
+                    case '05':
+                    case '06':
                         this.filterQuarter = 2;
                         break;
-                    case 7: case 8: case 9:
+                    case '07':
+                    case '08':
+                    case '09':
                         this.filterQuarter = 3;
                         break;
-                    case 10: case 11: case 12:
+                    case '10':
+                    case '11':
+                    case '12':
                         this.filterQuarter = 4;
                         break;
                 }
@@ -82,6 +85,9 @@
             };
 
             setTimeout(() => self.initScrollElement(), 800);
+            let today = new Date();
+            this.filterYear = today.getFullYear();
+            this.filterMonth = today.getMonth()+1;
         },
 
     }).$mount("#app")

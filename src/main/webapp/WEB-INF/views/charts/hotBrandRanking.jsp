@@ -4,21 +4,14 @@
     <title>Title</title>
 </head>
 <body>
-<div id="hotBrandChart" class="width-100 height-100 background-color-0D1633"></div>
+<div id="chart" class="width-100 height-100 background-color-0D1633"></div>
 
 <script>
 
-    var hotBrandChart = echarts.init(document.getElementById('hotBrandChart'));
+    var chart = echarts.init(document.getElementById('chart'));
 
     var data = [
-        {value:10, name:'roseA'},
-        {value:5,  name:'roseB'},
-        {value:15, name:'rose3'},
-        {value:25, name:'rose4'},
-        {value:20, name:'rose5'},
-        {value:35, name:'rose6'},
-        {value:30, name:'rose7'},
-        {value:40, name:'rose8'}
+
     ];
 
     option = {
@@ -38,9 +31,9 @@
         ]
     };
 
-    hotBrandChart.setOption(option);
+    chart.setOption(option);
     window.addEventListener('resize', function(){
-        hotBrandChart.resize();
+        chart.resize();
     })
 
 </script>

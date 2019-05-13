@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div id="salesChart" class="width-100 height-100 background-color-0D1633"></div>
+<div id="chart" class="width-100 height-100 background-color-0D1633"></div>
 <script>
 
-    var salesChart = echarts.init(document.getElementById('salesChart'));
+    var chart = echarts.init(document.getElementById('chart'));
 
-    var countries = ['欧洲', '南美洲','北美洲', '非洲', '俄罗斯', '澳洲', '东南亚','中国','日本','韩国'];
-    var turnover = [56000, 38000, 37000, 35000, 32000, 29000, 26000, 9000, 8000, 6000];
+    var countries = ['非洲', '亚洲','欧洲', '北美洲', '大洋洲', '南美洲', '中国'];
+    var turnover = [];
 
     option = {
         xAxis: {
@@ -41,9 +41,9 @@
         }]
     };
 
-    salesChart.setOption(option);
+    chart.setOption(option);
     window.addEventListener('resize', function () {
-        salesChart.resize()
+        chart.resize()
     });
 </script>
 </body>
