@@ -17,15 +17,7 @@
                 areaPlatformFurnitureSales: contextPath + '/dashboard/furnitureTrade/areaPlatformFurnitureSales',
                 hotBrandRanking: contextPath + '/dashboard/furnitureTrade/hotBrandRanking',
 
-                hotSellingOnPlatforms: [{
-                    prodName: '北欧实木双人床',
-                    amazon: 1000,
-                    eBay: 900,
-                    wish: 800,
-                    ali: 800,
-                    other: 1100,
-                    total: 4600
-                }],
+                hotSellingOnPlatforms: [],
                 productTradingSituation: [{prodName: '', turnover: 0, territories: '', producingArea: ''}],
             }
         },
@@ -39,8 +31,8 @@
                 this.getHotProductSalesData(tradeDate);
                 this.getProductTradingSitu(tradeDate);
                 this.getHotBrandRanking(tradeDate);
-                this.getXBorderFurnitureSales(tradeDate);
-                setTimeout(()=>self.initScrollElement(),300)
+                this.getAreaPlatformFurnitureSales(tradeDate);
+                setTimeout(() => self.initScrollElement(), 300)
             },
 
             getProductTypeList: function () {
@@ -62,7 +54,7 @@
 
                 let self = this;
                 this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotProductSalesData',
-                    [tradeDate,!!self.selectedFurnitureTypeId?self.selectedFurnitureTypeId: '']
+                    [tradeDate, !!self.selectedFurnitureTypeId ? self.selectedFurnitureTypeId : '']
                 )
                     .then(
                         function (response) {
@@ -74,12 +66,65 @@
             },
 
             getProductTradingSitu: function (tradeDate) {
+
+                let self = this;
+
+                this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotProductSalesData',
+                    [tradeDate, !!self.selectedFurnitureTypeId ? self.selectedFurnitureTypeId : '']
+                )
+                    .then(
+                        function (response) {
+                            self.productTradingSituation = response.body;
+                        },
+                        function (response) {
+                            errorMsg(response.body.reason);
+                        })
+
             },
 
-            getHotBrandRanking: function (tradeDate) {
+            getHotBrandRanking: function () {
+
+                this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotBrandRanking')
+                    .then(
+                        function (response) {
+                            let value = response.data.map(function (val) {
+                                return {value: val.ratio, name: val.brandNm}
+                            });
+                            let chartFrame = document.getElementById('hotBrandRanking').contentWindow;
+                            chartFrame.chart.setOption({
+                                series: [{
+                                    data: value
+                                }]
+                            })
+                        },
+                        function (response) {
+                            errorMsg(response.body.reason);
+                        })
+
             },
 
-            getXBorderFurnitureSales: function (tradeDate) {
+            getAreaPlatformFurnitureSales: function (tradeDate) {
+                this.$http.post(contextPath + '/dashboard/furnitureTrade/getAreaPlatformFurnitureSales',tradeDate)
+                    .then(
+                        function (response) {
+                            let rawData = response.data[0];
+                            let value = [];
+                            for(let i in rawData){
+                                if(i === 'tradeDate')continue;
+                                else{
+                                    value.push(rawData[i])
+                                }
+                            }
+                            let chartFrame = document.getElementById('areaPlatformFurnitureSales').contentWindow;
+                            chartFrame.chart.setOption({
+                                series: [{
+                                    data: value
+                                }]
+                            })
+                        },
+                        function (response) {
+                            errorMsg(response.body.reason);
+                        })
             },
 
             calculateTableHeight: function () {
@@ -124,8 +169,9 @@
                     this.retrieve(val);
                 }
             },
-            selectedFurnitureTypeId(val) {
+            selectedFurnitureTypeId() {
                 this.getHotProductSalesData(this.dateFilter);
+                this.getProductTradingSitu(this.dateFilter);
             }
         },
         mounted: function () {
@@ -136,7 +182,12 @@
             window.onresize = function () {
                 self.calculateTableHeight();
             };
-            setTimeout(() => self.initScrollElement(), 1000);
+            setTimeout(() => self.initScrollElement(), 800);
+
+            let today = new Date();
+            this.filterYear = today.getFullYear();
+            this.filterMonth = today.getMonth()+1;
+
         },
 
     }).$mount("#app")

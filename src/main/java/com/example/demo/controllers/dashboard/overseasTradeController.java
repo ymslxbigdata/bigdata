@@ -10,13 +10,25 @@ package com.example.demo.controllers.dashboard;
  */
 
 
+import com.example.demo.entity.FurnitureHotSaleProductData;
+import com.example.demo.entity.GlobalEshopOverseasRepo;
+import com.example.demo.service.dataDisplay.OverSeasTradeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("dashboard/overseasTrade")
 public class overseasTradeController {
+
+    @Autowired
+    OverSeasTradeService overSeasTradeService;
 
     @RequestMapping("/info")
     public String getScreen(final Model model){
@@ -28,19 +40,15 @@ public class overseasTradeController {
         return "charts/worldMap";
     }
 
-//    @RequestMapping("/xBorderTotalSales")
-//    public String getXBorderTotalSales() {
-//        return "charts/XBorderTotalSales";
-//    }
-//
-//    @RequestMapping("/mainStreamTotalSales")
-//    public String getMainStreamTotalSales(){
-//        return "charts/mainStreamTotalSales";
-//    }
-//
-//    @RequestMapping("/mainStreamUserCnt")
-//    public String getMainStreamUserCnt(){
-//        return "charts/mainStreamUserCnt";
-//    }
+
+    @RequestMapping(value="getOverSeasInventoryData"
+            , method = RequestMethod.POST
+            , consumes = MediaType.APPLICATION_JSON_VALUE
+            , produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public List<GlobalEshopOverseasRepo> getOverSeasInventoryData(){
+        return overSeasTradeService.getOverSeasInventoryData();
+    }
 
 }

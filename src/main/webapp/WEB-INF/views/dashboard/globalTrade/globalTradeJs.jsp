@@ -177,7 +177,11 @@
                 self.calculateTableHeight();
             };
             // 调用混入的初始化滚动方法
-            setTimeout(() => self.initScrollElement(), 800)
+            setTimeout(() => self.initScrollElement(), 800);
+
+            let today = new Date();
+            this.filterYear = today.getFullYear();
+            this.filterMonth = today.getMonth()+1;
         },
 
 
