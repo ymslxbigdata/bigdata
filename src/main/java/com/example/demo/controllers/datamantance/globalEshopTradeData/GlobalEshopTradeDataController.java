@@ -1,4 +1,4 @@
-package com.example.demo.controllers.datamantance.globaleshoptradeData;
+package com.example.demo.controllers.datamantance.globalEshopTradeData;
 
 import java.util.List;
 

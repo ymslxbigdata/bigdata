@@ -16,7 +16,7 @@ var app = new Vue({
                           }
                          ,{mainMenu:'家具大数据维护',mainIndex:'2',subMenu:[{title: '家具种类信息',url: 'furnitureTypesInfo/info',subIndex:'2-1'}
                                                                      ,{title: '家具热销产品交易数据',url: 'furnitureHotSaleTradeData/info',subIndex:'2-2'}
-                                                                     ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info',subIndex:'2-3'}
+                                                                     ,{title: '全球家具交易数据',url: 'furnitureAreaSaleTradeData/info',subIndex:'2-3'}
                                                                      ,{title: '家具热销品牌信息',url: 'furnitureHotSaleProductData/info',subIndex:'2-4'}]
                           }
                         ,{mainMenu:'海外仓维护',mainIndex:'3',subMenu:[{title: '海外仓信息',url: 'globalEshopOverseasRepo/info',subIndex:'3-1'}]} 
