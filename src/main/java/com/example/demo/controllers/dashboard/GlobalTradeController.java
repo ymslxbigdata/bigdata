@@ -1,5 +1,7 @@
 package com.example.demo.controllers.dashboard;
 
+import com.example.demo.beans.GlobalTradeDataModel;
+import com.example.demo.service.dataDisplay.GlobalTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.service.dataDisplay.globalTradeService;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +19,8 @@ import java.util.List;
 public class GlobalTradeController {
 	
 	@Autowired
-	globalTradeService globalTradeService;
+	GlobalTradeService globalTradeService;
+
 	@RequestMapping("/info")
 	public String getScreen(final Model model){
 		  return "dashboard/globalTrade/globalTrade"; 
@@ -51,8 +52,8 @@ public class GlobalTradeController {
 			, produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseBody
-	public void getDevelopingData(@RequestBody final Date filterDate) {
-
+	public List<Object[]> getDevelopingData(@RequestBody final String filterDate) {
+		return globalTradeService.getDevelopingData(filterDate);
 	}
 
 	@RequestMapping(value="getDevelopedData"
@@ -61,10 +62,8 @@ public class GlobalTradeController {
 			, produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseBody
-	public void getDevelopedData() {
-		globalTradeService.getDevelopedData("2019-01");
-		globalTradeService.getDevelopingData("2019-01");
-		String aString = "我是案例";
+	public List<Object[]> getDevelopedData(@RequestBody final String filterDate) {
+		return globalTradeService.getDevelopedData(filterDate);
 	}
 
 	@RequestMapping(value="getXBorderTotalSales"
@@ -73,8 +72,8 @@ public class GlobalTradeController {
 			, produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseBody
-	public void getXBorderTotalSales() {
-
+	public List<Object[]> getXBorderTotalSales(@RequestBody final String tradeDate) {
+		return globalTradeService.getXBorderTotalSales(tradeDate);
 	}
 
 	@RequestMapping(value="getMainStreamTotalSales"

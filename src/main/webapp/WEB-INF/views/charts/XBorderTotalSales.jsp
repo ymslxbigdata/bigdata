@@ -8,9 +8,8 @@
 <div id="totalSalesChart" class="width-100 height-100 background-color-0D1633"></div>
 <script>
 
-
-    var area = ['欧洲', '南美洲', '俄罗斯', '澳洲', '东南亚','中国','日本','韩国'];
-    var data = [56000, 38000, 32000, 29000, 26000, 9000, 8000, 6000];
+    var area = ['非洲', '亚洲', '欧洲', '北美洲', '大洋洲','南美洲','中国'];
+    var data = [0, 0, 0, 0, 0, 0, 0];
 
 
     var totalSalesChart = echarts.init(document.getElementById('totalSalesChart'));
@@ -36,6 +35,10 @@
                     color: '#FFFFFF'
                 }
             }
+        },
+        grid: {
+            left: '20%',
+            right: '10%'
         },
         series: [{
             data: data,

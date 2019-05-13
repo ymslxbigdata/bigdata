@@ -42,7 +42,7 @@
                     <div class="table-headers">
                         <span>发展中国家</span>
                     </div>
-					<vue-table :data="developingCountry" class="width-100" :height="tableHeight">
+					<vue-table :data="developingCountryData" class="width-100" :height="tableHeight">
 						<vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
 						<vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
 						<vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
@@ -53,7 +53,7 @@
                     <div class="table-headers">
                         <span>发达国家</span>
                     </div>
-                    <vue-table :data="developedCountry" class="width-100" :height="tableHeight">
+                    <vue-table :data="developedCountryData" class="width-100" :height="tableHeight">
                         <vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
                         <vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
                         <vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
@@ -72,19 +72,19 @@
 					<div class="table-headers">
 						<span>各区域跨境电商平台交易额(亿美元)</span>
 					</div>
-					<iframe class="chart-frame" :src="xBorderTotalSalesUrl"></iframe>
+					<iframe id="xBorderTotalSales" class="chart-frame" :src="xBorderTotalSalesUrl"></iframe>
 				</div>
 				<div class="data-panel">
 					<div class="table-headers">
 						<span>主流跨境电商平台交易额(亿美元)</span>
 					</div>
-					<iframe class="chart-frame" :src="mainStreamTotalSalesUrl"></iframe>
+					<iframe id="mainStreamTotalSales" class="chart-frame" :src="mainStreamTotalSalesUrl"></iframe>
 				</div>
 				<div class="data-panel">
 					<div class="table-headers">
 						<span>主流跨境电商平台用户数(万)</span>
 					</div>
-					<iframe class="chart-frame" :src="mainStreamUserCnt"></iframe>
+					<iframe id="mainStreamUserCnt" class="chart-frame" :src="mainStreamUserCntUrl"></iframe>
 				</div>
 			</vue-col>
 		</vue-row>

@@ -65,32 +65,32 @@ var dateOptionsMixin = {
     data: function () {
         return {
             months: [
-                {index: 1, text: '一月'}
-                , {index: 2, text: '二月'}
-                , {index: 3, text: '三月'}
-                , {index: 4, text: '四月'}
-                , {index: 5, text: '五月'}
-                , {index: 6, text: '六月'}
-                , {index: 7, text: '七月'}
-                , {index: 8, text: '八月'}
-                , {index: 9, text: '九月'}
-                , {index: 10, text: '十月'}
-                , {index: 11, text: '十一月'}
-                , {index: 12, text: '十二月'}],
+                  {index: '01', text: '一月'}
+                , {index: '02', text: '二月'}
+                , {index: '03', text: '三月'}
+                , {index: '04', text: '四月'}
+                , {index: '05', text: '五月'}
+                , {index: '06', text: '六月'}
+                , {index: '07', text: '七月'}
+                , {index: '08', text: '八月'}
+                , {index: '09', text: '九月'}
+                , {index: '10', text: '十月'}
+                , {index: '11', text: '十一月'}
+                , {index: '12', text: '十二月'}],
             quarters: [{index: 1, text: '第一季度'}
-            , {index: 2, text: '第二季度'}
-            , {index: 3, text: '第三季度'}
-            , {index: 4, text: '第四季度'}],
-            years: [{text: 2010}
-                , {text: 2011}
-                , {text: 2012}
-                , {text: 2013}
-                , {text: 2014}
-                , {text: 2015}
-                , {text: 2016}
-                , {text: 2017}
-                , {text: 2018}
-                , {text: 2019}],
+                     , {index: 2, text: '第二季度'}
+                     , {index: 3, text: '第三季度'}
+                     , {index: 4, text: '第四季度'}],
+            years: [{text: '2010'}
+                  , {text: '2011'}
+                  , {text: '2012'}
+                  , {text: '2013'}
+                  , {text: '2014'}
+                  , {text: '2015'}
+                  , {text: '2016'}
+                  , {text: '2017'}
+                  , {text: '2018'}
+                  , {text: '2019'}],
         }
     }
 };
