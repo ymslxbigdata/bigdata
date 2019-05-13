@@ -53,7 +53,7 @@
 				<span id="warehouse-cnt-span-id">海外仓个数: {{ warehouseCnt }}</span>
 			</div>
 			<div id="ware-house-data-div" class="data-panel flex-5">
-				<vue-table :data="wareHouseData" :height="tableHeight">
+				<vue-table :data="wareHouseData" :height="tableHeight" customTableBorder="0">
 					<vue-table-column align="center" prop="platForm" label="所属平台"></vue-table-column>
 					<vue-table-column align="center" prop="wareHouseLoc" label="海外仓"></vue-table-column>
 					<vue-table-column align="center" prop="capacitance" label="容量(立方)"></vue-table-column>

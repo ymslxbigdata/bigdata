@@ -191,9 +191,9 @@ body {
 }
 
 .menu-bar .menu-title {
-    font-size: 24px;
+	margin-left:10px;
+    font-size: 30px;
     font-weight: bold;
-
 }
 
 .vue-menu-item[customFontSize="24"] {
@@ -314,6 +314,19 @@ body {
 
 #warehouse-cnt-span-id {
     line-height: calc(14vh - -3px);
+}
+
+.vue-table[customTableBorder="0"]::before {
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 0px;
+}
+.vue-table[customTableBorder="0"]::after {
+	top: 0;
+	right: 0;
+	width: 0px;
+	height: 100%;
 }
 
 

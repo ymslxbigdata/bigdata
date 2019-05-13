@@ -55,7 +55,7 @@
 					<div class="table-headers">
 						<span>热销产品各平台交易数据</span>
 					</div>
-					<vue-table :data="hotSellingOnPlatforms" :height="tableHeight">
+					<vue-table :data="hotSellingOnPlatforms" :height="tableHeight" customTableBorder="0">
 						<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
 						<vue-table-column align="center" prop="tradeAmazon" label="亚马逊"></vue-table-column>
 						<vue-table-column align="center" prop="tradeEbay" label="eBay"></vue-table-column>
@@ -72,7 +72,7 @@
 							<div class="table-headers">
 								<span>各类产品交易情况</span>
 							</div>
-							<vue-table :data="productTradingSituation" :height="tableHeight">
+							<vue-table :data="productTradingSituation" :height="tableHeight" customTableBorder="0">
 								<vue-table-column align="center" prop="prodName" label="热销产品"></vue-table-column>
 								<vue-table-column align="center" prop="turnover" label="交易额"></vue-table-column>
 								<vue-table-column align="center" prop="territories" label="热销地"></vue-table-column>

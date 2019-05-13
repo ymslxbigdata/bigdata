@@ -42,7 +42,7 @@
                     <div class="table-headers">
                         <span>发展中国家</span>
                     </div>
-					<vue-table :data="developingCountryData" class="width-100" :height="tableHeight">
+					<vue-table :data="developingCountryData" class="width-100" :height="tableHeight" customTableBorder="0">
 						<vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
 						<vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
 						<vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
@@ -53,7 +53,7 @@
                     <div class="table-headers">
                         <span>发达国家</span>
                     </div>
-                    <vue-table :data="developedCountryData" class="width-100" :height="tableHeight">
+                    <vue-table :data="developedCountryData" class="width-100" :height="tableHeight" customTableBorder="0">
                         <vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
                         <vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
                         <vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
