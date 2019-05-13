@@ -39,7 +39,7 @@
                 let self = this;
 
                 self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopingData' ,
-
+                    date
                 ).then(function(response) {
                     result = response.data.map(function(val){
                         return {platForm: val[0], userCnt: val[1], totalSales: val[2]}
