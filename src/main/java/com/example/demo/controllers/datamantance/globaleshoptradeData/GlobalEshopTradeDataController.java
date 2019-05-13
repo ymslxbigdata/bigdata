@@ -52,7 +52,7 @@ public class GlobalEshopTradeDataController {
     	return globalEshopTradeDataService.getGlobalEshopTradeData(para);
     }
     
-    //追加删除保存
+    //追加修改保存
     @RequestMapping(value="saveData"
             , method = RequestMethod.POST
             , consumes = MediaType.APPLICATION_JSON_VALUE
@@ -62,5 +62,17 @@ public class GlobalEshopTradeDataController {
     public void saveData(@RequestBody final GlobalEshopTradeData para) {
   	
         globalEshopTradeDataService.saveData(para);
+    }
+    
+  //追加修改保存
+    @RequestMapping(value="deleteData"
+            , method = RequestMethod.POST
+            , consumes = MediaType.APPLICATION_JSON_VALUE
+            , produces = MediaType.APPLICATION_JSON_VALUE
+            )
+    @ResponseBody
+    public void deleteData(@RequestBody final GlobalEshopTradeData para) {
+  	
+        globalEshopTradeDataService.deleteData(para);;
     }
 }

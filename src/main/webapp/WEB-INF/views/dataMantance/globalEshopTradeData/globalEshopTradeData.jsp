@@ -22,7 +22,7 @@
 		<vue-table :data="globalEshopTradeData" border stripe height="715">
   			<vue-table-column prop="eshopId" label="电商ID"  :visible=false></vue-table-column>
   			<vue-table-column prop="eshopNm" label="电商平台"  width="120"></vue-table-column>
-  			<vue-table-column prop="tradeMonth" label="年月"  width="90"></vue-table-column>
+  			<vue-table-column prop="tradeDate" label="年月"  width="90"></vue-table-column>
   			<vue-table-column prop="tradeVolume" label="交易额"  width="150"></vue-table-column>
   			<vue-table-column prop="tradeVolumeDeveloped" label="交易额-发展中国家"  width="150"></vue-table-column>
   			<vue-table-column prop="tradeVolumeDeveloping" label="交易额-发达国家"  width="150"></vue-table-column>
@@ -36,7 +36,7 @@
   			<vue-table-column  label="操作" width="110" align="center">
     			<template slot-scope="scope">
      				 <vue-button @click="editInsertHandle(scope.row,'edit')" type="primary" size="small" icon="vue-icon-edit"></vue-button>
-      				 <vue-button @click="deleteSaveHandle(scope.row)" type="primary" size="small" icon="vue-icon-delete2"></vue-button>
+      				 <vue-button @click="deleteHandle(scope.row)" type="primary" size="small" icon="vue-icon-delete2"></vue-button>
     			</template>
   			</vue-table-column>
 		</vue-table>
@@ -59,7 +59,7 @@
     				</vue-select>
  				 </vue-form-item> 
  				 <vue-form-item label="年月">
- 				 	<vue-date-picker v-model="currentData.tradeMonth" type="month" :disabled="disabledAsideTradeMonth" format="yyyy-MM" placeholder="请选择" ></vue-date-picker>
+ 				 	<vue-date-picker v-model="currentData.tradeDate" type="month" :disabled="disabledAsideTradeDate" format="yyyy-MM" placeholder="请选择" ></vue-date-picker>
  				 </vue-form-item>
  				 <vue-form-item label="交易额">
     				<vue-input v-model="currentData.tradeVolume"></vue-input>
@@ -97,6 +97,13 @@
     			<vue-button type="primary" @click="editInsertSaveHandle">保存</vue-button>
   			</span>
 		</vue-aside>
+		<vue-dialog v-model="showDialog" size="tiny">
+			<span>是否确认删除该笔数据</span>
+			<span slot="footer" class="dialog-footer">
+    			<vue-button @click="showDialog = false">取消</vue-button>
+    			<vue-button type="primary" @click="deleteSaveHandle">确认</vue-button>
+  			</span>
+		</vue-dialog>
 	</div>
 	<jsp:include page="globalEshopTradeDataJs.jsp" />
 </body>

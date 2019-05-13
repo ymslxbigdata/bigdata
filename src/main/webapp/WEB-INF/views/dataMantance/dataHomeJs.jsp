@@ -5,7 +5,7 @@ var app = new Vue({
 		return {
 			iframeName: "",
 			tableData: [],
-			openItem: ['0','1','2'],
+			openItem: ['1','2','3'],
 
 			editableTabsValue: "0",
 			editableTabs: [],
@@ -19,7 +19,7 @@ var app = new Vue({
                                                                      ,{title: '全球家具交易数据',url: 'globalEshopTradeData/info',subIndex:'2-3'}
                                                                      ,{title: '家具热销品牌信息',url: 'globalEshopTradeData/info',subIndex:'2-4'}]
                           }
-                        ,{mainMenu:'海外仓维护',mainIndex:'3',subMenu:[{title: '海外仓信息',url: 'globalEshopInfo/info',subIndex:'3-1'}]} 
+                        ,{mainMenu:'海外仓维护',mainIndex:'3',subMenu:[{title: '海外仓信息',url: 'globalEshopOverseasRepo/info',subIndex:'3-1'}]} 
             ],
 		}
 	},
