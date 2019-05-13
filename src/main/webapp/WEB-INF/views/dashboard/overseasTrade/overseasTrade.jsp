@@ -13,7 +13,7 @@
 	</vue-row>
 
 	<vue-row class="second-class-title">
-		<div class="margin-left10 width-50" >
+		<%--<div class="margin-left10 width-50" >
 			<div class="filter-text">
 				<span>统计时间:</span>
 			</div>
@@ -39,7 +39,7 @@
 			<div class="filter-item">
 				<vue-select></vue-select>
 			</div>
-		</div>
+		</div>--%>
 	</vue-row>
 
 	<vue-row class="detail-area">
@@ -54,11 +54,11 @@
 			</div>
 			<div id="ware-house-data-div" class="data-panel flex-5">
 				<vue-table :data="wareHouseData" :height="tableHeight" customTableBorder="0">
-					<vue-table-column align="center" prop="platForm" label="所属平台"></vue-table-column>
-					<vue-table-column align="center" prop="wareHouseLoc" label="海外仓"></vue-table-column>
-					<vue-table-column align="center" prop="capacitance" label="容量(立方)"></vue-table-column>
-					<vue-table-column align="center" prop="stock" label="库存"></vue-table-column>
-					<vue-table-column align="center" prop="availStock" label="可用库存"></vue-table-column>
+					<vue-table-column align="center" prop="eshopNm" label="所属平台"></vue-table-column>
+					<vue-table-column align="center" prop="overseasRepo" label="海外仓"></vue-table-column>
+					<vue-table-column align="center" prop="capacity" label="容量(立方)"></vue-table-column>
+					<vue-table-column align="center" prop="totalStock" label="库存"></vue-table-column>
+					<vue-table-column align="center" prop="useabelStock" label="可用库存"></vue-table-column>
 				</vue-table>
 			</div>
 		</vue-col>
