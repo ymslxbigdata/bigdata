@@ -72,11 +72,19 @@
 							<div class="table-headers">
 								<span>各类产品交易情况</span>
 							</div>
+<<<<<<< HEAD
 							<vue-table :data="productTradingSituation" :height="tableHeight" customTableBorder="0">
 								<vue-table-column align="center" prop="prodName" label="热销产品"></vue-table-column>
 								<vue-table-column align="center" prop="turnover" label="交易额"></vue-table-column>
 								<vue-table-column align="center" prop="territories" label="热销地"></vue-table-column>
 								<vue-table-column align="center" prop="producingArea" label="主要产地"></vue-table-column>
+=======
+							<vue-table :data="productTradingSituation" :height="tableHeight">
+								<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
+								<vue-table-column align="center" prop="tradeVolume" label="交易额"></vue-table-column>
+								<vue-table-column align="center" prop="hotSalePlace" label="热销地"></vue-table-column>
+								<vue-table-column align="center" prop="productPlace" label="主要产地"></vue-table-column>
+>>>>>>> 0d70a114757506ee9dd37c10d4b8397a92d728a4
 							</vue-table>
 						</div>
 					</vue-col>
@@ -85,7 +93,7 @@
 							<div class="table-headers">
 								<span>热销品牌排行</span>
 							</div>
-							<iframe class="chart-frame" :src="hotBrandRanking"></iframe>
+							<iframe id="hotBrandRanking" class="chart-frame" :src="hotBrandRanking"></iframe>
 						</div>
 					</vue-col>
 				</div>
@@ -93,7 +101,7 @@
 					<div class="table-headers">
 						<span>各地区跨境电商平台家具产品交易额(亿美元)</span>
 					</div>
-					<iframe class="chart-frame" :src="areaPlatformFurnitureSales"></iframe>
+					<iframe id="areaPlatformFurnitureSales" class="chart-frame" :src="areaPlatformFurnitureSales"></iframe>
 				</div>
 			</vue-col>
 
