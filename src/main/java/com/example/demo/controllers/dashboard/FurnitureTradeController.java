@@ -10,6 +10,8 @@ package com.example.demo.controllers.dashboard;
  */
 
 
+import com.example.demo.entity.FurnitureAreaSaleTradeData;
+import com.example.demo.entity.FurnitureHotSaleProductData;
 import com.example.demo.entity.FurnitureHotSaleTradeData;
 import com.example.demo.entity.FurnitureTypesInfo;
 import com.example.demo.service.dataDisplay.FurnitureTradeService;
@@ -42,12 +44,12 @@ public class FurnitureTradeController {
     }
 
     @RequestMapping("/areaPlatformFurnitureSales")
-    public String getAreaPlatformFurnitureSales() {
+    public String getAreaPlatformFurnitureSalesChart() {
         return "charts/areaPlatformFurnitureSales";
     }
 
     @RequestMapping("/hotBrandRanking")
-    public String getHotBrandRanking(){
+    public String getHotBrandRankingChart(){
         return "charts/hotBrandRanking";
     }
 
@@ -66,9 +68,29 @@ public class FurnitureTradeController {
             , produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    List<FurnitureHotSaleTradeData> getHotProductSalesData(@RequestBody final String[] filter){
-
+    public List<FurnitureHotSaleTradeData> getHotProductSalesData(@RequestBody final String[] filter){
         return furnitureTradeService.getHotProductSalesData(filter);
+    }
+
+    @RequestMapping(value="getHotBrandRanking"
+            , method = RequestMethod.POST
+            , consumes = MediaType.APPLICATION_JSON_VALUE
+            , produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public List<FurnitureHotSaleProductData> getHotBrandRankingData(){
+        return furnitureTradeService.getHotBrandRankingData();
+    }
+
+
+    @RequestMapping(value="getAreaPlatformFurnitureSales"
+            , method = RequestMethod.POST
+            , consumes = MediaType.APPLICATION_JSON_VALUE
+            , produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public List<FurnitureAreaSaleTradeData> getAreaPlatformFurnitureSales(@RequestBody final String tradeDate){
+        return furnitureTradeService.getAreaPlatformFurnitureSales(tradeDate);
     }
 
 }

@@ -11,5 +11,4 @@ import com.example.demo.entity.FurnitureAreaSaleTradeData;
 public interface FurnitureAreaSaleTradeDataRepository extends JpaRepository<FurnitureAreaSaleTradeData, String> {
 	
 	List<FurnitureAreaSaleTradeData> findByTradeDate(String tradeDate);
-	
 }
