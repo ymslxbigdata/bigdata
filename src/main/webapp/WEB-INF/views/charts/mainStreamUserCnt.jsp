@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div id="userCntChart" class="width-100 height-100 background-color-0D1633"></div>
+<div id="chart" class="width-100 height-100 background-color-0D1633"></div>
 <script>
 
-    var platForm = ['亚马逊', 'ebay', '阿里', 'wish', '其它'];
+    var platForm = ['亚马逊', 'ebay', '阿里', 'wish'];
     var zStr = [''];
 
     // y, x, z
-    var data = [[0,0,2500],[0,1,1800],[0,2,1600],[0,3,1500],[0,4,4300]];
+    var data = [[0,0,1000],[0,1,1000],[0,2,1000],[0,3,1000]];
 
-    var userCntChart = echarts.init(document.getElementById('userCntChart'));
+    var chart = echarts.init(document.getElementById('chart'));
 
     option = {
         tooltip: {},
@@ -114,11 +114,11 @@
                 }
             }
         }]
-    }
+    };
 
-    userCntChart.setOption(option);
+    chart.setOption(option);
     window.addEventListener('resize', function () {
-        userCntChart.resize()
+        chart.resize()
     });
 </script>
 </body>

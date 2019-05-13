@@ -29,7 +29,7 @@
         },
         methods: {
 
-            retrive: function () {
+            retrieve: function () {
 
             },
 
@@ -68,7 +68,7 @@
             },
             dateFilter(val){
                 if(val){
-                    this.retrive(val);
+                    this.retrieve(val);
                 }
             }
         },

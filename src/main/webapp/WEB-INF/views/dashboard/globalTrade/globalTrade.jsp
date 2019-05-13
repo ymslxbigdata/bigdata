@@ -45,7 +45,7 @@
 					<vue-table :data="developingCountryData" class="width-100" :height="tableHeight">
 						<vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
 						<vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
-						<vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
+						<vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
 					</vue-table>
 				</div>
 
@@ -56,7 +56,7 @@
                     <vue-table :data="developedCountryData" class="width-100" :height="tableHeight">
                         <vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
                         <vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
-                        <vue-table-column align="center" prop="totalSales" align="right" label="总销售额"></vue-table-column>
+                        <vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
                     </vue-table>
                 </div>
 			</vue-col>

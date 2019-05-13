@@ -36,7 +36,9 @@
 					<span>产品类型:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select></vue-select>
+					<vue-select v-model="selectedFurnitureTypeId" clearable>
+						<vue-option v-for="type in furnitureTypeList" :key="type.typeId" :label="type.typeNm" :value="type.typeId"></vue-option>
+					</vue-select>
 				</div>
 			</div>
 		</vue-row>
@@ -54,13 +56,13 @@
 						<span>热销产品各平台交易数据</span>
 					</div>
 					<vue-table :data="hotSellingOnPlatforms" :height="tableHeight">
-						<vue-table-column align="center" prop="prodName" label="热销产品"></vue-table-column>
-						<vue-table-column align="center" prop="amazon" label="亚马逊"></vue-table-column>
-						<vue-table-column align="center" prop="eBay" label="eBay"></vue-table-column>
-						<vue-table-column align="center" prop="wish" label="wish"></vue-table-column>
-						<vue-table-column align="center" prop="ali" label="阿里巴巴"></vue-table-column>
-						<vue-table-column align="center" prop="other" label="其他"></vue-table-column>
-						<vue-table-column align="center" prop="total" label="总交易额"></vue-table-column>
+						<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
+						<vue-table-column align="center" prop="tradeAmazon" label="亚马逊"></vue-table-column>
+						<vue-table-column align="center" prop="tradeEbay" label="eBay"></vue-table-column>
+						<vue-table-column align="center" prop="tradeWish" label="wish"></vue-table-column>
+						<vue-table-column align="center" prop="tradeAli" label="阿里巴巴"></vue-table-column>
+						<vue-table-column align="center" prop="tradeOthers" label="其他"></vue-table-column>
+						<vue-table-column align="center" prop="tradeVolume" label="总交易额"></vue-table-column>
 					</vue-table>
 					</iframe>
 				</div>

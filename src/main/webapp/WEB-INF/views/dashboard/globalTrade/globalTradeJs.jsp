@@ -8,33 +8,38 @@
                 filterMonth: '',
                 filterQuarter: '',
 
-                tableHeight: 0,
                 mapUrl: contextPath + '/dashboard/globalTrade/worldMap',
                 xBorderTotalSalesUrl: contextPath + '/dashboard/globalTrade/xBorderTotalSales',
                 mainStreamTotalSalesUrl: contextPath + '/dashboard/globalTrade/mainStreamTotalSales',
                 mainStreamUserCntUrl: contextPath + '/dashboard/globalTrade/mainStreamUserCnt',
                 developingCountryData: [],
                 developedCountryData: [],
+
+                tableHeight: 0,
             }
         },
 
         methods: {
 
-            retrive: function(date){
+            retrieve: function(date){
+
+                let self = this;
 
                 this.getDevelopingData(date);
                 this.getDevelopedData(date);
                 this.getXBorderTotalSales(date);
                 this.getMainStreamTotalSales(date);
                 this.getMainStreamUserCnt(date);
+                setTimeout(()=>self.initScrollElement(),300)
             },
 
+            // 获取发展中国家交易数据
             getDevelopingData: function(date){
 
                 let self = this;
 
                 self.$http.post(contextPath + '/dashboard/globalTrade/getDevelopingData' ,
-                    date
+
                 ).then(function(response) {
                     result = response.data.map(function(val){
                         return {platForm: val[0], userCnt: val[1], totalSales: val[2]}
@@ -45,6 +50,7 @@
                 });
             },
 
+            // 获取发达国家交易数据
             getDevelopedData: function(date){
 
                 let self = this;
@@ -61,6 +67,7 @@
                 });
             },
 
+            // 获取跨境电商平台交易额
             getXBorderTotalSales: function(date){
 
                 let self = this;
@@ -69,27 +76,27 @@
                     .then(function(response) {
 
                         let result = response.data[0];
-                        debugger;
                         let chartFrame = document.getElementById('xBorderTotalSales').contentWindow;
-                        this.$nextTick(()=>{
-                            chartFrame.totalSalesChart.setOption({series: [{
-                                    data: result
-                                }]});
-                        });
-                        console.log(result)
+                        chartFrame.chart.setOption({series: [{
+                                data: result
+                            }]});
                     }, function(response) {
                         errorMsg(response.body.reason);
                     });
             },
 
+            // 获取主流跨境电商平台交易额
             getMainStreamTotalSales: function(date){
 
                 let self = this;
-
                 self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamTotalSales' ,
                     date
                 ).then(function(response) {
-
+                    let result = response.data.map(function(val){ return {value: val[1], name: val[0]}});
+                    let chartFrame = document.getElementById('mainStreamTotalSales').contentWindow;
+                    chartFrame.chart.setOption({series: [{
+                            data: result
+                    }]});
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -99,10 +106,23 @@
 
                 let self = this;
 
-                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt' ,
-                    date
-                ).then(function(response) {
+                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt'
 
+                ).then(function(response) {
+                    console.log(response);
+                    let platForm =  response.data.map(function(val){return val[0]});
+                    let userData = response.data.map(function(val,i){return [i,0,val[1]]});
+
+                    let chartFrame = document.getElementById('mainStreamUserCnt').contentWindow;
+                    chartFrame.chart.setOption(
+                        {
+                            xAxis3D:{
+                                data: platForm
+                            },
+                            series: [{
+                                data: userData
+                        }
+                        ]});
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -128,23 +148,23 @@
         watch: {
             filterMonth(val){
                 switch (val) {
-                    case '01': case 2: case 3:
+                    case '01': case '02': case '03':
                         this.filterQuarter = 1;
                         break;
-                    case 4: case 5: case 6:
+                    case '04': case '05': case '06':
                         this.filterQuarter = 2;
                         break;
-                    case 7: case 8: case 9:
+                    case '07': case '08': case '09':
                         this.filterQuarter = 3;
                         break;
-                    case 10: case 11: case 12:
+                    case '10': case '11': case '12':
                         this.filterQuarter = 4;
                         break;
                 }
             },
             dateFilter(val){
                 if(val){
-                    this.retrive(val);
+                    this.retrieve(val);
                 }
             }
         },
@@ -156,7 +176,6 @@
             window.onresize = function () {
                 self.calculateTableHeight();
             };
-
             // 调用混入的初始化滚动方法
             setTimeout(() => self.initScrollElement(), 800)
         },

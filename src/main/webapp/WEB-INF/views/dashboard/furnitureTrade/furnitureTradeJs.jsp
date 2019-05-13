@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script>
+    // TODO: 修改var app 为 let app, 提高安全性
     var app = new Vue({
         mixins: [autoScrollMixin, dateOptionsMixin],
         data: function () {
@@ -7,6 +8,10 @@
                 filterYear: '',
                 filterMonth: '',
                 filterQuarter: '',
+
+                selectedFurnitureTypeId: "",
+                furnitureTypeList: [],
+
                 tableHeight: 0,
                 mapUrl: contextPath + '/dashboard/furnitureTrade/worldMap',
                 areaPlatformFurnitureSales: contextPath + '/dashboard/furnitureTrade/areaPlatformFurnitureSales',
@@ -21,19 +26,61 @@
                     other: 1100,
                     total: 4600
                 }],
-                productTradingSituation: [{prodName: '床', turnover: 56000, territories: '欧洲', producingArea: '中国'}],
+                productTradingSituation: [{prodName: '', turnover: 0, territories: '', producingArea: ''}],
             }
         },
 
         methods: {
 
-            getHotProductSalesData: function(){},
+            retrieve: function (tradeDate) {
 
-            getProductTradingSitu: function(){},
+                let self = this;
 
-            getHotBrandRanking: function(){},
+                this.getHotProductSalesData(tradeDate);
+                this.getProductTradingSitu(tradeDate);
+                this.getHotBrandRanking(tradeDate);
+                this.getXBorderFurnitureSales(tradeDate);
+                setTimeout(()=>self.initScrollElement(),300)
+            },
 
-            getXBorderFurnitureSales: function(){},
+            getProductTypeList: function () {
+
+                let self = this;
+                this.$http.post(contextPath + '/dashboard/furnitureTrade/getProductTypeList')
+                    .then(
+                        function (response) {
+                            self.furnitureTypeList = response.body;
+                        },
+                        function (response) {
+                            errorMsg(response.body.reason);
+                        }
+                    )
+            },
+
+            // 热销产品各平台交易数据
+            getHotProductSalesData: function (tradeDate) {
+
+                let self = this;
+                this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotProductSalesData',
+                    [tradeDate,!!self.selectedFurnitureTypeId?self.selectedFurnitureTypeId: '']
+                )
+                    .then(
+                        function (response) {
+                            self.hotSellingOnPlatforms = response.body;
+                        },
+                        function (response) {
+                            errorMsg(response.body.reason);
+                        })
+            },
+
+            getProductTradingSitu: function (tradeDate) {
+            },
+
+            getHotBrandRanking: function (tradeDate) {
+            },
+
+            getXBorderFurnitureSales: function (tradeDate) {
+            },
 
             calculateTableHeight: function () {
                 let detailAreaHeight = parseInt(getComputedStyle(document.getElementsByClassName('detail-area')[0]).height.replace('px', ''));
@@ -41,45 +88,55 @@
             }
         },
         computed: {
-            dateFilter: function(){
-                if(this.filterMonth && this.filterYear){
-                    return new Date(this.filterYear + '/' + this.filterMonth + '/01');
+            dateFilter: function () {
+                if (this.filterMonth && this.filterYear) {
+                    return this.filterYear + '-' + this.filterMonth;
                 }
             },
         },
         watch: {
-            filterMonth(val){
+            filterMonth(val) {
                 switch (val) {
-                    case 1: case 2: case 3:
+                    case '01':
+                    case '02':
+                    case '03':
                         this.filterQuarter = 1;
                         break;
-                    case 4: case 5: case 6:
+                    case '04':
+                    case '05':
+                    case '06':
                         this.filterQuarter = 2;
                         break;
-                    case 7: case 8: case 9:
+                    case '07':
+                    case '08':
+                    case '09':
                         this.filterQuarter = 3;
                         break;
-                    case 10: case 11: case 12:
+                    case '10':
+                    case '11':
+                    case '12':
                         this.filterQuarter = 4;
                         break;
                 }
             },
-            dateFilter(val){
-                if(val){
-                    this.retrive(val);
+            dateFilter(val) {
+                if (val) {
+                    this.retrieve(val);
                 }
+            },
+            selectedFurnitureTypeId(val) {
+                this.getHotProductSalesData(this.dateFilter);
             }
         },
         mounted: function () {
 
-
             let self = this;
             this.calculateTableHeight();
-
+            this.getProductTypeList();
             window.onresize = function () {
                 self.calculateTableHeight();
             };
-            setTimeout(() => self.initScrollElement(), 800);
+            setTimeout(() => self.initScrollElement(), 1000);
         },
 
     }).$mount("#app")

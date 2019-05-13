@@ -82,8 +82,8 @@ public class GlobalTradeController {
 			, produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseBody
-	public void getMainStreamTotalSales() {
-
+	public List<Object[]> getMainStreamTotalSales(@RequestBody final String tradeDate) {
+		return globalTradeService.getMainStreamTotalSales(tradeDate);
 	}
 
 	@RequestMapping(value="getMainStreamUserCnt"
@@ -92,8 +92,8 @@ public class GlobalTradeController {
 			, produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseBody
-	public void getMainStreamUserCnt() {
-
+	public List<Object[]> getMainStreamUserCnt() {
+		return globalTradeService.getMainStreamUserCnt();
 	}
 
 }

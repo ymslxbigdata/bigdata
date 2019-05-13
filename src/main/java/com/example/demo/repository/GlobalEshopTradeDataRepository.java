@@ -1,20 +1,18 @@
 package com.example.demo.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import com.example.demo.entity.GlobalEshopTradeData;
 
 @Repository
 public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEshopTradeData, String> {
-	
+
 	List<GlobalEshopTradeData> findByEshopId(String eshopId);
 	List<GlobalEshopTradeData> findByTradeDate(String tradeMonth);
 	List<GlobalEshopTradeData> findByEshopIdAndTradeDate(String eshopId,String tradeMonth);
-	
+
 	@Query(value=" SELECT a.eshopNm AS eshopNm                           "
 			   + "       ,b.userNum AS userNum                           "
 			   + "       ,a.tradeVolumeDeveloped AS tradeVolumeDeveloped "
@@ -45,4 +43,21 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 			    +"  FROM global_eshop_trade_data       "
 			    +" WHERE trade_date = ?1               ", nativeQuery = true)
 	List<Object[]> getXBorderTotalSales(String tradeDate);
+
+	@Query(value=" SELECT A.eshop_nm,                    " +
+			     "        B.trade_volume                 " +
+			     "   FROM global_eshop_info            A " +
+			     "   LEFT JOIN global_eshop_trade_data B " +
+			     "     ON A.eshop_id = B.eshop_id        " +
+			     "  WHERE A.is_main_eshop = 'true'       " +
+			     "    AND B.trade_date = ?1              " , nativeQuery = true)
+	List<Object[]> getMainStreamTotalSales(String tradeDate);
+
+	@Query(value=" SELECT A.eshop_nm,                    " +
+		         "        B.user_num                     " +
+		         "   FROM global_eshop_info            A " +
+		         "   LEFT JOIN global_eshop_users_data B " +
+		         "     ON A.eshop_id = B.eshop_id        " +
+		         "  WHERE A.is_main_eshop = 'true'       " , nativeQuery = true)
+	List<Object[]> getMainStreamUserCnt();
 }

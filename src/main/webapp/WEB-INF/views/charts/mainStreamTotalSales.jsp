@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div id="totalSalesChart" class="width-100 height-100 background-color-0D1633"></div>
+<div id="chart" class="width-100 height-100 background-color-0D1633"></div>
 <script>
 
 
 
-    var totalSalesChart = echarts.init(document.getElementById('totalSalesChart'));
+    var chart = echarts.init(document.getElementById('chart'));
 
     option = {
                 tooltip : {
@@ -19,16 +19,16 @@
         },
 
         visualMap: {
-            show: false,
+            show: true,
             min: 80,
-            max: 3200,
+            max: 10000,
             inRange: {
                 colorLightness: [0, 1]
             }
         },
         series : [
             {
-                name:'访问来源',
+                name:'交易额',
                 type:'pie',
                 radius : '55%',
                 center: ['50%', '50%'],
@@ -73,9 +73,9 @@
         ]
     };
 
-    totalSalesChart.setOption(option);
+    chart.setOption(option);
     window.addEventListener('resize', function () {
-        totalSalesChart.resize()
+        chart.resize()
     });
 </script>
 </body>
