@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class GlobalEshopOverseasRepo  implements java.io.Serializable {
 
 
-     private Serializable repoId;
+     private String repoId;
      private String eshopId;
      private String eshopNm;
      private String overseasRepo;
@@ -35,13 +35,13 @@ public class GlobalEshopOverseasRepo  implements java.io.Serializable {
     }
 
 	
-    public GlobalEshopOverseasRepo(Serializable repoId, String eshopId, String eshopNm, String overseasRepo) {
+    public GlobalEshopOverseasRepo(String repoId, String eshopId, String eshopNm, String overseasRepo) {
         this.repoId = repoId;
         this.eshopId = eshopId;
         this.eshopNm = eshopNm;
         this.overseasRepo = overseasRepo;
     }
-    public GlobalEshopOverseasRepo(Serializable repoId, String eshopId, String eshopNm, String overseasRepo, BigDecimal repoLocationX, BigDecimal repoLocationY, Long capacity, Long totalStock, Long useabelStock) {
+    public GlobalEshopOverseasRepo(String repoId, String eshopId, String eshopNm, String overseasRepo, BigDecimal repoLocationX, BigDecimal repoLocationY, Long capacity, Long totalStock, Long useabelStock) {
        this.repoId = repoId;
        this.eshopId = eshopId;
        this.eshopNm = eshopNm;
@@ -56,12 +56,12 @@ public class GlobalEshopOverseasRepo  implements java.io.Serializable {
      @Id 
   	@GeneratedValue(generator = "uid")
   	@GenericGenerator(name = "uid", strategy = "uuid")
-    @Column(name="repo_id", unique=true, nullable=false)
+    @Column(name="repo_id", unique=true, nullable=false, length=64)
     public Serializable getRepoId() {
         return this.repoId;
     }
     
-    public void setRepoId(Serializable repoId) {
+    public void setRepoId(String repoId) {
         this.repoId = repoId;
     }
 

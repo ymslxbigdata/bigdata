@@ -6,23 +6,9 @@ var app = new Vue({
         	
         	eshopId: '',
         	eshopNm: '',
-        	month: '',
         	eshopOptions: [],
-        	monthOptions: [{value:'1',label:'1月份'}
-        	          ,{value:'2',label:'2月份'}
-        	          ,{value:'3',label:'3月份'}
-        	          ,{value:'4',label:'4月份'}
-        	          ,{value:'5',label:'5月份'}
-        	          ,{value:'6',label:'6月份'}
-        	          ,{value:'7',label:'7月份'}
-        	          ,{value:'8',label:'8月份'}
-        	          ,{value:'9',label:'9月份'}
-        	          ,{value:'10',label:'10月份'}
-        	          ,{value:'11',label:'11月份'}
-        	          ,{value:'12',label:'12月份'}],
-        	          
-        	globalEshopTradeData: [],
         	
+        	globalEshopOverseasRepoData: [],
         	currentData: {},
         	currentIndex: 0,
         	
@@ -33,7 +19,6 @@ var app = new Vue({
         	disabledAsideTradeDate: false,
         	
         	showDialog: false,
-        	       
         }
     },
     methods: {
@@ -63,16 +48,15 @@ var app = new Vue({
     	getTableList: function() {
     		var self = this;
 			var eshopId = self.eshopId;
-			var month = VueUtil.formatDate(self.month,"yyyy-MM");
-			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getGlobalEshopTradeData', {"eshopId":eshopId,"tradeDate":month}).then(function(response) {
-				self.globalEshopTradeData = response.body;
+			this.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/getGlobalEshopOverseasRepoData', {"eshopId":eshopId}).then(function(response) {
+				self.globalEshopOverseasRepoData = response.body;
 			}, function(response) {
 				errorMsg(response.body.reason);
 			});
     	},
     	
     	changeCondition: function() {
-    		this.globalEshopTradeData = [];
+    		this.globalEshopOverseasRepoData = [];
     		this.getEshopNmById();
     	},
     	
@@ -95,26 +79,21 @@ var app = new Vue({
     		
     		this.showAside = true;
     		
-    		
     		if(handleType == 'edit') {
     			
     			this.currentData = VueUtil.merge({}, rowData);
-    			this.currentIndex = this.globalEshopTradeData.indexOf(rowData);
+    			this.currentIndex = this.globalEshopOverseasRepoData.indexOf(rowData);
     			
     			this.showAsideEshopId = false;
         		this.disabledAsideEshopNm = true;
-        		this.disabledAsideTradeDate = this.month != '' ? true : false;
     		}
     		else {
     			
-    			this.currentData = {tradeDate:'',eshopId:'',eshopNm:''};
+    			this.currentData = {eshopId:'',eshopNm:''};
     			
     			this.disabledAsideEshopNm = this.eshopNm != '' ? true : false;
-    			this.disabledAsideTradeDate = this.month != '' ? true : false;
-				
     			this.currentData.eshopNm = this.eshopNm;
     			this.currentData.eshopId = this.eshopId;
-    			this.currentData.tradeDate = this.month;
     		}
         },
         
@@ -126,8 +105,7 @@ var app = new Vue({
     	editInsertSaveHandle: function() {
     		
     		var self = this;
-    		this.currentData.tradeDate = VueUtil.formatDate(this.currentData.tradeDate,"yyyy-MM");
-    		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', self.currentData).then(function(response) {
+    		this.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/saveData', self.currentData).then(function(response) {
     			self.getTableList();
     			self.showAside = false;
     			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
@@ -140,7 +118,7 @@ var app = new Vue({
     		
     		this.showDialog = false;
     		var self = this;
-    		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/deleteData', self.currentData).then(function(response) {
+    		this.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/deleteData', self.currentData).then(function(response) {
     			self.getTableList();
     			self.showAside = false;
     			this.$notify({title: "Success", message: "删除成功",type: "success",position: "bottom-right",duration:1500});
