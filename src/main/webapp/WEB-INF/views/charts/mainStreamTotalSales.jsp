@@ -15,30 +15,20 @@
     option = {
                 tooltip : {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-
-        visualMap: {
-            show: true,
-            min: 80,
-            max: 10000,
-            inRange: {
-                colorLightness: [0, 1]
-            }
+            formatter: "{a} <br/>{b}: {d}%"
         },
         series : [
             {
                 name:'交易额',
                 type:'pie',
-                radius : '55%',
-                center: ['50%', '50%'],
+                radius : [30, 80],
+                roseType : 'radius',
                 data:[
                     {value:1500, name:'Wish'},
                     {value:2500, name:'亚马逊'},
                     {value:1800, name:'eBay'},
                     {value:1500, name:'阿里巴巴'},
                 ].sort(function (a, b) { return a.value - b.value; }),
-                roseType: 'radius',
                 label: {
                     normal: {
                         textStyle: {
@@ -54,13 +44,6 @@
                         smooth: 0.2,
                         length: 10,
                         length2: 20
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#4f4ec2',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
 

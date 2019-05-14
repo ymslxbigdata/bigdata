@@ -26,7 +26,7 @@
 					<vue-input v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterMonth" clearable>
+					<vue-select v-model="filterMonth" placeholder="全部" clearable>
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>

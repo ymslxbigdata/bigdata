@@ -14,11 +14,14 @@
     var turnover = [];
 
     option = {
+        tooltip : {
+            trigger: 'item',
+            formatter: "{b} : {c} 亿美元"
+        },
         xAxis: {
             type: 'category',
             data: countries,
             axisLabel:{
-                // rotate: -30
             },
             axisLine:{
                 lineStyle:{
@@ -43,8 +46,23 @@
 
     chart.setOption(option);
     window.addEventListener('resize', function () {
-        chart.resize()
+        chart.resize();
     });
+
+    let timer = null;
+    let count = 0;
+    function autoTip(total) {
+        timer = setInterval(function() {
+            var curr = count % total;
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0, // 因为只有一组数据，所以此处应为0
+                dataIndex: curr
+            });
+            count += 1;
+        }, 3000);
+    }
+
 </script>
 </body>
 </html>

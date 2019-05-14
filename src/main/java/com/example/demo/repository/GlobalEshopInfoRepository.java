@@ -15,7 +15,8 @@ public interface GlobalEshopInfoRepository extends JpaRepository<GlobalEshopInfo
 			+ " FROM GlobalEshopInfo "
 			+ " GROUP BY countryNm"
 			+ " ORDER BY countryNm")
-	public List<String> findEshopOptions();
+	List<String> findEshopOptions();
 	
-	public List<GlobalEshopInfo> findByEshopIdContainingAndEshopNmContainingAndCountryNmStartingWith(String eshopId, String eshopNm, String countryNm);
+	List<GlobalEshopInfo> findByEshopIdContainingAndEshopNmContainingAndCountryNmStartingWith(String eshopId, String eshopNm, String countryNm);
+
 }

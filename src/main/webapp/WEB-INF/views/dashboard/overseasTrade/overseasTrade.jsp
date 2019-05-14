@@ -13,8 +13,8 @@
 	</vue-row>
 
 	<vue-row class="second-class-title">
-		<%--<div class="margin-left10 width-50" >
-			<div class="filter-text">
+		<div class="margin-left10 width-50" >
+			<%--<div class="filter-text">
 				<span>统计时间:</span>
 			</div>
 			<div class="filter-item">
@@ -32,14 +32,16 @@
 				<vue-select v-model="filterMonth" clearable>
 					<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 				</vue-select>
-			</div>
+			</div>--%>
 			<div class="filter-text">
-				<span>产品类型:</span>
+				<span>电商平台:</span>
 			</div>
 			<div class="filter-item">
-				<vue-select></vue-select>
+				<vue-select v-model="filterPlatForm" placeholder="全部" clearable>
+					<vue-option v-for="platForm in platFormList" :key="platForm.eshopId" :label="platForm.eshopNm" :value="platForm.eshopId" ></vue-option>
+				</vue-select>
 			</div>
-		</div>--%>
+		</div>
 	</vue-row>
 
 	<vue-row class="detail-area">

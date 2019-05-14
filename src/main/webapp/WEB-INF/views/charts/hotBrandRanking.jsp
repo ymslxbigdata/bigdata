@@ -17,7 +17,7 @@
     option = {
         tooltip : {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{a} <br/>{b} : {d}%"
         },
         calculable : true,
         series : [
@@ -34,7 +34,21 @@
     chart.setOption(option);
     window.addEventListener('resize', function(){
         chart.resize();
-    })
+    });
+    let timer = null;
+    let count = 0;
+
+    function autoTip(total) {
+        timer = setInterval(function() {
+            var curr = count % total;
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0, // 因为只有一组数据，所以此处应为0
+                dataIndex: curr
+            });
+            count += 1;
+        }, 3000);
+    }
 
 </script>
 </body>

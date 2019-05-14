@@ -23,9 +23,7 @@
 					</vue-select>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterQuarter" clearable>
-						<vue-option v-for="quarter in quarters" :key="quarter.index" :label="quarter.text" :value="quarter.index"></vue-option>
-					</vue-select>
+					<vue-input v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
 					<vue-select v-model="filterMonth" clearable>
@@ -36,7 +34,7 @@
 					<span>产品类型:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="selectedFurnitureTypeId" clearable>
+					<vue-select v-model="selectedFurnitureTypeId" placeholder="全部" clearable>
 						<vue-option v-for="type in furnitureTypeList" :key="type.typeId" :label="type.typeNm" :value="type.typeId"></vue-option>
 					</vue-select>
 				</div>

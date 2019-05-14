@@ -3,40 +3,68 @@
     var app = new Vue({
         // 混入表格自动滚动
         mixins: [autoScrollMixin, dateOptionsMixin],
+
         data: function () {
+
             return {
-                filterYear: '',
-                filterMonth: '',
-                filterQuarter: '',
-                tableHeight: 0,
-                warehouseCnt: 108,
+
+                filterPlatForm: '',
+                platFormList:[],
+                warehouseCnt: 0,
                 wareHouseData: [],
                 mapUrl: contextPath + '/dashboard/overseasTrade/worldMap',
+
+                tableHeight: 0,
             }
         },
+
         methods: {
 
             retrieve: function () {
-                this.getOverSeasInventoryData();
-            },
-
-            getOverSeasInventoryData: function(){
                 let self = this;
 
-                this.$http.post(contextPath + '/dashboard/overseasTrade/getOverSeasInventoryData')
+
+                this.getPlatFormList();
+                this.getOverSeasInventoryData();
+                setTimeout(() => self.initScrollElement(), 800);
+            },
+
+            getPlatFormList: function(){
+
+                let self = this;
+
+                this.$http.post(contextPath + '/dashboard/overseasTrade/getPlatFormList')
                     .then(
                         function(response){
-                            self.wareHouseData = response.body;
-                            let result = 0;
-                            for(let i in response.body){
-                                result = result + parseInt(response.body[i].overseasRepo)
-                            }
-                            self.warehouseCnt = result;
+                            self.platFormList = response.body;
                         },
                         function(response){
                             errorMsg(response.body.reason);
                         }
                     )
+            },
+
+            // 获取海外仓表格数据  计算海外仓个数
+            getOverSeasInventoryData: function(){
+
+                let self = this;
+                let eshopId = this.filterPlatForm? this.filterPlatForm:'findAll';
+
+                this.$http.post(contextPath + '/dashboard/overseasTrade/getOverSeasInventoryData', eshopId)
+                .then(
+                    function(response){
+                        let result = 0;
+                        self.wareHouseData = response.body;
+                        for(let i in response.body){
+                            result = result + parseInt(response.body[i].overseasRepo)
+                        }
+                        // 计算海外仓个数
+                        self.warehouseCnt = result;
+                    },
+                    function(response){
+                        errorMsg(response.body.reason);
+                    }
+                )
             },
 
             calculateTableHeight: function () {
@@ -46,61 +74,27 @@
         },
         computed: {
             dateFilter: function(){
+
                 if(this.filterMonth && this.filterYear){
                     return this.filterYear + '-' + this.filterMonth;
                 }
             },
         },
         watch: {
-            filterMonth(val) {
-                switch (val) {
-                    case '01':
-                    case '02':
-                    case '03':
-                        this.filterQuarter = 1;
-                        break;
-                    case '04':
-                    case '05':
-                    case '06':
-                        this.filterQuarter = 2;
-                        break;
-                    case '07':
-                    case '08':
-                    case '09':
-                        this.filterQuarter = 3;
-                        break;
-                    case '10':
-                    case '11':
-                    case '12':
-                        this.filterQuarter = 4;
-                        break;
-                }
-            },
-            dateFilter(val){
-
-                let self = this;
-
-                if(val){
-                    this.retrieve(val);
-                    setTimeout(() => self.initScrollElement(), 800);
-                }
+            filterPlatForm(val){
+                this.getOverSeasInventoryData();
             }
         },
         mounted: function () {
 
-            var self = this;
+            let self = this;
 
             self.calculateTableHeight();
             window.onresize = function () {
                 self.calculateTableHeight();
             };
+
             this.retrieve();
-            setTimeout(() => self.initScrollElement(), 800);
-            let today = new Date();
-            this.filterYear = today.getFullYear();
-            this.filterMonth = today.getMonth()+1;
         },
-
     }).$mount("#app")
-
 </script>
