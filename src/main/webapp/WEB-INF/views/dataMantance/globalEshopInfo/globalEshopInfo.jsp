@@ -25,13 +25,15 @@
 		<vue-table :data="globalEshopInfoData" :height="tableHeight" border stripe show-foot>
 			<vue-table-column type="index" width="64" align="center" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="eshopId" label="电商ID" width="100" show-overflow-tooltip></vue-table-column> 
-			<vue-table-column prop="eshopNm" label="电商名称" width="240" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="eshopNm" label="电商名称" width="120" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="countryNm" label="所属国家" width="120" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="address" label="公司地点" width="180" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="locationX" label="经度" width="100" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="locationY" label="纬度" width="100" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="establishedDate" label="成立时间" width="145" align="center" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="briefIntroduction" label="公司简介" width="150" show-overflow-tooltip></vue-table-column>
-			<vue-table-column prop="detailsIntroduction" label="公司详情" width="250" show-overflow-tooltip></vue-table-column>
-			<vue-table-column prop="isMainEshop" label="是否主流电商平台" width="120" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="detailsIntroduction" label="公司详情" width="200" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="isMainEshop" label="是否主流电商平台" width="150" show-overflow-tooltip></vue-table-column>
 			<vue-table-column label="操作" fixed="right" align="center" width="130">
 				<template slot-scope="props">
 					<vue-button @click="onEditRow(props.row)" type="text" icon="vue-icon-edit" title="编辑" ></vue-button>
@@ -59,6 +61,12 @@
 				</vue-form-item>
 				<vue-form-item prop="address" label="公司地点">
 					<vue-input v-model="eshopdtform.address" :maxlength="64"></vue-input>
+				</vue-form-item>
+				<vue-form-item prop="locationX" label="经度">
+					<vue-input v-model="eshopdtform.locationX" :maxlength="9"></vue-input>
+				</vue-form-item>
+				<vue-form-item prop="locationY" label="纬度">
+					<vue-input v-model="eshopdtform.locationY" :maxlength="9"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="establishedDate" label="成立时间">
 				<vue-date-picker v-model="eshopdtform.establishedDate" type="date" placeholder="请选择时间" :picker-options="establishedDatepickerOptions"></vue-date-picker>
