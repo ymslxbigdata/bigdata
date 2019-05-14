@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.entity.GlobalCountryInfo;
 import com.example.demo.entity.GlobalEshopInfo;
-import com.example.demo.entity.GlobalEshopTradeData;
 import com.example.demo.service.dataMantance.GlobalEshopInfoService;
 
 @Controller
@@ -35,9 +35,9 @@ public class GlobalEshopInfoController {
 	                  , produces = MediaType.APPLICATION_JSON_VALUE
 	                  )
 	@ResponseBody
-	public List<String> getEshopOptions() {
+	public List<GlobalCountryInfo> getcountryNmOptions() {
 	        	
-		return globalEshopInfoService.getEshopOptions();
+		return globalEshopInfoService.getcountryNmOptions();
 	}
 	
 	//获取全球跨境电商平台信息

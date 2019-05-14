@@ -53,7 +53,6 @@
     				<vue-input v-model="currentData.eshopId"></vue-input>
  				 </vue-form-item>
   				 <vue-form-item label="电商平台">
-    				<!-- <vue-input v-model="currentData.eshopNm" :disabled="disabledAsideEshopNm"></vue-input> -->
     				<vue-select clearable filterable placeholder="请选择" v-model="currentData.eshopId" @change="changeAsideConditon" :disabled="disabledAsideEshopNm">
       					<vue-option v-for="(item,index) in eshopOptions" :label="item.eshopNm" :value="item.eshopId"></vue-option>
     				</vue-select>

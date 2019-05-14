@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.GlobalCountryInfo;
 import com.example.demo.entity.GlobalEshopInfo;
+import com.example.demo.repository.GlobalCountryInfoRepository;
 import com.example.demo.repository.GlobalEshopInfoRepository;
 
 @Service
@@ -14,10 +16,8 @@ public class GlobalEshopInfoService {
 
 	@Autowired
 	GlobalEshopInfoRepository globalEshopInfoRepository;
-	
-	public List<String> getEshopOptions() {
-		return globalEshopInfoRepository.findEshopOptions();
-	}
+	@Autowired
+	GlobalCountryInfoRepository globalCountryInfoRepository;
 	
 	public List<GlobalEshopInfo> getGlobalEshopInfo(GlobalEshopInfo globalEshopInfo) {
 		
@@ -37,6 +37,10 @@ public class GlobalEshopInfoService {
 	
 	public void deleteEshopInfo(String eshopId) {
 		globalEshopInfoRepository.deleteById(eshopId);;
+	}
+	
+	public List<GlobalCountryInfo> getcountryNmOptions() {
+		return globalCountryInfoRepository.findAll();
 	}
 }
 
