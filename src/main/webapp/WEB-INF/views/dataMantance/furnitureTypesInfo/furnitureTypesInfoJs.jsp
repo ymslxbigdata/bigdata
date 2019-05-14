@@ -6,11 +6,21 @@ var app = new Vue({
         	typeNm:'',
         	typeNmOptions:[],
         	furnitureTypesInfoData:[],
+        	tableHeight: document.body.clientHeight - 105,
         	aside_dig: false,
         	furnitureTypesDtform: {
         		typeId: '',
         		typeNm: '',
 			},
+			disabledAsideKey: false,
+			furnitureTypesDtformRules: {
+				typeId: [
+	              { required: true, message: "请输入家具种类ID"},
+	            ],
+	            typeNm: [
+	              { required: true, message: "请输入家具种类名称"},
+	            ],
+          	},
         }
     },
     methods: {
@@ -41,59 +51,49 @@ var app = new Vue({
     		this.getTableList();
     	},
     	
+		// 清空条件部
+    	changeCondition: function() {
+    		this.furnitureTypesInfoData = [];
+    	},
+    	
     	// 新增按钮
 		onAddFurnitureType: function() {
 			var self = this;
 			self.aside_dig = true;
+			self.disabledAsideKey = false;
 			self.$refs.furnitureTypesDtform.resetFields();
 		},
 		
 		onNewOrModifyFurnitureType: function(eshopdtform) {
 			var self = this;
-			self.confirmNewOrModifyFurnitureType(self);
-		},
-		
-		confirmNewOrModifyFurnitureType: function(self) {
-			debugger
+// 			self.confirmNewOrModifyFurnitureType(self);
 			var form = self.furnitureTypesDtform;
 			self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/newOrModifyFurnitureType" , {
 				 "typeId": form.typeId
 			   , "typeNm":form.typeNm
 			}).then(function(response) {
-// 				if (typeof(onAfterSaveUserCallback) != "undefined") {
-// 					var actionType = self.userdtlform.userId != null && self.userdtlform.userId.trim() != "" ? "update" : "insert";
-// 					onAfterSaveUserCallback({
-// 						  "actionType": actionType
-// 						, "userData": JSON.stringify(self.userdtlform)
-// 						, "userRoleData":JSON.stringify(self.userdtlform.userRoleData)
-// 						, "extendList": JSON.stringify(self.userdtlform.extendList)
-// 						, "newExtendProps": JSON.stringify(self.newExtendProps)
-// 					});
-// 				}
 				self.aside_dig = false;
+				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
 				setTimeout(function() {
 					self.onRetrieve();
 				}, 500);
 			},function(e){
 				unlock(self);
 			});
-
 		},
 		
     	// 修改行数据
 		onEditRow: function(row) {
 			var self = this;
-			debugger
+			self.disabledAsideKey = true;
 			self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/getFurnitureTypesDetail", {
 				"typeId": row.typeId
 			}).then(function(response) {
 				var respData = response.data;
 				self.furnitureTypesDtform.typeId = respData.typeId;
 				self.furnitureTypesDtform.typeNm = respData.typeNm;
-
 				self.aside_dig = true;
 			},function(e) {
-
 				unlock(self);
 			});
 		},
@@ -102,28 +102,24 @@ var app = new Vue({
 		onDelRow: function(row) {
 			var self = this;
 			self.$confirm({
-				message: "确认删除该笔数据吗",
+				message: "确认删除该笔数据吗？",
 				confirmButtonText: "确认",
 				cancelButtonText: "取消",
 			}).then(function() {
-				self.onConfirmUpdFurnitureType(self, row.typeId);
+				self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/deleteFurnitureTypes", {
+					"typeId": row.typeId, 
+				}).then(function(response) {
+					setTimeout(function() {
+						self.onRetrieve();
+					}, 500);
+					self.$notify({title: "Success", message: "删除成功",type: "success",position: "bottom-right",duration:1500});
+				},function(e) {
+					unlock(self);
+				});
 			}).catch(function() {
 				return false;
 			});
 		},
-		
-		onConfirmUpdFurnitureType: function(self, typeId) {
-			self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/deleteFurnitureTypes", {
-				"typeId": typeId, 
-				}).then(function(response) {
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e) {
-				unlock(self);
-			});
-		},
-
     },
     
     mounted: function() {

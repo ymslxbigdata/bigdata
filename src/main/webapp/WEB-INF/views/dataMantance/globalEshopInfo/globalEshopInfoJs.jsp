@@ -8,6 +8,7 @@ var app = new Vue({
 			countryNm: '',
 			countryOptions: [],
 			pageData: [],
+			tableHeight: document.body.clientHeight - 105,
 			globalEshopInfoData: [],
 			aside_dig: false,
 			eshopdtform: {
@@ -25,10 +26,25 @@ var app = new Vue({
 	              return time.getTime() > VueUtil.addDate((new Date), -1).getTime();
 	            }
 	        },
+	        
+	        disabledAsideKey: false,
+	        eshopdtformRules: {
+	        	eshopId: [
+	              { required: true, message: "请输入电商ID"},
+	            ],
+	            eshopNm: [
+	              { required: true, message: "请输入电商名称"},
+	            ],
+	            countryNm: [
+	              { required: true, message: "请输入所属国家"},
+	            ],
+          	},
+          	
 		}
 	},
     methods: {
     	
+    	// 获取国家下拉选项
     	getcountryNmList: function() {
     		
     		var self = this;
@@ -48,8 +64,8 @@ var app = new Vue({
 		onAddEshop: function() {
 			var self = this;
 			self.aside_dig = true;
+			self.disabledAsideKey = false;
 			self.$refs.eshopdtform.resetFields();
-// 			self.initUserDtlAttr(self, false, "");
 		},
 		
 		// 检索方法
@@ -69,10 +85,10 @@ var app = new Vue({
     	// 修改行数据
 		onEditRow: function(row) {
 			var self = this;
-// 			self.$refs.userdtlform.resetFields();
-// 			self.initUserDtlAttr(self, true, row.userId);
-			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/getGlobalEshopInfoDetail"
-					, {"eshopId": row.eshopId}).then(function(response) {
+			self.disabledAsideKey = true;
+			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/getGlobalEshopInfoDetail" , {
+				"eshopId": row.eshopId
+			}).then(function(response) {
 				var respData = response.data;
 				self.eshopdtform.eshopId = respData.eshopId;
 				self.eshopdtform.eshopNm = respData.eshopNm;
@@ -88,49 +104,18 @@ var app = new Vue({
 				unlock(self);
 			});
 		},
-			
+		
+		// 清空条件部
+    	changeCondition: function() {
+    		this.globalEshopInfoData = [];
+    	},
+    	
+    	// 保存电商数据
 		onNewOrModifyEshop: function(eshopdtform) {
 			var self = this;
-// 			self.$refs[eshopdtform].validate(function(valid) {
-// 				if (!valid) {
-// 					return false;
-// 				}
-// 				if (typeof(onSaveUserCallback) != "undefined" && !onSaveUserCallback({"userData": JSON.stringify(self.userdtlform), "userRoleData":JSON.stringify(self.userdtlform.userRoleData)
-// 					, "extendList": JSON.stringify(self.userdtlform.extendList), "newExtendProps": JSON.stringify(self.newExtendProps)
-// 				})) {
-// 					return false;
-// 				}
-// 				if (self.userdtlform.userId) {
-// 					self.confirmNewOrModifyUser(self);
-// 				} else {
-// 					self.$http.post(contextPath+"/userManage/validWithDb"
-// 						,{"code": self.userdtlform.userCode}).then(function(response) {
-// 							if(response.data.status) {
-// 								error(self, message_arg(Vue.t(response.data.message), Vue.t('label.user_code'), self.userdtlform.userCode));
-// 							} else {
-								self.confirmNewOrModifyEshop(self);
-// 							}
-// 					},function(e){
-// 						unlock(self);
-// 					});
-// 				}
-// 			});
-		},
-		confirmNewOrModifyEshop: function(self) {
-			debugger
 			var form = self.eshopdtform;
-// 			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo", {
-// 				 "eshopId": JSON.stringify(form.eshopId)
-// 			   , "eshopNm":JSON.stringify(form.eshopNm)
-// 			   , "countryNm": JSON.stringify(form.countryNm)
-// 			   , "address": JSON.stringify(form.address)
-// 		       , "establishedDate": JSON.stringify(form.establishedDate)
-// 			   , "briefIntroduction": JSON.stringify(form.briefIntroduction)
-// 			   , "detailsIntroduction": JSON.stringify(form.detailsIntroduction)
-// 			   , "isMainEshop": JSON.stringify(form.isMainEshop)
-// 			   }).then(function(response){
-		self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo"
-					, {"eshopId": form.eshopId
+			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo", {
+				 "eshopId": form.eshopId
 			   , "eshopNm":form.eshopNm
 			   , "countryNm": form.countryNm
 			   , "address": form.address
@@ -138,52 +123,38 @@ var app = new Vue({
 			   , "briefIntroduction": form.briefIntroduction
 			   , "detailsIntroduction": form.detailsIntroduction
 			   , "isMainEshop": form.isMainEshop
-			           }).then(function(response) {
-					debugger
-						if (typeof(onAfterSaveUserCallback) != "undefined") {
-						var actionType = self.userdtlform.userId != null && self.userdtlform.userId.trim() != "" ? "update" : "insert";
-						onAfterSaveUserCallback({
-							  "actionType": actionType
-							, "userData": JSON.stringify(self.userdtlform)
-							, "userRoleData":JSON.stringify(self.userdtlform.userRoleData)
-							, "extendList": JSON.stringify(self.userdtlform.extendList)
-							, "newExtendProps": JSON.stringify(self.newExtendProps)
-						});
-					}
+			}).then(function(response) {
 					self.aside_dig = false;
-					//self.filterContext = "";
+					this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
 					setTimeout(function() {
 						self.onRetrieve();
 					}, 500);
 			},function(e){
 				unlock(self);
 			});
+
 		},
-		
+
 		// 删除行数据
 		onDelRow: function(row) {
 			var self = this;
 			self.$confirm({
-				message: "确认删除该笔数据吗",
+				message: "确认删除该笔数据吗？",
 				confirmButtonText: "确认",
 				cancelButtonText: "取消",
 			}).then(function() {
-				self.onConfirmUpdUser(self, row.eshopId);
+				self.$http.post(contextPath + "/dataMantance/globalEshopInfo/deleteEshopInfo", {
+					"eshopId": row.eshopId, 
+					}).then(function(response) {
+					setTimeout(function() {
+						self.onRetrieve();
+					}, 500);
+					self.$notify({title: "Success", message: "删除成功",type: "success",position: "bottom-right",duration:1500});
+				},function(e) {
+					unlock(self);
+				});
 			}).catch(function() {
 				return false;
-			});
-		},
-		
-		onConfirmUpdUser: function(self, eshopId) {
-			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/deleteEshopInfo", {
-				"eshopId": eshopId, 
-// 				"action": action
-				}).then(function(response) {
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e) {
-				unlock(self);
 			});
 		},
     },

@@ -6,7 +6,7 @@ var app = new Vue({
         	eshop:'',
         	eshopOptions:[],
         	month:'',
-        	tableHeight:0,
+        	tableHeight: document.body.clientHeight - 105,
         	globalEshopUsersData:[],
         	aside_dig: false,
         	eshopUserdtform: {
@@ -16,6 +16,15 @@ var app = new Vue({
 				uerNumDevelop: '',
 				userNumDeveloping: '',
 			},
+			disabledAsideKey: false,
+			eshopUserdtformRules: {
+	        	eshopId: [
+	              { required: true, message: "请输入电商ID"},
+	            ],
+	            eshopNm: [
+	              { required: true, message: "请输入电商名称"},
+	            ],
+          	},
         }
     },
     methods: {
@@ -45,20 +54,33 @@ var app = new Vue({
     		this.getTableList();
     	},
     	
+		// 清空条件部
+    	changeCondition: function() {
+    		this.globalEshopUsersData = [];
+    	},
+    	
     	// 新增按钮
 		onAddEshopUser: function() {
 			var self = this;
 			self.aside_dig = true;
+			self.disabledAsideKey = false;
 			self.$refs.eshopUserdtform.resetFields();
 		},
 		
-		onNewOrModifyEshop: function(eshopdtform) {
+    	changeAsideConditon: function() {
+    		
+    		this.eshopUserdtform.eshopId = '';
+    		for(var item in this.eshopOptions) {
+    			if(this.eshopOptions[item].eshopNm == this.eshopUserdtform.eshopNm) {
+    	
+    				this.eshopUserdtform.eshopId = this.eshopOptions[item].eshopId;
+    				break;
+    			}
+    		}
+    	},
+    	
+		onNewOrModifyEshopUser: function(eshopdtform) {
 			var self = this;
-			self.confirmNewOrModifyEshopUser(self);
-		},
-		
-		confirmNewOrModifyEshopUser: function(self) {
-			debugger
 			var form = self.eshopUserdtform;
 			self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/newOrModifyEshopUserData" , {
 				 "eshopId": form.eshopId
@@ -67,44 +89,31 @@ var app = new Vue({
 			   , "uerNumDevelop": form.uerNumDevelop
 		       , "userNumDeveloping": form.userNumDeveloping
 			}).then(function(response) {
-// 				if (typeof(onAfterSaveUserCallback) != "undefined") {
-// 					var actionType = self.userdtlform.userId != null && self.userdtlform.userId.trim() != "" ? "update" : "insert";
-// 					onAfterSaveUserCallback({
-// 						  "actionType": actionType
-// 						, "userData": JSON.stringify(self.userdtlform)
-// 						, "userRoleData":JSON.stringify(self.userdtlform.userRoleData)
-// 						, "extendList": JSON.stringify(self.userdtlform.extendList)
-// 						, "newExtendProps": JSON.stringify(self.newExtendProps)
-// 					});
-// 				}
 				self.aside_dig = false;
+				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
 				setTimeout(function() {
 					self.onRetrieve();
 				}, 500);
 			},function(e){
 				unlock(self);
 			});
-
 		},
 		
     	// 修改行数据
 		onEditRow: function(row) {
 			var self = this;
-			debugger
+			self.disabledAsideKey = true;
 			self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/getGlobalEshopUserDataDetail", {
 				"eshopId": row.eshopId
 			}).then(function(response) {
-				debugger
 				var respData = response.data;
 				self.eshopUserdtform.eshopId = respData.eshopId;
 				self.eshopUserdtform.eshopNm = respData.eshopNm;
 				self.eshopUserdtform.userNum = respData.userNum;
 				self.eshopUserdtform.uerNumDevelop = respData.uerNumDevelop;
 				self.eshopUserdtform.userNumDeveloping = respData.userNumDeveloping;
-
 				self.aside_dig = true;
 			},function(e) {
-
 				unlock(self);
 			});
 		},
@@ -113,28 +122,24 @@ var app = new Vue({
 		onDelRow: function(row) {
 			var self = this;
 			self.$confirm({
-				message: "确认删除该笔数据吗",
+				message: "确认删除该笔数据吗？",
 				confirmButtonText: "确认",
 				cancelButtonText: "取消",
 			}).then(function() {
-				self.onConfirmUpdUser(self, row.eshopId);
+				self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/deleteEshopUsersData", {
+					"eshopId": row.eshopId, 
+				}).then(function(response) {
+					setTimeout(function() {
+						self.onRetrieve();
+					}, 500);
+					self.$notify({title: "Success", message: "删除成功",type: "success",position: "bottom-right",duration:1500});
+				},function(e) {
+					unlock(self);
+				});
 			}).catch(function() {
 				return false;
 			});
 		},
-		
-		onConfirmUpdUser: function(self, eshopId) {
-			self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/deleteEshopUsersData", {
-				"eshopId": eshopId, 
-				}).then(function(response) {
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e) {
-				unlock(self);
-			});
-		},
-
     },
     
     mounted: function() {
