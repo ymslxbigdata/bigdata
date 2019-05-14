@@ -28,19 +28,27 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 	             + "  WHERE B.is_main_eshop = TRUE         "
 			     + "    AND A.trade_date = ?1              " , nativeQuery = true)
 	List<Object[]> getMainStreamShopData(String tradeDate);
-
-
-	@Query(value = "SELECT A.eshop_id                        "
-                 + "      ,A.eshop_nm                        "
-			     + "      ,C.repo_id                         "
-                 + "      ,C.repo_location_x                 "
-                 + "      ,C.repo_location_y                 "
-                 + "  FROM global_eshop_trade_data         A "
-                 + " INNER JOIN global_eshop_info          B "
-                 + "    ON A.eshop_id = B.eshop_id           "
-                 + "  LEFT JOIN global_eshop_overseas_repo C "
-                 + "    ON A.eshop_id = C.eshop_id           "
-                 + " WHERE B.is_main_eshop = TRUE            " , nativeQuery = true)
+	/*
+海外主流仓地址
+	SELECT A.eshop_id
+      ,A.eshop_nm
+      ,C.repo_id
+      ,C.repo_location_x
+      ,C.repo_location_y
+	FROM global_eshop_trade_data         A
+	INNER JOIN global_eshop_info          B
+	ON A.eshop_id = B.eshop_id
+	LEFT JOIN global_eshop_overseas_repo C
+	ON A.eshop_id = C.eshop_id
+	WHERE B.is_main_eshop = TRUE*/
+	@Query(value = "SELECT A.eshop_id                "
+                 + "      ,A.eshop_nm                "
+                 + "      ,B.location_x              "
+                 + "      ,B.location_y              "
+                 + "  FROM global_eshop_trade_data A "
+                 + " INNER JOIN global_eshop_info  B "
+                 + "    ON A.eshop_id = B.eshop_id   "
+                 + " WHERE B.is_main_eshop = TRUE    " , nativeQuery = true)
 	List<Object[]> getRepoLocation();
 
 
