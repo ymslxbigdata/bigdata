@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<div id="app" class="background-color-0D1633">
+	<div id="app" class="background-color-0D1633" v-cloak>
 		<vue-row class="first-class-title">
 			<div class="padding-top-1">
 				<span>全球跨境电商交易大数据</span>
@@ -56,6 +56,15 @@
 			</vue-col>
 			<vue-col :span="12" class="height-100">
 				<div id="worldMap" class="map-panel">
+					<div id="map-statistics">
+						<p>
+							跨境电商平台用户数:&nbsp;
+							<span>{{ eshopUserCnt }}</span>
+							&nbsp;&nbsp;
+							跨境电商平台交易总额:&nbsp;
+							<span>{{ eshopTotalSales }}&nbsp;美元</span>
+						</p>
+					</div>
 					<iframe class="map-frame" :src="mapUrl"></iframe>
 				</div>
 			</vue-col>

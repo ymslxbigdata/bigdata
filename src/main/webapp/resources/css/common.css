@@ -18,6 +18,9 @@ body {
     overflow: auto;
 }
 
+[v-cloak] {
+    display: none !important;
+}
 
 .width-50 {
     width: 50%;
@@ -291,6 +294,32 @@ body {
     margin: 5px;
     background-color: #1A2960;
     border: 1px solid;
+}
+
+#map-statistics {
+    background: linear-gradient(#0052e0d1,#ffffff00);
+    position:absolute;
+    left:calc(25% + 6px);
+    top:6px;
+    right: calc(25% + 6px);
+    text-align: center;
+}
+#map-statistics p {
+    display: inline;
+    color: white;
+    line-height: 70px;
+    font-family: 'Arial Negreta', 'Arial';
+    font-weight: 700;
+    font-style: normal;
+}
+#map-statistics span {
+    display: inline;
+    color: #a7fdff;
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Arial Negreta', 'Arial';
+    font-weight: 700;
+    font-style: normal;
 }
 
 .map-frame {

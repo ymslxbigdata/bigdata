@@ -46,6 +46,28 @@ public class GlobalTradeController {
 		return "charts/mainStreamUserCnt";
 	}
 
+	// 获取仓库交易 & 用户数量信息
+	@RequestMapping(value="getMainStreamShopData"
+			, method = RequestMethod.POST
+			, consumes = MediaType.APPLICATION_JSON_VALUE
+			, produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ResponseBody
+	public List<Object[]> getMainStreamShopData(@RequestBody final String filterDate) {
+		return globalTradeService.getMainStreamShopData(filterDate);
+	}
+
+	// 获取仓库坐标
+	@RequestMapping(value="getRepoLocation"
+			, method = RequestMethod.POST
+			, consumes = MediaType.APPLICATION_JSON_VALUE
+			, produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ResponseBody
+	public List<Object[]> getRepoLocation() {
+		return globalTradeService.getRepoLocation();
+	}
+
 	@RequestMapping(value="getDevelopingData"
 			, method = RequestMethod.POST
 			, consumes = MediaType.APPLICATION_JSON_VALUE

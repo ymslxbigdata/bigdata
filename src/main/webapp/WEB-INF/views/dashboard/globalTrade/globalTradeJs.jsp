@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script>
     var app = new Vue({
-        mixins: [autoScrollMixin,dateOptionsMixin],
+        mixins: [autoScrollMixin, dateOptionsMixin, numberFormatMixin],
         data: function () {
             return {
                 filterYear: '',
                 filterMonth: '',
                 filterQuarter: '',
 
+                tradeAndUserData: {},
+                geoCoordMap: {},
                 mapUrl: contextPath + '/dashboard/globalTrade/worldMap',
                 xBorderTotalSalesUrl: contextPath + '/dashboard/globalTrade/xBorderTotalSales',
                 mainStreamTotalSalesUrl: contextPath + '/dashboard/globalTrade/mainStreamTotalSales',
@@ -26,6 +28,7 @@
                 let self = this;
 
                 this.getDevelopingData(date);
+                this.getMapData(date);
                 this.getDevelopedData(date);
                 this.getXBorderTotalSales(date);
                 this.getMainStreamTotalSales(date);
@@ -33,6 +36,63 @@
 
                 setTimeout(()=>self.initScrollElement(),300)
             },
+
+            // 获取地图所需数据
+            getMapData: function(date){
+
+                // 获取电商交易总额及用户数
+                this.getEshopUserAndTradeData(date);
+                // 获取电商海外仓坐标
+                this.getRepoCoordData();
+
+                // 设置图表series
+                setTimeout(()=>{
+
+                    let self = this;
+                    let chartFrame = document.getElementsByClassName('map-frame')[0].contentWindow;
+                    chartFrame.chart.setOption({series: [{
+                            data: chartFrame.convertData(self.tradeAndUserData, self.geoCoordMap)
+                        }]});
+                },5000)
+            },
+
+            getEshopUserAndTradeData: function(date){
+
+                let self = this;
+                var tradeAndUserData = [];
+                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamShopData', date)
+                    .then(function(response) {
+                        tradeAndUserData = response.body.map(
+                            function(val) {
+                                return {
+                                    eshopNm: val[1],
+                                    tradeData:val[3],
+                                    userData: val[4]
+                                }
+                            }
+                        );
+                        this.tradeAndUserData = tradeAndUserData;
+                    }, function(response) {
+                        errorMsg(response.body.reason);
+                    });
+            },
+
+            getRepoCoordData : function(){
+
+                let self = this;
+                var geoCoordMap = {};
+                self.$http.post(contextPath + '/dashboard/globalTrade/getRepoLocation')
+                .then(function(response) {
+
+                    for (i = 0; i < response.data.length; i++) {
+                        geoCoordMap[response.data[i][1].toString() + response.data[i][2] ] = [ response.data[i][3], response.data[i][4]]
+                    }
+                    this.geoCoordMap = geoCoordMap;
+                }, function(response) {
+                    errorMsg(response.body.reason);
+                });
+            },
+
 
             // 获取发展中国家交易数据
             getDevelopingData: function(date){
@@ -110,7 +170,6 @@
                 self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt'
 
                 ).then(function(response) {
-                    console.log(response);
                     let platForm =  response.data.map(function(val){return val[0]});
                     let userData = response.data.map(function(val,i){return [i,0,val[1]]});
                     let chartFrame = document.getElementById('mainStreamUserCnt').contentWindow;
@@ -124,7 +183,6 @@
                             }]
                         }
                     );
-
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -144,6 +202,37 @@
             dateFilter: function(){
                 if(this.filterMonth && this.filterYear){
                     return this.filterYear + '-' + this.filterMonth ;
+                }
+            },
+            eshopUserCnt: function(){
+
+                if(this.developedCountryData && this.developingCountryData){
+
+                    let result = 0;
+
+                    for(let i = 0; i < this.developedCountryData.length; i++){
+                        result = result + this.developedCountryData[i].userCnt;
+                    }
+                    for(let i = 0; i < this.developingCountryData.length; i++){
+                        result = result + this.developingCountryData[i].userCnt;
+                    }
+                    return this.formatNumber(result.toString());
+                }
+            },
+            eshopTotalSales: function(){
+
+                if(this.developedCountryData && this.developingCountryData){
+
+                    let result = 0;
+
+                    for(let i = 0; i < this.developedCountryData.length; i++){
+                        result = result + this.developedCountryData[i].totalSales;
+                    }
+                    for(let i = 0; i < this.developingCountryData.length; i++){
+                        result = result + this.developingCountryData[i].totalSales;
+                    }
+
+                    return this.formatNumber(result.toString());
                 }
             },
         },
@@ -186,9 +275,7 @@
                 self.filterYear = today.getFullYear();
                 self.filterMonth = self.months[today.getMonth()].index;
             },800)
-
         },
-
 
     }).$mount("#app")
 

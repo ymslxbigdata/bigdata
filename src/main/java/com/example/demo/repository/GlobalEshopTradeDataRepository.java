@@ -13,6 +13,37 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 	List<GlobalEshopTradeData> findByTradeDate(String tradeMonth);
 	List<GlobalEshopTradeData> findByEshopIdAndTradeDate(String eshopId,String tradeMonth);
 
+
+
+	@Query(value = " SELECT A.eshop_id                     "
+	             + "       ,A.eshop_nm                     "
+	             + "       ,A.trade_date                   "
+	             + "       ,A.trade_volume                 "
+	             + " 	   ,C.user_num                     "
+	             + "   FROM global_eshop_trade_data      A "
+	             + "  INNER JOIN global_eshop_info       B "
+	             + "     ON A.eshop_id = B.eshop_id        "
+	             + "   LEFT JOIN global_eshop_users_data C "
+	             + "     ON A.eshop_id = C.eshop_id        "
+	             + "  WHERE B.is_main_eshop = TRUE         "
+			     + "    AND A.trade_date = ?1              " , nativeQuery = true)
+	List<Object[]> getMainStreamShopData(String tradeDate);
+
+
+	@Query(value = "SELECT A.eshop_id                        "
+                 + "      ,A.eshop_nm                        "
+			     + "      ,C.repo_id                         "
+                 + "      ,C.repo_location_x                 "
+                 + "      ,C.repo_location_y                 "
+                 + "  FROM global_eshop_trade_data         A "
+                 + " INNER JOIN global_eshop_info          B "
+                 + "    ON A.eshop_id = B.eshop_id           "
+                 + "  LEFT JOIN global_eshop_overseas_repo C "
+                 + "    ON A.eshop_id = C.eshop_id           "
+                 + " WHERE B.is_main_eshop = TRUE            " , nativeQuery = true)
+	List<Object[]> getRepoLocation();
+
+
 	@Query(value=" SELECT a.eshopNm AS eshopNm                           "
 			   + "       ,b.userNum AS userNum                           "
 			   + "       ,a.tradeVolumeDeveloped AS tradeVolumeDeveloped "

@@ -46,7 +46,28 @@
             region.push({name: country, itemStyle: {areaColor: area.color, color: 'red'}});
         });
     });
-    var worldMap = echarts.init(document.getElementById('worldMap'));
+
+   var geoCoordMap = {
+    };
+
+    var tradeAndUserData = [
+    ];
+
+    var convertData = function (data, geoCoordMap) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].eshopNm];
+            if (geoCoord) {
+                res.push({
+                    name: data[i].eshopNm,
+                    value: geoCoord.concat(data[i])
+                });
+            }
+        }
+        return res;
+    };
+
+    var chart = echarts.init(document.getElementById('worldMap'));
     var option = {
         geo: {
             map: 'world',
@@ -75,11 +96,78 @@
             //特定区域设定
             regions: region,
         },
+        tooltip: {
+            trigger: 'item',
+            backgroundColor: "#1B2A61",
+            borderColor:"#74ECFF",
+            borderWidth:1,
+            showDelay: 0,
+            hideDelay: 0,
+            formatter: function (params) {
+
+                if(params.seriesType=="scatter")
+                    return "电商平台："+params.value[2].eshopNm + "<br />" +
+                        "用户数量：" + params.value[2].userData + "<br />" +
+                        "交易总额：" + params.value[2].tradeData;
+            }
+        },
+        series:[
+            {
+                name:'tradeData',
+                type:'scatter',
+                coordinateSystem: 'geo',
+                data:convertData(tradeAndUserData),
+                symbolSize: 12,
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }
+                }
+            }
+        ],
     };
-    worldMap.setOption(option);
+    chart.setOption(option);
     window.addEventListener('resize', function () {
-        worldMap.resize()
+        chart.resize()
     });
+    var index = 0;
+    function showToolTip() {
+        chart.dispatchAction({
+            type:'showTip',
+            seriesIndex: 0,
+            dataIndex:index
+        });
+
+        chart.dispatchAction({
+            type:'highlight',
+            seriesIndex: 0,
+            dataIndex:index
+        });
+
+        chart.dispatchAction({
+            type:'downplay',
+            seriesIndex: 0,
+            dataIndex:index==0?tradeAndUserData.length-1:index-1,
+        });
+
+        index++;
+        if(index > tradeAndUserData.length - 1) {
+            index = 0;
+        }
+    }
+
+    setInterval(showToolTip,3000);
+
+    var regions = chart.getOption().geo[0].regions;
 
 </script>
 </body>

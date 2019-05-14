@@ -27,6 +27,14 @@ public class GlobalTradeService {
     GlobalEshopUsersDataRepository globalEshopUsersDataRepository;
 
 
+    public List<Object[]> getMainStreamShopData(String tradeDate){
+    	return globalEshopTradeDataRepository.getMainStreamShopData(tradeDate);
+	}
+
+	public List<Object []> getRepoLocation(){
+		return globalEshopTradeDataRepository.getRepoLocation();
+	}
+
 	public List<Object[]> getDevelopedData(String tradeDate) {
 		return globalEshopTradeDataRepository.getDevelopedData(tradeDate);
 	}

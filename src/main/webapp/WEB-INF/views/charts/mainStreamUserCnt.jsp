@@ -16,7 +16,9 @@
     var chart = echarts.init(document.getElementById('chart'));
 
     option = {
-        tooltip: {},
+        tooltip:{
+          trigger: 'axis'
+        },
         xAxis3D: {
             type: 'category',
             data: platForm,
@@ -30,7 +32,6 @@
                 margin: 14,
                 color:'#FFFFFF',
                 fontSize: 14,
-
             }
         },
         yAxis3D: {
@@ -105,7 +106,7 @@
                     }
                 },
                 itemStyle: {
-                    color: '#00e6ff'
+                    color: '#1d2d91'
                 }
             }
         }]
