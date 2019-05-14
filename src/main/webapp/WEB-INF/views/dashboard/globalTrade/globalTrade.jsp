@@ -23,9 +23,7 @@
 					</vue-select>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterQuarter" clearable>
-						<vue-option v-for="quarter in quarters" :key="quarter.index" :label="quarter.text" :value="quarter.index"></vue-option>
-					</vue-select>
+					<vue-input v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
 					<vue-select v-model="filterMonth" clearable>

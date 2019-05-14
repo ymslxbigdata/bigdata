@@ -17,20 +17,20 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 			   + "       ,b.userNum AS userNum                           "
 			   + "       ,a.tradeVolumeDeveloped AS tradeVolumeDeveloped "
 			   + "  FROM GlobalEshopTradeData a                          "
-			   + "     , GlobalEshopUsersData b                          "
-			   + " WHERE a.eshopId =b.eshopId                            "
+			   + "  LEFT OUTER JOIN GlobalEshopUsersData b               "
+			   + "    ON a.eshopId =b.eshopId                            "
 			   + "   AND a.eshopNm = b.eshopNm                           "
-			   + "   AND a.tradeDate = ?1                                ")
+			   + " WHERE a.tradeDate = ?1                                ")
 	List<Object[]> getDevelopedData(String tradeDate);
 
-	@Query(value="  SELECT a.eshop_nm                  "
-			   + "          ,b.user_num                "
-			   + "          ,a.trade_volume_developing "
-			   + "     FROM global_eshop_trade_data a  "
-			   + "        , global_eshop_users_data b  "
-			   + "    WHERE a.eshop_id =b.eshop_id     "
-			   + "      AND a.eshop_nm = b.eshop_nm    "
-			   + "      AND a.trade_date = ?1          ", nativeQuery= true)
+	@Query(value="  SELECT a.eshop_nm                             "
+			   + "          ,b.user_num                           "
+			   + "          ,a.trade_volume_developing            "
+			   + "     FROM global_eshop_trade_data a             "
+			   + "     LEFT OUTER JOIN global_eshop_users_data b  "
+			   + "       ON a.eshop_id =b.eshop_id                "
+			   + "      AND a.eshop_nm = b.eshop_nm               "
+			   + "    WHERE a.trade_date = ?1          ", nativeQuery= true)
 	List<Object[]> getDevelopingData(String tradeDate);
 
 	@Query(value="SELECT SUM(trade_volume_africa)    AS \"A\"  "

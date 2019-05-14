@@ -81,16 +81,16 @@ var dateOptionsMixin = {
                      , {index: 2, text: '第二季度'}
                      , {index: 3, text: '第三季度'}
                      , {index: 4, text: '第四季度'}],
-            years: [{text: '2010'}
-                  , {text: '2011'}
-                  , {text: '2012'}
-                  , {text: '2013'}
-                  , {text: '2014'}
-                  , {text: '2015'}
-                  , {text: '2016'}
-                  , {text: '2017'}
+            years: [{text: '2019'}
                   , {text: '2018'}
-                  , {text: '2019'}],
+                  , {text: '2017'}
+                  , {text: '2016'}
+                  , {text: '2015'}
+                  , {text: '2014'}
+                  , {text: '2013'}
+                  , {text: '2012'}
+                  , {text: '2011'}
+                  , {text: '2010'}],
         }
     }
 };

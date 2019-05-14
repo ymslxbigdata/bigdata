@@ -149,16 +149,16 @@
             filterMonth(val){
                 switch (val) {
                     case '01': case '02': case '03':
-                        this.filterQuarter = 1;
+                        this.filterQuarter = "第一季度";
                         break;
                     case '04': case '05': case '06':
-                        this.filterQuarter = 2;
+                        this.filterQuarter = "第二季度";
                         break;
                     case '07': case '08': case '09':
-                        this.filterQuarter = 3;
+                        this.filterQuarter = "第三季度";
                         break;
                     case '10': case '11': case '12':
-                        this.filterQuarter = 4;
+                        this.filterQuarter = "第四季度";
                         break;
                 }
             },
@@ -181,7 +181,7 @@
 
             let today = new Date();
             this.filterYear = today.getFullYear();
-            this.filterMonth = today.getMonth()+1;
+            this.filterMonth = this.months[today.getMonth()].index;
         },
 
 
