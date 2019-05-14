@@ -29,7 +29,8 @@
                 this.getDevelopedData(date);
                 this.getXBorderTotalSales(date);
                 this.getMainStreamTotalSales(date);
-                this.getMainStreamUserCnt(date);
+                setTimeout((date)=>self.getMainStreamUserCnt(date),100);
+
                 setTimeout(()=>self.initScrollElement(),300)
             },
 
@@ -102,17 +103,16 @@
                 });
             },
 
-            getMainStreamUserCnt: function(date){
+            // 主流跨境电商平台用户数
+            getMainStreamUserCnt: function(){
 
                 let self = this;
-
                 self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamUserCnt'
 
                 ).then(function(response) {
                     console.log(response);
                     let platForm =  response.data.map(function(val){return val[0]});
                     let userData = response.data.map(function(val,i){return [i,0,val[1]]});
-
                     let chartFrame = document.getElementById('mainStreamUserCnt').contentWindow;
                     chartFrame.chart.setOption(
                         {
@@ -121,8 +121,10 @@
                             },
                             series: [{
                                 data: userData
+                            }]
                         }
-                        ]});
+                    );
+
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -180,8 +182,11 @@
             setTimeout(() => self.initScrollElement(), 800);
 
             let today = new Date();
-            this.filterYear = today.getFullYear();
-            this.filterMonth = this.months[today.getMonth()].index;
+            setTimeout(()=>{
+                self.filterYear = today.getFullYear();
+                self.filterMonth = self.months[today.getMonth()].index;
+            },800)
+
         },
 
 

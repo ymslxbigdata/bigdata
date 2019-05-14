@@ -11,14 +11,13 @@
 				<span>全球跨境电商交易大数据</span>
 			</div>
 		</vue-row>
-
 		<vue-row class="second-class-title">
 			<div class="margin-left10 width-50" >
 				<div class="filter-text">
 					<span>统计时间:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterYear" clearable>
+					<vue-select v-model="filterYear">
 						<vue-option v-for="year in years" :key="year.text" :label="year.text" :value="year.text"></vue-option>
 					</vue-select>
 				</div>
@@ -26,45 +25,40 @@
 					<vue-input v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterMonth" placeholder="全部" clearable>
+					<vue-select v-model="filterMonth">
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>
 			</div>
 		</vue-row>
-
 		<vue-row class="detail-area">
 			<vue-col :span="6" class="data-panel-container">
-
 				<div class="data-panel">
                     <div class="table-headers">
                         <span>发展中国家</span>
                     </div>
-					<vue-table :data="developingCountryData" class="width-100" :height="tableHeight" customTableBorder="0">
+					<vue-table :data="developingCountryData" class="width-100" stripe :height="tableHeight" customTableBorder="0">
 						<vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
 						<vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
 						<vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
 					</vue-table>
 				</div>
-
 				<div class="data-panel">
                     <div class="table-headers">
                         <span>发达国家</span>
                     </div>
-                    <vue-table :data="developedCountryData" class="width-100" :height="tableHeight" customTableBorder="0">
+                    <vue-table :data="developedCountryData" class="width-100" stripe :height="tableHeight" customTableBorder="0">
                         <vue-table-column align="center" prop="platForm" label="平台"></vue-table-column>
                         <vue-table-column align="center" prop="userCnt" align="right" label="用户数"></vue-table-column>
                         <vue-table-column align="center" prop="totalSales" align="right" label="总交易额"></vue-table-column>
                     </vue-table>
                 </div>
 			</vue-col>
-
 			<vue-col :span="12" class="height-100">
 				<div id="worldMap" class="map-panel">
 					<iframe class="map-frame" :src="mapUrl"></iframe>
 				</div>
 			</vue-col>
-
 			<vue-col :span="6" class="data-panel-container">
 				<div class="data-panel">
 					<div class="table-headers">

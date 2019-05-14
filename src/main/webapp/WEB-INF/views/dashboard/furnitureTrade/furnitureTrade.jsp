@@ -18,7 +18,7 @@
 					<span>统计时间:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterYear" clearable>
+					<vue-select v-model="filterYear">
 						<vue-option v-for="year in years" :key="year.text" :label="year.text" :value="year.text"></vue-option>
 					</vue-select>
 				</div>
@@ -26,7 +26,7 @@
 					<vue-input v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterMonth" clearable>
+					<vue-select v-model="filterMonth">
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>
@@ -53,7 +53,7 @@
 					<div class="table-headers">
 						<span>热销产品各平台交易数据</span>
 					</div>
-					<vue-table :data="hotSellingOnPlatforms" :height="tableHeight" customTableBorder="0">
+					<vue-table :data="hotSellingOnPlatforms" stripe :height="tableHeight" customTableBorder="0">
 						<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
 						<vue-table-column align="center" prop="tradeAmazon" label="亚马逊"></vue-table-column>
 						<vue-table-column align="center" prop="tradeEbay" label="eBay"></vue-table-column>
@@ -70,7 +70,7 @@
 							<div class="table-headers">
 								<span>各类产品交易情况</span>
 							</div>
-							<vue-table :data="productTradingSituation" :height="tableHeight" customTableBorder="0">
+							<vue-table :data="productTradingSituation" stripe :height="tableHeight" customTableBorder="0">
 								<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
 								<vue-table-column align="center" prop="tradeVolume" label="交易额"></vue-table-column>
 								<vue-table-column align="center" prop="hotSalePlace" label="热销地"></vue-table-column>

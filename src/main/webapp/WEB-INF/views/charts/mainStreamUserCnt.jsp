@@ -8,12 +8,11 @@
 <div id="chart" class="width-100 height-100 background-color-0D1633"></div>
 <script>
 
-    var platForm = ['亚马逊', 'ebay', '阿里', 'wish'];
+    var platForm = [''];
     var zStr = [''];
 
     // y, x, z
-    var data = [[0,0,1000],[0,1,1000],[0,2,1000],[0,3,1000]];
-
+    var data = [];
     var chart = echarts.init(document.getElementById('chart'));
 
     option = {
@@ -85,11 +84,7 @@
         },
         series: [{
             type: 'bar3D',
-            data: data.map(function (item) {
-                return {
-                    value: [item[1], item[0], item[2]],
-                }
-            }),
+            data: data,
             shading: 'lambert',
             itemStyle:{
                 color: '#ff8800'

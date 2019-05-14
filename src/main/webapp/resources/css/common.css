@@ -98,6 +98,10 @@ body {
     background-color: #1A2960;
 }
 
+.data-panel .vue-table--striped .vue-table__body .vue-table__cell.grey{
+    background-color: #131d44;
+}
+
 .vue-table__column {
     background-color: #15214e !important;
     color: #ffffff !important;

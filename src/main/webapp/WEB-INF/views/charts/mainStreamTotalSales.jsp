@@ -23,12 +23,7 @@
                 type:'pie',
                 radius : [30, 80],
                 roseType : 'radius',
-                data:[
-                    {value:1500, name:'Wish'},
-                    {value:2500, name:'亚马逊'},
-                    {value:1800, name:'eBay'},
-                    {value:1500, name:'阿里巴巴'},
-                ].sort(function (a, b) { return a.value - b.value; }),
+                data:[],
                 label: {
                     normal: {
                         textStyle: {
