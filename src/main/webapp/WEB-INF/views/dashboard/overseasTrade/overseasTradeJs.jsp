@@ -21,10 +21,17 @@
             },
 
             getOverSeasInventoryData: function(){
+                let self = this;
+
                 this.$http.post(contextPath + '/dashboard/overseasTrade/getOverSeasInventoryData')
                     .then(
                         function(response){
-                            console.log(response);
+                            self.wareHouseData = response.body;
+                            let result = 0;
+                            for(let i in response.body){
+                                result = result + parseInt(response.body[i].overseasRepo)
+                            }
+                            self.warehouseCnt = result;
                         },
                         function(response){
                             errorMsg(response.body.reason);
@@ -70,8 +77,12 @@
                 }
             },
             dateFilter(val){
+
+                let self = this;
+
                 if(val){
                     this.retrieve(val);
+                    setTimeout(() => self.initScrollElement(), 800);
                 }
             }
         },
@@ -83,7 +94,7 @@
             window.onresize = function () {
                 self.calculateTableHeight();
             };
-
+            this.retrieve();
             setTimeout(() => self.initScrollElement(), 800);
             let today = new Date();
             this.filterYear = today.getFullYear();

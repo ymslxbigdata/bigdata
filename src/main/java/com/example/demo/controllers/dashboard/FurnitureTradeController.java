@@ -82,7 +82,6 @@ public class FurnitureTradeController {
         return furnitureTradeService.getHotBrandRankingData();
     }
 
-
     @RequestMapping(value="getAreaPlatformFurnitureSales"
             , method = RequestMethod.POST
             , consumes = MediaType.APPLICATION_JSON_VALUE
