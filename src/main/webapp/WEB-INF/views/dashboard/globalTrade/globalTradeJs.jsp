@@ -85,7 +85,7 @@
                 .then(function(response) {
 
                     for (i = 0; i < response.data.length; i++) {
-                        geoCoordMap[response.data[i][1].toString() + response.data[i][2] ] = [ response.data[i][3], response.data[i][4]]
+                        geoCoordMap[response.data[i][1].toString()] = [ parseInt(response.data[i][2]), parseInt(response.data[i][3])]
                     }
                     this.geoCoordMap = geoCoordMap;
                 }, function(response) {
