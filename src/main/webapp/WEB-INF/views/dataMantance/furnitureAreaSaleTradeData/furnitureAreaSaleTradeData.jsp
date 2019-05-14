@@ -14,15 +14,15 @@
     			<vue-button type="primary" @click="searchDataHandle()">查询</vue-button>
   			</vue-form-item>
 		</vue-form>
-		<vue-table :data="furnitureAreaSaleTradeData" border stripe height="715">
-  			<vue-table-column prop="tradeDate" label="年月" align="center"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeAsia" label="交易额-亚洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeEurope" label="交易额-欧洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeAfrica" label="交易额-非洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeOceania" label="交易额-大洋洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeNAmerica" label="交易额-北美洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeSAmerica" label="交易额-南美洲"></vue-table-column>
-  			<vue-table-column prop="tradeVolumeSChina" label="交易额-中国"></vue-table-column>
+		<vue-table :data="furnitureAreaSaleTradeData" :height="tableHeight" border stripe show-foot>
+  			<vue-table-column prop="tradeDate" label="年月" align="center" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeAsia" label="交易额-亚洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeEurope" label="交易额-欧洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeAfrica" label="交易额-非洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeOceania" label="交易额-大洋洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeNAmerica" label="交易额-北美洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeSAmerica" label="交易额-南美洲" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeSChina" label="交易额-中国" show-overflow-tooltip></vue-table-column>
   			<vue-table-column  label="操作" width="110" align="center">
     			<template slot-scope="scope">
      				 <vue-button @click="editInsertHandle(scope.row,'edit')" type="primary" size="small" icon="vue-icon-edit"></vue-button>
@@ -38,35 +38,35 @@
 			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="showAside" position="right" title="编辑数据" close-on-click-modal>
-  			<vue-form :model="currentData" label-width="150px">
- 				 <vue-form-item label="年月">
+  			<vue-form :model="currentData" ref="currentData" :rules="currentDataRules" label-width="150px">
+ 				 <vue-form-item prop="tradeDate" label="年月">
  				 	<vue-date-picker v-model="currentData.tradeDate" type="month" :disabled="disabledAsideTradeDate" format="yyyy-MM" placeholder="请选择" ></vue-date-picker>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(亚洲)">
-    				<vue-input v-model="currentData.tradeVolumeAsia"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeAsia" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(欧洲)">
-    				<vue-input v-model="currentData.tradeVolumeEurope"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeEurope" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(非洲)">
-    				<vue-input v-model="currentData.tradeVolumeAfrica"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeAfrica" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(大洋洲)">
-    				<vue-input v-model="currentData.tradeVolumeOceania"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeOceania" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(北美洲)">
-    				<vue-input v-model="currentData.tradeVolumeNAmerica"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeNAmerica" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(南美洲)">
-    				<vue-input v-model="currentData.tradeVolumeSAmerica"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeSAmerica" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(中国)">
-    				<vue-input v-model="currentData.tradeVolumeSChina"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeSChina" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
   			</vue-form>
   			<span slot="footer">
     			<vue-button @click="showAside = false">取消</vue-button>
-    			<vue-button type="primary" @click="editInsertSaveHandle">保存</vue-button>
+    			<vue-button type="primary" @click="editInsertSaveHandle('currentData')">保存</vue-button>
   			</span>
 		</vue-aside>
 		<vue-dialog v-model="showDialog" size="tiny">

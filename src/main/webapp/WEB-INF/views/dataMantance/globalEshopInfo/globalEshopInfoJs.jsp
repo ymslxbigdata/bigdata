@@ -7,7 +7,6 @@ var app = new Vue({
 			eshopNm: '',
 			countryNm: '',
 			countryOptions: [],
-			pageData: [],
 			tableHeight: document.body.clientHeight - 105,
 			globalEshopInfoData: [],
 			aside_dig: false,
@@ -114,25 +113,32 @@ var app = new Vue({
 		onNewOrModifyEshop: function(eshopdtform) {
 			var self = this;
 			var form = self.eshopdtform;
-			self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo", {
-				 "eshopId": form.eshopId
-			   , "eshopNm":form.eshopNm
-			   , "countryNm": form.countryNm
-			   , "address": form.address
-		       , "establishedDate": form.establishedDate
-			   , "briefIntroduction": form.briefIntroduction
-			   , "detailsIntroduction": form.detailsIntroduction
-			   , "isMainEshop": form.isMainEshop
-			}).then(function(response) {
-					self.aside_dig = false;
-					this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-					setTimeout(function() {
-						self.onRetrieve();
-					}, 500);
-			},function(e){
-				unlock(self);
+			self.$refs[eshopdtform].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.globalEshopInfoData.forEach(function(row) {
+						if(self.disabledAsideKey == false && form.eshopId == row.eshopId) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo", form).then(function(response) {
+							self.aside_dig = false;
+							self.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+							setTimeout(function() {
+								self.onRetrieve();
+							}, 500);
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
-
 		},
 
 		// 删除行数据

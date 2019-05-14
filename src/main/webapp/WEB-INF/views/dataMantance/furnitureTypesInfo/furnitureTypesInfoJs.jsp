@@ -64,21 +64,35 @@ var app = new Vue({
 			self.$refs.furnitureTypesDtform.resetFields();
 		},
 		
-		onNewOrModifyFurnitureType: function(eshopdtform) {
+		// 保存家具种类数据
+		onNewOrModifyFurnitureType: function(furnitureTypesDtform) {
 			var self = this;
-// 			self.confirmNewOrModifyFurnitureType(self);
 			var form = self.furnitureTypesDtform;
-			self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/newOrModifyFurnitureType" , {
-				 "typeId": form.typeId
-			   , "typeNm":form.typeNm
-			}).then(function(response) {
-				self.aside_dig = false;
-				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e){
-				unlock(self);
+			self.$refs[furnitureTypesDtform].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.furnitureTypesInfoData.forEach(function(row) {
+						if(self.disabledAsideKey == false && form.typeId == row.typeId) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+			 			self.$http.post(contextPath + "/dataMantance/furnitureTypesInfo/newOrModifyFurnitureType", form).then(function(response) {
+		 				self.aside_dig = false;
+		 				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+		 				setTimeout(function() {
+		 					self.onRetrieve();
+		 				}, 500);
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
 		},
 		

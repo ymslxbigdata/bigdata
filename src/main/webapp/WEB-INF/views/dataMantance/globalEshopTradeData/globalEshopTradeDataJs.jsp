@@ -8,19 +8,7 @@ var app = new Vue({
         	eshopNm: '',
         	month: '',
         	eshopOptions: [],
-        	monthOptions: [{value:'1',label:'1月份'}
-        	          ,{value:'2',label:'2月份'}
-        	          ,{value:'3',label:'3月份'}
-        	          ,{value:'4',label:'4月份'}
-        	          ,{value:'5',label:'5月份'}
-        	          ,{value:'6',label:'6月份'}
-        	          ,{value:'7',label:'7月份'}
-        	          ,{value:'8',label:'8月份'}
-        	          ,{value:'9',label:'9月份'}
-        	          ,{value:'10',label:'10月份'}
-        	          ,{value:'11',label:'11月份'}
-        	          ,{value:'12',label:'12月份'}],
-        	          
+        	tableHeight: document.body.clientHeight - 105,          
         	globalEshopTradeData: [],
         	
         	currentData: {},
@@ -33,6 +21,17 @@ var app = new Vue({
         	disabledAsideTradeDate: false,
         	
         	showDialog: false,
+        	currentDataRules: {
+        		eshopId: [
+	              { required: true, message: "请输入电商ID"},
+	            ],
+	            eshopNm: [
+	              { required: true, message: "请输入电商名称"},
+	            ],
+	            tradeDate: [
+	              { required: true, message: "请输入年月"},
+	            ],
+          	},
         	       
         }
     },
@@ -42,7 +41,6 @@ var app = new Vue({
     		
     		var self = this;
 			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getEshopOptions', {}).then(function(response) {
-				debugger
 				self.eshopOptions = response.body;
 			}, function(response) {
 				console.log(response.body.reason);
@@ -50,7 +48,6 @@ var app = new Vue({
     	},
     	
     	getEshopNmById: function() {
-    		
     		this.eshopNm = '';
     		for(var item in this.eshopOptions) {
     			if(this.eshopOptions[item].eshopId == this.eshopId) {
@@ -95,7 +92,6 @@ var app = new Vue({
     		
     		this.showAside = true;
     		
-    		
     		if(handleType == 'edit') {
     			
     			this.currentData = VueUtil.merge({}, rowData);
@@ -103,14 +99,17 @@ var app = new Vue({
     			
     			this.showAsideEshopId = false;
         		this.disabledAsideEshopNm = true;
-        		this.disabledAsideTradeDate = this.month != '' ? true : false;
+//         		this.disabledAsideTradeDate = this.month != '' ? true : false;
+        		this.disabledAsideTradeDate = true;
     		}
     		else {
     			
     			this.currentData = {tradeDate:'',eshopId:'',eshopNm:''};
     			
-    			this.disabledAsideEshopNm = this.eshopNm != '' ? true : false;
-    			this.disabledAsideTradeDate = this.month != '' ? true : false;
+//     			this.disabledAsideEshopNm = this.eshopNm != '' ? true : false;
+//     			this.disabledAsideTradeDate = this.month != '' ? true : false;
+    			this.disabledAsideEshopNm = false;
+    			this.disabledAsideTradeDate = false;
 				
     			this.currentData.eshopNm = this.eshopNm;
     			this.currentData.eshopId = this.eshopId;
@@ -123,17 +122,44 @@ var app = new Vue({
         	this.currentData = VueUtil.merge({}, rowData);
         },
     	
-    	editInsertSaveHandle: function() {
-    		
+    	editInsertSaveHandle: function(currentData) {
     		var self = this;
+    		var form = self.currentData;
     		this.currentData.tradeDate = VueUtil.formatDate(this.currentData.tradeDate,"yyyy-MM");
-    		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', self.currentData).then(function(response) {
-    			self.getTableList();
-    			self.showAside = false;
-    			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-			}, function(response) {
-				console.log(response.body.reason);
+    		self.$refs[currentData].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.globalEshopTradeData.forEach(function(row) {
+						if(self.disabledAsideEshopNm == false && form.eshopNm == row.eshopId && form.tradeDate == row.tradeDate) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', form).then(function(response) {
+		     				self.getTableList();
+		     				self.showAside = false;
+		     				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+// 							setTimeout(function() {
+// 								self.onRetrieve();
+// 							}, 500);
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
+//     		this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/saveData', self.currentData).then(function(response) {
+//     			self.getTableList();
+//     			self.showAside = false;
+//     			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+// 			}, function(response) {
+// 				console.log(response.body.reason);
+// 			});
     	},
     	
     	deleteSaveHandle: function() {

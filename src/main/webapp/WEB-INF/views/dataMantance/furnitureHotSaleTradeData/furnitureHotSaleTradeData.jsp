@@ -55,7 +55,7 @@
 					<vue-input v-model="furnitureHotSaleTradeDataDtform.typeId" :disabled="true"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="typeNm" label="种类名">
-					<vue-select clearable filterable placeholder="请选择" v-model="furnitureHotSaleTradeDataDtform.typeNm" @change="changeAsideConditon" :disabled="disabledAsideKey">
+					<vue-select clearable filterable placeholder="请选择" v-model="furnitureHotSaleTradeDataDtform.typeNm" @change="changeAsideConditon"  :disabled="disabledAsideKey">
       					<vue-option v-for="(item,index) in typeNmOptions" :key="index" :label="item.typeNm" :value="item.typeNm"></vue-option>
     				</vue-select>
 				</vue-form-item>
@@ -95,7 +95,7 @@
 			</vue-form>
 			<span slot="footer">
     			<vue-button @click="aside_dig = false">取消</vue-button>
-    			<vue-button type="primary" @click="onNewOrModifyFurnitureHotSaleTradeData">确认</vue-button>
+    			<vue-button type="primary" @click="onNewOrModifyFurnitureHotSaleTradeData('furnitureHotSaleTradeDataDtform')">确认</vue-button>
   			</span>
 		</vue-aside>
 	</div>

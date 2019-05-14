@@ -19,11 +19,11 @@ var app = new Vue({
         		productPlace: '',
         		tradeDate: '',
         		tradeVolume: '',
-        		tradeAmazon: '',
-        		tradeAli: '',
-        		tradeWish: '',
-        		tradeEbay: '',
-        		tradeOthers: '',
+//         		tradeAmazon: '',
+//         		tradeAli: '',
+//         		tradeWish: '',
+//         		tradeEbay: '',
+//         		tradeOthers: '',
 			},
 			disabledAsideKey: false,
 			furnitureHotSaleTradeDataDtformRules: {
@@ -72,7 +72,7 @@ var app = new Vue({
 		onAddFurnitureHotSaleTradeData: function() {
 			var self = this;
 			self.aside_dig = true;
-			disabledAsideKey = false,
+			self.disabledAsideKey = false;
 			self.$refs.furnitureHotSaleTradeDataDtform.resetFields();
 		},
 		
@@ -94,18 +94,44 @@ var app = new Vue({
     	},
     	
     	// 保存热销产品交易数据
-		onNewOrModifyFurnitureHotSaleTradeData: function() {
+		onNewOrModifyFurnitureHotSaleTradeData: function(furnitureHotSaleTradeDataDtform) {
 			var self = this;
 			var form = self.furnitureHotSaleTradeDataDtform;
 			form.tradeDate = VueUtil.formatDate(form.tradeDate,"yyyy-MM");
-			self.$http.post(contextPath + "/dataMantance/furnitureHotSaleTradeData/newOrModifyFurnitureHotSaleTradeData", form).then(function(response) {
-				self.aside_dig = false;
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e){
-				unlock(self);
+			self.$refs[furnitureHotSaleTradeDataDtform].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.furnitureHotSaleTradeData.forEach(function(row) {
+						if(self.disabledAsideKey == false && form.saleTradeId == row.saleTradeId) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + "/dataMantance/furnitureHotSaleTradeData/newOrModifyFurnitureHotSaleTradeData", form).then(function(response) {
+			 				self.aside_dig = false;
+			 				self.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+			 				setTimeout(function() {
+			 					self.onRetrieve();
+			 				}, 500);
+			 			},function(e){
+			 				unlock(self);
+			 			});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
+// 			self.$http.post(contextPath + "/dataMantance/furnitureHotSaleTradeData/newOrModifyFurnitureHotSaleTradeData", form).then(function(response) {
+// 				self.aside_dig = false;
+// 				setTimeout(function() {
+// 					self.onRetrieve();
+// 				}, 500);
+// 			},function(e){
+// 				unlock(self);
+// 			});
 		},
 		
     	// 修改行数据
@@ -116,20 +142,7 @@ var app = new Vue({
 				"saleTradeId": row.saleTradeId
 			}).then(function(response) {
 				var respData = response.data;
-				self.furnitureHotSaleTradeDataDtform.saleTradeId = respData.saleTradeId;
-				self.furnitureHotSaleTradeDataDtform.typeId = respData.typeId;
-				self.furnitureHotSaleTradeDataDtform.typeNm = respData.typeNm;
-				self.furnitureHotSaleTradeDataDtform.productId = respData.productId;
-				self.furnitureHotSaleTradeDataDtform.productNm = respData.productNm;
-				self.furnitureHotSaleTradeDataDtform.hotSalePlace = respData.hotSalePlace;
-				self.furnitureHotSaleTradeDataDtform.productPlace = respData.productPlace;
-				self.furnitureHotSaleTradeDataDtform.tradeDate = respData.tradeDate;
-				self.furnitureHotSaleTradeDataDtform.tradeVolume = respData.tradeVolume;
-				self.furnitureHotSaleTradeDataDtform.tradeAmazon = respData.tradeAmazon;
-				self.furnitureHotSaleTradeDataDtform.tradeAli = respData.tradeAli;
-				self.furnitureHotSaleTradeDataDtform.tradeWish = respData.tradeWish;
-				self.furnitureHotSaleTradeDataDtform.tradeEbay = respData.tradeEbay;
-				self.furnitureHotSaleTradeDataDtform.tradeOthers = respData.tradeOthers;
+				self.furnitureHotSaleTradeDataDtform = respData;
 				self.aside_dig = true;
 			},function(e) {
 				unlock(self);

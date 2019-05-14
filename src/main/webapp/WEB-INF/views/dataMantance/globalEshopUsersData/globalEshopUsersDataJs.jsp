@@ -79,23 +79,34 @@ var app = new Vue({
     		}
     	},
     	
-		onNewOrModifyEshopUser: function(eshopdtform) {
+		onNewOrModifyEshopUser: function(eshopUserdtform) {
 			var self = this;
 			var form = self.eshopUserdtform;
-			self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/newOrModifyEshopUserData" , {
-				 "eshopId": form.eshopId
-			   , "eshopNm":form.eshopNm
-			   , "userNum": form.userNum
-			   , "uerNumDevelop": form.uerNumDevelop
-		       , "userNumDeveloping": form.userNumDeveloping
-			}).then(function(response) {
-				self.aside_dig = false;
-				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-				setTimeout(function() {
-					self.onRetrieve();
-				}, 500);
-			},function(e){
-				unlock(self);
+			self.$refs[eshopUserdtform].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.globalEshopUsersData.forEach(function(row) {
+						if(self.disabledAsideKey == false && form.eshopId == row.eshopId) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + "/dataMantance/globalEshopUsersData/newOrModifyEshopUserData" , form).then(function(response) {
+			 				self.aside_dig = false;
+			 				this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+			 				setTimeout(function() {
+			 					self.onRetrieve();
+			 				}, 500);
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
 		},
 		
