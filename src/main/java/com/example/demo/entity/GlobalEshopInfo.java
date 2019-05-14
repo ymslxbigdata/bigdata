@@ -2,6 +2,7 @@ package com.example.demo.entity;
 // Generated 2019-5-8 8:54:23 by Hibernate Tools 5.2.5.Final
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class GlobalEshopInfo  implements java.io.Serializable {
      private String eshopNm;
      private String countryNm;
      private String address;
+     private BigDecimal locationX;
+     private BigDecimal locationY;
      private LocalDate establishedDate;
      private String briefIntroduction;
      private String detailsIntroduction;
@@ -35,11 +38,13 @@ public class GlobalEshopInfo  implements java.io.Serializable {
         this.eshopNm = eshopNm;
         this.countryNm = countryNm;
     }
-    public GlobalEshopInfo(String eshopId, String eshopNm, String countryNm, String address, LocalDate establishedDate, String briefIntroduction, String detailsIntroduction, Boolean isMainEshop) {
+    public GlobalEshopInfo(String eshopId, String eshopNm, String countryNm, String address, BigDecimal locationX, BigDecimal locationY, LocalDate establishedDate, String briefIntroduction, String detailsIntroduction, Boolean isMainEshop) {
        this.eshopId = eshopId;
        this.eshopNm = eshopNm;
        this.countryNm = countryNm;
        this.address = address;
+       this.locationX = locationX;
+       this.locationY = locationY;
        this.establishedDate = establishedDate;
        this.briefIntroduction = briefIntroduction;
        this.detailsIntroduction = detailsIntroduction;
@@ -86,6 +91,25 @@ public class GlobalEshopInfo  implements java.io.Serializable {
     
     public void setAddress(String address) {
         this.address = address;
+    }
+    
+    @Column(name="location_x", precision=6, scale=3)
+    public BigDecimal getLocationX() {
+        return this.locationX;
+    }
+    
+    public void setLocationX(BigDecimal locationX) {
+        this.locationX = locationX;
+    }
+
+    
+    @Column(name="location_y", precision=6, scale=3)
+    public BigDecimal getLocationY() {
+        return this.locationY;
+    }
+    
+    public void setLocationY(BigDecimal locationY) {
+        this.locationY = locationY;
     }
 
     

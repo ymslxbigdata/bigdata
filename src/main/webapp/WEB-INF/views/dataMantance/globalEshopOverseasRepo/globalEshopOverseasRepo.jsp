@@ -21,7 +21,7 @@
   			<vue-table-column prop="eshopNm" label="电商平台"></vue-table-column>
   			<vue-table-column prop="overseasRepo" label="海外仓"></vue-table-column>
   			<vue-table-column prop="repoLocationX" label="地理位置(经度)" ></vue-table-column>
-  			<vue-table-column prop="repoLocationX" label="地理位置(纬度)" ></vue-table-column>
+  			<vue-table-column prop="repoLocationY" label="地理位置(纬度)" ></vue-table-column>
   			<vue-table-column prop="capacity" label="容量" ></vue-table-column>
   			<vue-table-column prop="totalStock" label="库存"  ></vue-table-column>
   			<vue-table-column prop="useabelStock" label="可用库存"></vue-table-column>
