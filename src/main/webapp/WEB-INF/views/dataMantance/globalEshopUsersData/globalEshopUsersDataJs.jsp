@@ -25,6 +25,9 @@ var app = new Vue({
 	              { required: true, message: "请输入电商名称"},
 	            ],
           	},
+          	//Excel上传路径
+            uploadUrl: contextPath + '/dataMantance/globalEshopUsersData/importExcel',
+            downloadUrl: contextPath + '/dataMantance/globalEshopUsersData/export',
         }
     },
     methods: {
@@ -151,6 +154,34 @@ var app = new Vue({
 				return false;
 			});
 		},
+		
+    	//验证是否是xls文件
+        beforeAvatarUpload: function (file) {
+        	
+        	var isXls = file.type === "application/vnd.ms-excel";
+        	var isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        	if (!isXls && !isXlsx) {
+        		errorMsg("请选择.xls或.xlsx格式的文档");
+        		return false;
+        	} else {
+        		return true;
+        	}
+        },
+        
+      	//excel上传成功
+        uploadSuccessHandle: function (response) {
+        	var self = this;
+        	self.$notify({title: "Success", message: "导入成功",type: "success",position: "bottom-right",duration:1500});
+        	self.getTableList();
+        },
+        
+      	//excel上传失败
+        uploadErrorHandle: function (response) {
+        	var self = this;
+        	self.$notify({title: "Error", message: "导入失败",type: "error",position: "bottom-right",duration:1500});
+        	errorMsg(response.body.reason);
+        },
     },
     
     mounted: function() {

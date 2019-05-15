@@ -37,4 +37,8 @@ public class FurnitureAreaSaleTradeDataService {
 	public void deleteData(FurnitureAreaSaleTradeData para) {
 		furnitureAreaSaleTradeDataRepository.delete(para);;
 	}
+
+	public void batchSaveData(List<FurnitureAreaSaleTradeData> tradeDataList) {
+		furnitureAreaSaleTradeDataRepository.saveAll(tradeDataList);
+	}
 }

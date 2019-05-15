@@ -42,5 +42,9 @@ public class GlobalEshopInfoService {
 	public List<GlobalCountryInfo> getcountryNmOptions() {
 		return globalCountryInfoRepository.findAll();
 	}
+
+	public void batchSaveData(List<GlobalEshopInfo> eshopList) {
+		globalEshopInfoRepository.saveAll(eshopList);
+	}
 }
 

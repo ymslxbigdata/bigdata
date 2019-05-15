@@ -36,6 +36,10 @@ public class FurnitureHotSaleProductDataService {
 		furnitureHotSaleProductDataRepository.save(para);
 	}
 	
+	public void batchSaveData(List<FurnitureHotSaleProductData> productList) {
+		furnitureHotSaleProductDataRepository.saveAll(productList);
+	}
+	
 	public void deleteData(FurnitureHotSaleProductData para) {
 		furnitureHotSaleProductDataRepository.delete(para);;
 	}

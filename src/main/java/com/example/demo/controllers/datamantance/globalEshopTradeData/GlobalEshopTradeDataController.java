@@ -1,6 +1,9 @@
 package com.example.demo.controllers.datamantance.globalEshopTradeData;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.beans.FileUtil;
 import com.example.demo.entity.GlobalEshopInfo;
+import com.example.demo.entity.GlobalEshopOverseasRepo;
 import com.example.demo.entity.GlobalEshopTradeData;
 import com.example.demo.service.dataMantance.globalEshopTradeData.GlobalEshopTradeDataService;
 
@@ -74,5 +80,26 @@ public class GlobalEshopTradeDataController {
     public void deleteData(@RequestBody final GlobalEshopTradeData para) {
   	
         globalEshopTradeDataService.deleteData(para);;
+    }
+    
+    @RequestMapping(value="export")
+    @ResponseBody
+    public void export(HttpServletResponse response){
+
+    	GlobalEshopTradeData para = new GlobalEshopTradeData("","","","",new BigDecimal(0));
+    	List<GlobalEshopTradeData> tradeDataList = globalEshopTradeDataService.getGlobalEshopTradeData(para);
+
+        //导出操作
+        FileUtil.exportExcel(tradeDataList,"全球跨境电商平台交易数据","全球跨境电商平台交易数据",GlobalEshopTradeData.class,"全球跨境电商平台交易数据.xls",response);
+    }
+    
+    @RequestMapping("importExcel")
+    @ResponseBody
+    public void importExcel(final MultipartFile file){
+
+    	List<GlobalEshopTradeData> tradeDataList = FileUtil.importExcel(file,1,1,GlobalEshopTradeData.class);
+
+        // 保存数据库
+    	globalEshopTradeDataService.batchSaveData(tradeDataList);
     }
 }

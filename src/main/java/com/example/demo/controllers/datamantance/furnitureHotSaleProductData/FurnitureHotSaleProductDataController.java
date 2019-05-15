@@ -2,6 +2,8 @@ package com.example.demo.controllers.datamantance.furnitureHotSaleProductData;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.beans.FileUtil;
+import com.example.demo.beans.Person;
 import com.example.demo.entity.FurnitureHotSaleProductData;
 import com.example.demo.service.dataMantance.furnitureHotSaleProductData.FurnitureHotSaleProductDataService;
 
@@ -61,5 +66,25 @@ public class FurnitureHotSaleProductDataController {
     public void deleteData(@RequestBody final FurnitureHotSaleProductData para) {
   	
     	furnitureHotSaleProductDataService.deleteData(para);;
+    }
+    
+    @RequestMapping(value="export")
+    @ResponseBody
+    public void export(HttpServletResponse response){
+
+    	List<FurnitureHotSaleProductData> productList = furnitureHotSaleProductDataService.getFurnitureHotSaleProductData(new FurnitureHotSaleProductData("",""));
+
+        //导出操作
+        FileUtil.exportExcel(productList,"热销品牌信息","热销品牌",FurnitureHotSaleProductData.class,"热销品牌信息.xls",response);
+    }
+    
+    @RequestMapping("importExcel")
+    @ResponseBody
+    public void importExcel(final MultipartFile file){
+
+    	List<FurnitureHotSaleProductData> productList = FileUtil.importExcel(file,1,1,FurnitureHotSaleProductData.class);
+
+        // 保存数据库
+    	furnitureHotSaleProductDataService.batchSaveData(productList);
     }
 }

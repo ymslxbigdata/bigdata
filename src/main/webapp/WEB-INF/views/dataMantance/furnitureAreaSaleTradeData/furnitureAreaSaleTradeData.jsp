@@ -33,8 +33,14 @@
 		<vue-form inline style="margin-top:10px">
 			<vue-form-item>
 				<vue-button type="primary" @click="editInsertHandle('','insert')" >添加</vue-button>
-				<vue-button type="primary" @click="importHandle" >导入</vue-button>
-				<vue-button type="primary" @click="exportHandle" >导出</vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-button type="primary" ><a :href ="downloadUrl">导出</a></vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-upload inline :action="uploadUrl" :before-upload="beforeAvatarUpload" :show-file-list="false" :on-success="uploadSuccessHandle" :on-error="uploadErrorHandle">
+					<vue-button type="primary">导入</vue-button>
+				</vue-upload>
 			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="showAside" position="right" title="编辑数据" close-on-click-modal>

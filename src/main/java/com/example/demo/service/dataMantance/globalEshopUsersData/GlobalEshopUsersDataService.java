@@ -43,4 +43,8 @@ public class GlobalEshopUsersDataService {
 	public void deleteEshopUsersData(String eshopId) {
 		globalEshopUsersDataRepository.deleteById(eshopId);
 	}
+
+	public void batchSaveData(List<GlobalEshopUsersData> usersDataList) {
+		globalEshopUsersDataRepository.saveAll(usersDataList);
+	}
 }

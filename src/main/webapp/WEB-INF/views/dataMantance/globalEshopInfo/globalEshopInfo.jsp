@@ -45,6 +45,14 @@
 			<vue-form-item>
 				<vue-button type="primary" @click="onAddEshop" >添加</vue-button>
 			</vue-form-item>
+			<vue-form-item>
+				<vue-button type="primary" ><a :href ="downloadUrl">导出</a></vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-upload inline :action="uploadUrl" :before-upload="beforeAvatarUpload" :show-file-list="false" :on-success="uploadSuccessHandle" :on-error="uploadErrorHandle">
+					<vue-button type="primary">导入</vue-button>
+				</vue-upload>
+			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="aside_dig" id="aside_id" title="编辑数据" close-on-click-modal>
 			<vue-form :model="eshopdtform" ref="eshopdtform" :rules="eshopdtformRules" label-width="130px" style="padding: 15px">
@@ -69,7 +77,7 @@
 					<vue-input v-model="eshopdtform.locationY" :maxlength="9"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="establishedDate" label="成立时间">
-				<vue-date-picker v-model="eshopdtform.establishedDate" type="date" placeholder="请选择时间" :picker-options="establishedDatepickerOptions"></vue-date-picker>
+				<vue-date-picker v-model="eshopdtform.establishedDate" type="date" placeholder="请选择时间" format="yyyy-MM-dd" :picker-options="establishedDatepickerOptions"></vue-date-picker>
 				</vue-form-item>
 				<vue-form-item prop="briefIntroduction" label="公司简介">
 					<vue-input v-model="eshopdtform.briefIntroduction" :maxlength="200"></vue-input>
