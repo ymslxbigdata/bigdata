@@ -38,4 +38,9 @@ public class GlobalEshopOverseasRepoService {
 	public void deleteData(GlobalEshopOverseasRepo para) {
 		globalEshopOverseasRepoRepository.delete(para);;
 	}
+
+	public void batchSaveData(List<GlobalEshopOverseasRepo> repoList) {
+		globalEshopOverseasRepoRepository.saveAll(repoList);
+		
+	}
 }

@@ -2,6 +2,8 @@ package com.example.demo.controllers.datamantance.globalEshopOverseasRepo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.beans.FileUtil;
+import com.example.demo.entity.FurnitureHotSaleProductData;
 import com.example.demo.entity.GlobalEshopOverseasRepo;
 import com.example.demo.service.dataMantance.globalEshopOverseasRepo.GlobalEshopOverseasRepoService;
 
@@ -61,5 +66,26 @@ public class GlobalEshopOverseasRepoController {
     public void deleteData(@RequestBody final GlobalEshopOverseasRepo para) {
   	
     	globalEshopOverseasRepoService.deleteData(para);;
+    }
+    
+    @RequestMapping(value="export")
+    @ResponseBody
+    public void export(HttpServletResponse response){
+
+    	GlobalEshopOverseasRepo para = new GlobalEshopOverseasRepo("","","","");
+    	List<GlobalEshopOverseasRepo> productList = globalEshopOverseasRepoService.getGlobalEshopOverseasRepo(para);
+
+        //导出操作
+        FileUtil.exportExcel(productList,"海外仓信息","海外仓",GlobalEshopOverseasRepo.class,"海外仓信息.xls",response);
+    }
+    
+    @RequestMapping("importExcel")
+    @ResponseBody
+    public void importExcel(final MultipartFile file){
+
+    	List<GlobalEshopOverseasRepo> repoList = FileUtil.importExcel(file,1,1,GlobalEshopOverseasRepo.class);
+
+        // 保存数据库
+    	globalEshopOverseasRepoService.batchSaveData(repoList);
     }
 }

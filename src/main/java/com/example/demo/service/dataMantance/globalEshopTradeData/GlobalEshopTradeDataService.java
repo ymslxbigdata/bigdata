@@ -56,4 +56,8 @@ public class GlobalEshopTradeDataService {
 	public void deleteData(GlobalEshopTradeData para) {
 		globalEshopTradeDataRepository.delete(para);;
 	}
+
+	public void batchSaveData(List<GlobalEshopTradeData> tradeDataList) {
+		globalEshopTradeDataRepository.saveAll(tradeDataList);
+	}
 }

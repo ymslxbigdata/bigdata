@@ -15,9 +15,6 @@
   			<vue-form-item>
     			<vue-button type="primary" @click="onRetrieve">查询</vue-button>
   			</vue-form-item>
-<!-- 			<vue-form-item> -->
-<!--     			<vue-button type="primary" @click="onAddFurnitureType">新增</vue-button> -->
-<!--   			</vue-form-item> -->
 		</vue-form>
 		<vue-table :data="furnitureTypesInfoData" :height="tableHeight" border stripe show-foot >
 		<vue-table-column type="index" width="64" align="center" ></vue-table-column>
@@ -33,6 +30,14 @@
 		<vue-form inline style="margin-top:10px">
 			<vue-form-item>
 				<vue-button type="primary" @click="onAddFurnitureType" >添加</vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-button type="primary" ><a :href ="downloadUrl">导出</a></vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-upload inline :action="uploadUrl" :before-upload="beforeAvatarUpload" :show-file-list="false" :on-success="uploadSuccessHandle" :on-error="uploadErrorHandle">
+					<vue-button type="primary">导入</vue-button>
+				</vue-upload>
 			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="aside_dig" id="aside_id" title="编辑数据" close-on-click-modal>

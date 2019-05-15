@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.beans.FileUtil;
 import com.example.demo.beans.Person;
@@ -67,14 +67,18 @@ public class HelloController {
     }
     
     @RequestMapping("importExcel")
-    public void importExcel(){
-        String filePath = "F:\\海贼王.xls";
+    public String importExcel(final MultipartFile file){
+        String fileName = file.getOriginalFilename();
+        String prefix = fileName.substring(fileName.lastIndexOf("."));
+//        String filePath = "F:\\海贼王.xls";
         //解析excel，
-        List<Person> personList = fileUtil.importExcel(filePath,1,1,Person.class);
+        List<Person> personList = fileUtil.importExcel(file,1,1,Person.class);
         //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
         System.out.println("导入数据一共【"+personList.size()+"】行");
 
         //TODO 保存数据库
+        
+        return "保存成功";
     }
 
 }

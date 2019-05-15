@@ -34,4 +34,8 @@ public class FurnitureTypesInfoService {
 	public void deleteFurnitureTypes(String typeId) {
 		furnitureTypesInfoRepository.deleteById(typeId);
 	}
+
+	public void batchSaveData(List<FurnitureTypesInfo> typeList) {
+		furnitureTypesInfoRepository.saveAll(typeList);
+	}
 }

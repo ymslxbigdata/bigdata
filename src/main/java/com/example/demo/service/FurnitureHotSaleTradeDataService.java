@@ -31,4 +31,8 @@ public class FurnitureHotSaleTradeDataService {
 	public void deleteFurnitureHotSaleTradeData(String saleTradeId) {
 		furnitureHotSaleTradeDataRepository.deleteById(saleTradeId);
 	}
+
+	public void batchSaveData(List<FurnitureHotSaleTradeData> tradeDataList) {
+		furnitureHotSaleTradeDataRepository.saveAll(tradeDataList);
+	}
 }

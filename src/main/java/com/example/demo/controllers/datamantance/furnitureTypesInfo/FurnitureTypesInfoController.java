@@ -3,6 +3,8 @@ package com.example.demo.controllers.datamantance.furnitureTypesInfo;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.beans.FileUtil;
 import com.example.demo.entity.FurnitureTypesInfo;
 import com.example.demo.entity.GlobalEshopInfo;
+import com.example.demo.entity.GlobalEshopOverseasRepo;
 import com.example.demo.entity.GlobalEshopTradeData;
 import com.example.demo.service.FurnitureTypesInfoService;
 import com.example.demo.service.dataMantance.GlobalEshopInfoService;
@@ -87,4 +92,25 @@ public class FurnitureTypesInfoController {
 	public void deleteFurnitureTypes(@RequestBody final FurnitureTypesInfo furnitureTypesInfo) {
 		furnitureTypesInfoService.deleteFurnitureTypes(furnitureTypesInfo.getTypeId());
 	}
+	
+    @RequestMapping(value="export")
+    @ResponseBody
+    public void export(HttpServletResponse response){
+
+    	FurnitureTypesInfo para = new FurnitureTypesInfo("","");
+    	List<FurnitureTypesInfo> typeList = furnitureTypesInfoService.getFurnitureTypesInfoData(para);
+
+        //导出操作
+        FileUtil.exportExcel(typeList,"家具种类信息","家具种类",FurnitureTypesInfo.class,"家具种类信息.xls",response);
+    }
+    
+    @RequestMapping("importExcel")
+    @ResponseBody
+    public void importExcel(final MultipartFile file){
+
+    	List<FurnitureTypesInfo> typeList = FileUtil.importExcel(file,1,1,FurnitureTypesInfo.class);
+
+        // 保存数据库
+    	furnitureTypesInfoService.batchSaveData(typeList);
+    }
 }

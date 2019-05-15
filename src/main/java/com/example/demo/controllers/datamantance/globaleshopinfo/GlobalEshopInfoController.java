@@ -3,6 +3,8 @@ package com.example.demo.controllers.datamantance.globaleshopinfo;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.beans.FileUtil;
 import com.example.demo.entity.GlobalCountryInfo;
 import com.example.demo.entity.GlobalEshopInfo;
+import com.example.demo.entity.GlobalEshopOverseasRepo;
 import com.example.demo.service.dataMantance.GlobalEshopInfoService;
 
 @Controller
@@ -85,4 +90,25 @@ public class GlobalEshopInfoController {
 	public void deleteEshopInfo(@RequestBody final GlobalEshopInfo globalEshopInfo) {
 		globalEshopInfoService.deleteEshopInfo(globalEshopInfo.getEshopId());
 	}
+	
+    @RequestMapping(value="export")
+    @ResponseBody
+    public void export(HttpServletResponse response){
+
+    	GlobalEshopInfo para = new GlobalEshopInfo("","","");
+    	List<GlobalEshopInfo> eshopList = globalEshopInfoService.getGlobalEshopInfo(para);
+
+        //导出操作
+        FileUtil.exportExcel(eshopList,"全球跨境电商平台信息","全球跨境电商平台信息",GlobalEshopInfo.class,"全球跨境电商平台信息.xls",response);
+    }
+    
+    @RequestMapping("importExcel")
+    @ResponseBody
+    public void importExcel(final MultipartFile file){
+
+    	List<GlobalEshopInfo> eshopList = FileUtil.importExcel(file,1,1,GlobalEshopInfo.class);
+
+        // 保存数据库
+    	globalEshopInfoService.batchSaveData(eshopList);
+    }
 }

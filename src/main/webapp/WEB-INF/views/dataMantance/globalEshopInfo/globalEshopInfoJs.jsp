@@ -40,6 +40,9 @@ var app = new Vue({
 	              { required: true, message: "请输入所属国家"},
 	            ],
           	},
+          	//Excel上传路径
+            uploadUrl: contextPath + '/dataMantance/globalEshopInfo/importExcel',
+            downloadUrl: contextPath + '/dataMantance/globalEshopInfo/export',
           	
 		}
 	},
@@ -116,6 +119,7 @@ var app = new Vue({
     	// 保存电商数据
 		onNewOrModifyEshop: function(eshopdtform) {
 			var self = this;
+			this.eshopdtform.establishedDate = VueUtil.formatDate(this.eshopdtform.establishedDate,"yyyy-MM-dd");
 			var form = self.eshopdtform;
 			self.$refs[eshopdtform].validate(function(valid) {
 				if (!valid) {
@@ -129,6 +133,7 @@ var app = new Vue({
 						}
 					});
 					if(updFlag) {
+						debugger
 						self.$http.post(contextPath + "/dataMantance/globalEshopInfo/newOrModifyEshopInfo", form).then(function(response) {
 							self.aside_dig = false;
 							self.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
@@ -168,10 +173,40 @@ var app = new Vue({
 			});
 		},
 		
+
 		formateBooleanData: function(row,column,cellValue) {
 			var isMainEshop = cellValue;
 			if(isMainEshop) return "是";
 		}
+
+		//验证是否是xls文件
+        beforeAvatarUpload: function (file) {
+        	
+        	var isXls = file.type === "application/vnd.ms-excel";
+        	var isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        	if (!isXls && !isXlsx) {
+        		errorMsg("请选择.xls或.xlsx格式的文档");
+        		return false;
+        	} else {
+        		return true;
+        	}
+        },
+        
+      	//excel上传成功
+        uploadSuccessHandle: function (response) {
+        	var self = this;
+        	self.$notify({title: "Success", message: "导入成功",type: "success",position: "bottom-right",duration:1500});
+        	self.getTableList();
+        },
+        
+      	//excel上传失败
+        uploadErrorHandle: function (response) {
+        	var self = this;
+        	self.$notify({title: "Error", message: "导入失败",type: "error",position: "bottom-right",duration:1500});
+        	errorMsg(response.body.reason);
+        },
+
     },
     
     mounted: function() {

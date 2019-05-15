@@ -34,6 +34,14 @@
 			<vue-form-item>
 				<vue-button type="primary" @click="onAddEshopUser" >添加</vue-button>
 			</vue-form-item>
+			<vue-form-item>
+				<vue-button type="primary" ><a :href ="downloadUrl">导出</a></vue-button>
+			</vue-form-item>
+			<vue-form-item>
+				<vue-upload inline :action="uploadUrl" :before-upload="beforeAvatarUpload" :show-file-list="false" :on-success="uploadSuccessHandle" :on-error="uploadErrorHandle">
+					<vue-button type="primary">导入</vue-button>
+				</vue-upload>
+			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="aside_dig" id="aside_id" title="编辑数据" close-on-click-modal>
 			<vue-form :model="eshopUserdtform" ref="eshopUserdtform" :rules="eshopUserdtformRules" label-width="150px" style="padding: 15px">
