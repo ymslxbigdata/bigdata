@@ -18,6 +18,12 @@
                 developedCountryData: [],
 
                 tableHeight: 0,
+                
+                //图表加载完成标志
+                isWordMapLoadFinished: false,
+                isAreaEshopTradeLoadFinish: false,
+                isMainEshopTradeLoadFinish: false,
+                isMainEshopUserLoadFinish: false,
             }
         },
 
@@ -38,29 +44,39 @@
             },
 
             // 获取地图所需数据
-            getMapData: function(date){
+            getMapData: async function(date){
 
                 // 获取电商交易总额及用户数
-                this.getEshopUserAndTradeData(date);
+                await this.getEshopUserAndTradeData(date);
                 // 获取电商海外仓坐标
-                this.getRepoCoordData();
-
-                // 设置图表series
-                setTimeout(()=>{
-
-                    let self = this;
-                    let chartFrame = document.getElementsByClassName('map-frame')[0].contentWindow;
+                await this.getRepoCoordData();
+                
+                let self = this;
+                
+                let chartFrame = document.getElementsByClassName('map-frame')[0].contentWindow;
+                chartFrame.onload = function(){ 
+                	self.isWordMapLoadFinished = true;
+            		 chartFrame.tradeAndUserData = self.tradeAndUserData;
+                     chartFrame.chart.setOption({series: [{
+                             data: chartFrame.convertData(self.tradeAndUserData, self.geoCoordMap)
+                     }]});
+                };
+                
+                if(self.isWordMapLoadFinished){
+                	chartFrame.tradeAndUserData = self.tradeAndUserData;
                     chartFrame.chart.setOption({series: [{
                             data: chartFrame.convertData(self.tradeAndUserData, self.geoCoordMap)
-                        }]});
-                },5000)
+                    }]});
+                }
+                
             },
 
-            getEshopUserAndTradeData: function(date){
+            getEshopUserAndTradeData: async function(date){
 
                 let self = this;
                 var tradeAndUserData = [];
-                self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamShopData', date)
+                self.tradeAndUserData = [];
+                await self.$http.post(contextPath + '/dashboard/globalTrade/getMainStreamShopData', date)
                     .then(function(response) {
                         tradeAndUserData = response.body.map(
                             function(val) {
@@ -71,23 +87,23 @@
                                 }
                             }
                         );
-                        this.tradeAndUserData = tradeAndUserData;
+                        self.tradeAndUserData = tradeAndUserData;
                     }, function(response) {
                         errorMsg(response.body.reason);
                     });
             },
 
-            getRepoCoordData : function(){
+            getRepoCoordData : async function(){
 
                 let self = this;
                 var geoCoordMap = {};
-                self.$http.post(contextPath + '/dashboard/globalTrade/getRepoLocation')
+                self.geoCoordMap = {};
+                await self.$http.post(contextPath + '/dashboard/globalTrade/getRepoLocation')
                 .then(function(response) {
-
                     for (i = 0; i < response.data.length; i++) {
                         geoCoordMap[response.data[i][1].toString()] = [ parseInt(response.data[i][2]), parseInt(response.data[i][3])]
                     }
-                    this.geoCoordMap = geoCoordMap;
+                    self.geoCoordMap = geoCoordMap;
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -138,9 +154,14 @@
 
                         let result = response.data[0];
                         let chartFrame = document.getElementById('xBorderTotalSales').contentWindow;
-                        chartFrame.chart.setOption({series: [{
-                                data: result
-                            }]});
+                        chartFrame.onload = function() {
+                        	self.isAreaEshopTradeLoadFinish = true;
+                        	chartFrame.chart.setOption({series: [{data: result}]});
+                        };
+                        if(self.isAreaEshopTradeLoadFinish) {
+                        	chartFrame.chart.setOption({series: [{data: result}]});
+                        }
+                        
                     }, function(response) {
                         errorMsg(response.body.reason);
                     });
@@ -155,9 +176,14 @@
                 ).then(function(response) {
                     let result = response.data.map(function(val){ return {value: val[1], name: val[0]}});
                     let chartFrame = document.getElementById('mainStreamTotalSales').contentWindow;
-                    chartFrame.chart.setOption({series: [{
-                            data: result
-                    }]});
+                    chartFrame.onload = function() {
+                    	self.isMainEshopTradeLoadFinish = true;
+                    	chartFrame.chart.setOption({series: [{data: result}]});
+                    };
+                    if(self.isMainEshopTradeLoadFinish) {
+                    	chartFrame.chart.setOption({series: [{data: result}]});
+                    }
+                   
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });
@@ -173,16 +199,33 @@
                     let platForm =  response.data.map(function(val){return val[0]});
                     let userData = response.data.map(function(val,i){return [i,0,val[1]]});
                     let chartFrame = document.getElementById('mainStreamUserCnt').contentWindow;
-                    chartFrame.chart.setOption(
-                        {
-                            xAxis3D:{
-                                data: platForm
-                            },
-                            series: [{
-                                data: userData
-                            }]
-                        }
-                    );
+                    chartFrame.onload = function() {
+                    	self.isMainEshopUserLoadFinish = true;
+                    	 chartFrame.chart.setOption(
+                                 {
+                                     xAxis3D:{
+                                         data: platForm
+                                     },
+                                     series: [{
+                                         data: userData
+                                     }]
+                                 }
+                             );
+                    };
+                    if(self.isMainEshopUserLoadFinish) {
+                    	 chartFrame.chart.setOption(
+                                 {
+                                     xAxis3D:{
+                                         data: platForm
+                                     },
+                                     series: [{
+                                         data: userData
+                                     }]
+                                 }
+                             );
+                    }
+                    
+                   
                 }, function(response) {
                     errorMsg(response.body.reason);
                 });

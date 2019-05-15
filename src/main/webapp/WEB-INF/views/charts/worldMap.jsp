@@ -47,20 +47,18 @@
         });
     });
 
-   var geoCoordMap = {
-    };
+    var geoCoordMap = {};
 
-    var tradeAndUserData = [
-    ];
+    var tradeAndUserData = [ ];
 
     var convertData = function (data, geoCoordMap) {
         var res = [];
         for (var i = 0; i < data.length; i++) {
             var geoCoord = geoCoordMap[data[i].eshopNm];
-            if (geoCoord) {
+            if(geoCoord && !isNaN(geoCoord[0]) && !isNaN(geoCoord[1])) {
                 res.push({
-                    name: data[i].eshopNm,
-                    value: geoCoord.concat(data[i])
+                    	name: data[i].eshopNm,
+                    	value: geoCoord.concat(data[i])
                 });
             }
         }
@@ -139,6 +137,8 @@
     window.addEventListener('resize', function () {
         chart.resize()
     });
+    
+    // ToolTip轮播
     var index = 0;
     function showToolTip() {
         chart.dispatchAction({
@@ -156,11 +156,11 @@
         chart.dispatchAction({
             type:'downplay',
             seriesIndex: 0,
-            dataIndex:index==0?tradeAndUserData.length-1:index-1,
+            dataIndex:index==0?chart.getOption().series[0].data.length-1:index-1,
         });
 
         index++;
-        if(index > tradeAndUserData.length - 1) {
+        if(index > chart.getOption().series[0].data.length - 1) {
             index = 0;
         }
     }

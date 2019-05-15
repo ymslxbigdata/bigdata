@@ -15,6 +15,8 @@ var app = new Vue({
 				eshopNm: '',
 				countryNm: '',
 				address: '',
+				locationX:'',
+				locationY:'',
 				establishedDate: '',
 				briefIntroduction: '',
 				detailsIntroduction: '',
@@ -93,6 +95,8 @@ var app = new Vue({
 				self.eshopdtform.eshopNm = respData.eshopNm;
 				self.eshopdtform.countryNm = respData.countryNm;
 				self.eshopdtform.address = respData.address;
+				self.eshopdtform.locationX = respData.locationX;
+				self.eshopdtform.locationY = respData.locationY;
 				self.eshopdtform.establishedDate = respData.establishedDate;
 				self.eshopdtform.briefIntroduction = respData.briefIntroduction;
 				self.eshopdtform.detailsIntroduction = respData.detailsIntroduction;
@@ -163,6 +167,11 @@ var app = new Vue({
 				return false;
 			});
 		},
+		
+		formateBooleanData: function(row,column,cellValue) {
+			var isMainEshop = cellValue;
+			if(isMainEshop) return "是";
+		}
     },
     
     mounted: function() {

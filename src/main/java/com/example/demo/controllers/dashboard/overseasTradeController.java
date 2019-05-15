@@ -39,7 +39,7 @@ public class overseasTradeController {
 
     @RequestMapping("/worldMap")
     public String getMap(){
-        return "charts/worldMap";
+        return "charts/worldMap2";
     }
 
     @RequestMapping(value="getPlatFormList"

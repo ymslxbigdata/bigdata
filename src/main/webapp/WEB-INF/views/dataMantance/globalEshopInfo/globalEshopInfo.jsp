@@ -33,7 +33,7 @@
 			<vue-table-column prop="establishedDate" label="成立时间" width="145" align="center" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="briefIntroduction" label="公司简介" width="150" show-overflow-tooltip></vue-table-column>
 			<vue-table-column prop="detailsIntroduction" label="公司详情" width="200" show-overflow-tooltip></vue-table-column>
-			<vue-table-column prop="isMainEshop" label="是否主流电商平台" width="150" show-overflow-tooltip></vue-table-column>
+			<vue-table-column prop="isMainEshop" label="是否主流电商平台" width="150" align="center" show-overflow-tooltip :formatter="formateBooleanData"></vue-table-column>
 			<vue-table-column label="操作" fixed="right" align="center" width="130">
 				<template slot-scope="props">
 					<vue-button @click="onEditRow(props.row)" type="text" icon="vue-icon-edit" title="编辑" ></vue-button>

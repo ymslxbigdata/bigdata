@@ -151,10 +151,6 @@ public class GlobalEshopInfo  implements java.io.Serializable {
     public void setIsMainEshop(Boolean isMainEshop) {
         this.isMainEshop = isMainEshop;
     }
-
-
-
-
 }
 
 
