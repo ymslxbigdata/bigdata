@@ -8,16 +8,16 @@
 	<div id="app" style="height: 100%" v-cloak>
 		<vue-form inline>
   			<vue-form-item label="品牌ID">
-    			<vue-input  v-model="brandId"></vue-input>
+    			<vue-input  v-model="brandId" :maxlength="32" @change="changeCondition"></vue-input>
   			</vue-form-item>
   			<vue-form-item label="品牌名称">
-    			<vue-input v-model="brandNm" ></vue-input>
+    			<vue-input v-model="brandNm" :maxlength="32" @change="changeCondition"></vue-input>
   			</vue-form-item>
   			<vue-form-item>
     			<vue-button type="primary" @click="searchDataHandle()">查询</vue-button>
   			</vue-form-item>
 		</vue-form>
-		<vue-table :data="furnitureHotSaleProductData" border stripe height="715">
+		<vue-table :data="furnitureHotSaleProductData" :height="tableHeight" border stripe show-foot>
   			<vue-table-column prop="brandId" label="品牌ID"></vue-table-column>
   			<vue-table-column prop="brandNm" label="品牌名称"></vue-table-column>
   			<vue-table-column prop="ratio" label="市场占比"></vue-table-column>
@@ -36,20 +36,20 @@
 			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="showAside" position="right" title="编辑数据" close-on-click-modal>
-  			<vue-form :model="currentData" label-width="150px">
-  				<vue-form-item label="品牌ID">
+  			<vue-form :model="currentData" ref="currentData" :rules="currentDataRules" label-width="150px">
+  				<vue-form-item prop="brandId" label="品牌ID">
     				<vue-input v-model="currentData.brandId" :disabled="disabledAsideBrandId"></vue-input>
  				 </vue-form-item>
- 				 <vue-form-item label="品牌名称">
+ 				 <vue-form-item prop="brandNm" label="品牌名称">
     				<vue-input v-model="currentData.brandNm" :disabled="disabledAsideBrandNm"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="市场占比">
-    				<vue-input v-model="currentData.ratio"></vue-input>
+    				<vue-input v-model="currentData.ratio" :cleave="{numeral:true,}" :maxlength="3"></vue-input>
  				 </vue-form-item>
   			</vue-form>
   			<span slot="footer">
     			<vue-button @click="showAside = false">取消</vue-button>
-    			<vue-button type="primary" @click="editInsertSaveHandle">保存</vue-button>
+    			<vue-button type="primary" @click="editInsertSaveHandle('currentData')">保存</vue-button>
   			</span>
 		</vue-aside>
 		<vue-dialog v-model="showDialog" size="tiny">

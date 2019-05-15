@@ -7,7 +7,7 @@ var app = new Vue({
         	eshopId: '',
         	eshopNm: '',
         	eshopOptions: [],
-        	
+        	tableHeight: document.body.clientHeight - 105,
         	globalEshopOverseasRepoData: [],
         	currentData: {},
         	currentIndex: 0,
@@ -19,6 +19,11 @@ var app = new Vue({
         	disabledAsideTradeDate: false,
         	
         	showDialog: false,
+        	currentDataRules: {
+	            eshopNm: [
+	              { required: true, message: "请选择电商名称"},
+	            ],
+          	},
         }
     },
     methods: {
@@ -27,7 +32,6 @@ var app = new Vue({
     		
     		var self = this;
 			this.$http.post(contextPath + '/dataMantance/globalEshopTradeData/getEshopOptions', {}).then(function(response) {
-				debugger
 				self.eshopOptions = response.body;
 			}, function(response) {
 				console.log(response.body.reason);
@@ -102,16 +106,41 @@ var app = new Vue({
         	this.currentData = VueUtil.merge({}, rowData);
         },
     	
-    	editInsertSaveHandle: function() {
-    		
+    	editInsertSaveHandle: function(currentData) {
     		var self = this;
-    		this.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/saveData', self.currentData).then(function(response) {
-    			self.getTableList();
-    			self.showAside = false;
-    			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-			}, function(response) {
-				console.log(response.body.reason);
+    		var form = self.currentData;
+    		self.$refs[currentData].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.globalEshopOverseasRepoData.forEach(function(row) {
+						if(self.disabledAsideEshopNm == false && form.eshopId == row.eshopId && form.overseasRepo == row.overseasRepo) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/saveData', self.currentData).then(function(response) {
+		     			self.getTableList();
+		     			self.showAside = false;
+		     			self.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
+//     		var self = this;
+//     		this.$http.post(contextPath + '/dataMantance/globalEshopOverseasRepo/saveData', self.currentData).then(function(response) {
+//     			self.getTableList();
+//     			self.showAside = false;
+//     			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+// 			}, function(response) {
+// 				console.log(response.body.reason);
+// 			});
     	},
     	
     	deleteSaveHandle: function() {

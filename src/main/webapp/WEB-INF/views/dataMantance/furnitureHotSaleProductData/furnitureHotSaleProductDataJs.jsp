@@ -6,7 +6,7 @@ var app = new Vue({
         	
         	brandId: '',
         	brandNm: '',
-        	
+        	tableHeight: document.body.clientHeight - 105,
         	furnitureHotSaleProductData: [],
         	currentData: {},
         	currentIndex: 0,
@@ -17,6 +17,14 @@ var app = new Vue({
         	disabledAsideBrandNm: false,
         	
         	showDialog: false,
+        	currentDataRules: {
+        		brandId: [
+	              { required: true, message: "请输入品牌ID"},
+	            ],
+	            brandNm: [
+	              { required: true, message: "请输入品牌名称"},
+	            ],
+          	},
         }
     },
     methods: {
@@ -65,16 +73,41 @@ var app = new Vue({
         	this.currentData = VueUtil.merge({}, rowData);
         },
     	
-    	editInsertSaveHandle: function() {
-    		
+    	editInsertSaveHandle: function(currentData) {
     		var self = this;
-    		this.$http.post(contextPath + '/dataMantance/furnitureHotSaleProductData/saveData', self.currentData).then(function(response) {
-    			self.getTableList();
-    			self.showAside = false;
-    			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
-			}, function(response) {
-				console.log(response.body.reason);
+    		var form = self.currentData;
+    		self.$refs[currentData].validate(function(valid) {
+				if (!valid) {
+					return false;
+				} else {
+					var updFlag = true;
+					self.furnitureHotSaleProductData.forEach(function(row) {
+						if(self.disabledAsideBrandId == false && form.brandId == row.brandId) {
+							updFlag = false;
+							return false;
+						}
+					});
+					if(updFlag) {
+						self.$http.post(contextPath + '/dataMantance/furnitureHotSaleProductData/saveData', self.currentData).then(function(response) {
+		     			self.getTableList();
+		     			self.showAside = false;
+		     			self.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+						},function(e){
+							unlock(self);
+						});
+					} else {
+						self.$notify({ title: "Error", message: "数据已经存在，请重新输入",type: "error",position: "bottom-right",duration:1500});
+					}
+				}
 			});
+//     		var self = this;
+//     		this.$http.post(contextPath + '/dataMantance/furnitureHotSaleProductData/saveData', self.currentData).then(function(response) {
+//     			self.getTableList();
+//     			self.showAside = false;
+//     			this.$notify({title: "Success", message: "保存成功",type: "success",position: "bottom-right",duration:1500});
+// 			}, function(response) {
+// 				console.log(response.body.reason);
+// 			});
     	},
     	
     	deleteSaveHandle: function() {

@@ -16,7 +16,8 @@
     			<vue-button type="primary" @click="searchDataHandle()">查询</vue-button>
   			</vue-form-item>
 		</vue-form>
-		<vue-table :data="globalEshopOverseasRepoData" border stripe height="715">
+		<vue-table :data="globalEshopOverseasRepoData" :height="tableHeight" border stripe show-foot>
+			<vue-table-column prop="repoId" label="仓库UUID"  :visible=false></vue-table-column>
   			<vue-table-column prop="eshopId" label="电商ID"  :visible=false></vue-table-column>
   			<vue-table-column prop="eshopNm" label="电商平台"></vue-table-column>
   			<vue-table-column prop="overseasRepo" label="海外仓"></vue-table-column>
@@ -40,37 +41,40 @@
 			</vue-form-item>
 		</vue-form>
 		<vue-aside v-model="showAside" position="right" title="编辑数据" close-on-click-modal>
-  			<vue-form :model="currentData" label-width="150px">
-  				<vue-form-item label="电商ID" v-show="showAsideEshopId">
+  			<vue-form :model="currentData" ref="currentData" :rules="currentDataRules" label-width="150px">
+  				<vue-form-item prop="repoId" label="仓库UUID" v-show="false">
+    				<vue-input v-model="currentData.repoId"></vue-input>
+ 				 </vue-form-item>
+  				<vue-form-item prop="eshopId" label="电商ID" v-show="showAsideEshopId">
     				<vue-input v-model="currentData.eshopId"></vue-input>
  				 </vue-form-item>
-  				 <vue-form-item label="电商平台">
+  				 <vue-form-item prop="eshopNm" label="电商平台">
     				<vue-select clearable filterable placeholder="请选择" v-model="currentData.eshopId" @change="changeAsideConditon" :disabled="disabledAsideEshopNm">
       					<vue-option v-for="(item,index) in eshopOptions" :label="item.eshopNm" :value="item.eshopId"></vue-option>
     				</vue-select>
  				 </vue-form-item> 
  				 <vue-form-item label="海外仓">
-    				<vue-input v-model="currentData.overseasRepo"></vue-input>
+    				<vue-input v-model="currentData.overseasRepo" :maxlength="32"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="地理位置(经度)">
-    				<vue-input v-model="currentData.repoLocationX"></vue-input>
+    				<vue-input v-model="currentData.repoLocationX" :cleave="{numeral:true,}" :maxlength="9"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="地理位置(纬度)">
-    				<vue-input v-model="currentData.repoLocationY"></vue-input>
+    				<vue-input v-model="currentData.repoLocationY" :cleave="{numeral:true,}" :maxlength="9"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="容量">
-    				<vue-input v-model="currentData.capacity"></vue-input>
+    				<vue-input v-model="currentData.capacity" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="库存">
-    				<vue-input v-model="currentData.totalStock"></vue-input>
+    				<vue-input v-model="currentData.totalStock" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="可用库存">
-    				<vue-input v-model="currentData.useabelStock"></vue-input>
+    				<vue-input v-model="currentData.useabelStock" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
   			</vue-form>
   			<span slot="footer">
     			<vue-button @click="showAside = false">取消</vue-button>
-    			<vue-button type="primary" @click="editInsertSaveHandle">保存</vue-button>
+    			<vue-button type="primary" @click="editInsertSaveHandle('currentData')">保存</vue-button>
   			</span>
 		</vue-aside>
 		<vue-dialog v-model="showDialog" size="tiny">
