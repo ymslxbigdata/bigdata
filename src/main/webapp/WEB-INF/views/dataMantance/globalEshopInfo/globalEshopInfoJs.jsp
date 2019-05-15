@@ -177,7 +177,7 @@ var app = new Vue({
 		formateBooleanData: function(row,column,cellValue) {
 			var isMainEshop = cellValue;
 			if(isMainEshop) return "是";
-		}
+		},
 
 		//验证是否是xls文件
         beforeAvatarUpload: function (file) {
