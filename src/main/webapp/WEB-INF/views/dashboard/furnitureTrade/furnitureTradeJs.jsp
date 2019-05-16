@@ -19,6 +19,11 @@
 
                 hotSellingOnPlatforms: [],
                 productTradingSituation: [{prodName: '', turnover: 0, territories: '', producingArea: ''}],
+                
+                isHotBrandRankingLoadFinish: false,
+            	isFurAreaTradeLoadFinish: false,
+            	
+            	hotFurnitureEshop: ['亚马逊','eBay','wishi','阿里巴巴'],
             }
         },
 
@@ -81,9 +86,10 @@
                         })
 
             },
-
+			// 热销品牌排行数据
             getHotBrandRanking: function () {
 
+            	let self =  this;
                 this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotBrandRanking')
                     .then(
                         function (response) {
@@ -91,18 +97,30 @@
                                 return {value: val.ratio, name: val.brandNm}
                             });
                             let chartFrame = document.getElementById('hotBrandRanking').contentWindow;
-                            chartFrame.chart.setOption({
-                                series: [{
-                                    data: value
-                                }]
-                            });
-                            chartFrame.autoTip(value.length)
+                            chartFrame.onload = function() {
+                            	self.isHotBrandRankingLoadFinish = true;
+                            	chartFrame.chart.setOption({
+                                    series: [{
+                                        data: value
+                                    }]
+                                });
+                                chartFrame.autoTip(value.length)
+                            }
+                            if(self.isHotBrandRankingLoadFinish) {
+                            	chartFrame.chart.setOption({
+                                    series: [{
+                                        data: value
+                                    }]
+                                });
+                            }
+                            
                         },
                         function (response) {
                             errorMsg(response.body.reason);
                         })
             },
-
+			
+            // 各地区交易数据
             getAreaPlatformFurnitureSales: function (tradeDate) {
                 this.$http.post(contextPath + '/dashboard/furnitureTrade/getAreaPlatformFurnitureSales',tradeDate)
                     .then(
@@ -116,12 +134,23 @@
                                 }
                             }
                             let chartFrame = document.getElementById('areaPlatformFurnitureSales').contentWindow;
-                            chartFrame.chart.setOption({
-                                series: [{
-                                    data: value
-                                }]
-                            });
-                            chartFrame.autoTip(value.length)
+                            chartFrame.onload = function() {
+                            	isFurAreaTradeLoadFinish = true;
+                            	chartFrame.chart.setOption({
+                                    series: [{
+                                        data: value
+                                    }]
+                                });
+                                chartFrame.autoTip(value.length)
+                            }
+                            if(isFurAreaTradeLoadFinish) {
+                            	chartFrame.chart.setOption({
+                                    series: [{
+                                        data: value
+                                    }]
+                                });
+                            }
+                            
                         },
                         function (response) {
                             errorMsg(response.body.reason);

@@ -104,7 +104,7 @@ public class GlobalEshopInfo  implements java.io.Serializable {
         this.address = address;
     }
     
-    @Column(name="location_x", precision=6, scale=3)
+    @Column(name="location_x", precision=9, scale=6)
     public BigDecimal getLocationX() {
         return this.locationX;
     }
@@ -114,7 +114,7 @@ public class GlobalEshopInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="location_y", precision=6, scale=3)
+    @Column(name="location_y", precision=9, scale=6)
     public BigDecimal getLocationY() {
         return this.locationY;
     }

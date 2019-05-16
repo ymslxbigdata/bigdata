@@ -71,10 +71,10 @@
 					<vue-input v-model="eshopdtform.address" :maxlength="64"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="locationX" label="经度">
-					<vue-input v-model="eshopdtform.locationX" :maxlength="9"></vue-input>
+					<vue-input v-model="eshopdtform.locationX" :maxlength="11"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="locationY" label="纬度">
-					<vue-input v-model="eshopdtform.locationY" :maxlength="9"></vue-input>
+					<vue-input v-model="eshopdtform.locationY" :maxlength="11"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="establishedDate" label="成立时间">
 				<vue-date-picker v-model="eshopdtform.establishedDate" type="date" placeholder="请选择时间" format="yyyy-MM-dd" :picker-options="establishedDatepickerOptions"></vue-date-picker>

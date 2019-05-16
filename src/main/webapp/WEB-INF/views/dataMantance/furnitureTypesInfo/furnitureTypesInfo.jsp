@@ -42,7 +42,7 @@
 		</vue-form>
 		<vue-aside v-model="aside_dig" id="aside_id" title="编辑数据" close-on-click-modal>
 			<vue-form :model="furnitureTypesDtform" ref="furnitureTypesDtform" :rules="furnitureTypesDtformRules" label-width="140px" style="padding: 15px">
-				<vue-form-item prop="typeId" label="电商ID">
+				<vue-form-item prop="typeId" label="种类ID">
 					<vue-input v-model="furnitureTypesDtform.typeId" :maxlength="32" :disabled="disabledAsideKey"></vue-input>
 				</vue-form-item>
 				<vue-form-item prop="typeNm" label="种类名">

@@ -63,10 +63,10 @@
     				<vue-input v-model="currentData.overseasRepo" :maxlength="32"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="地理位置(经度)">
-    				<vue-input v-model="currentData.repoLocationX" :cleave="{numeral:true,}" :maxlength="9"></vue-input>
+    				<vue-input v-model="currentData.repoLocationX" :cleave="{numeral:true,}" :maxlength="11"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="地理位置(纬度)">
-    				<vue-input v-model="currentData.repoLocationY" :cleave="{numeral:true,}" :maxlength="9"></vue-input>
+    				<vue-input v-model="currentData.repoLocationY" :cleave="{numeral:true,}" :maxlength="11"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="容量">
     				<vue-input v-model="currentData.capacity" :cleave="{numeral:true,}" :maxlength="12"></vue-input>

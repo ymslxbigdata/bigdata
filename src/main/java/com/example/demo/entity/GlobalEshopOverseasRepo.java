@@ -106,7 +106,7 @@ public class GlobalEshopOverseasRepo  implements java.io.Serializable {
     }
 
     
-    @Column(name="repo_location_x", precision=6, scale=3)
+    @Column(name="repo_location_x", precision=9, scale=6)
     public BigDecimal getRepoLocationX() {
         return this.repoLocationX;
     }
@@ -116,7 +116,7 @@ public class GlobalEshopOverseasRepo  implements java.io.Serializable {
     }
 
     
-    @Column(name="repo_location_y", precision=6, scale=3)
+    @Column(name="repo_location_y", precision=9, scale=6)
     public BigDecimal getRepoLocationY() {
         return this.repoLocationY;
     }
