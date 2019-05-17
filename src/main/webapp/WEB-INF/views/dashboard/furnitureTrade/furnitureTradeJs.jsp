@@ -23,7 +23,11 @@
                 isHotBrandRankingLoadFinish: false,
             	isFurAreaTradeLoadFinish: false,
             	
-            	hotFurnitureEshop: ['亚马逊','eBay','wishi','阿里巴巴'],
+            	hotFurnitureEshop: ['亚马逊','ebay','wish','阿里巴巴'],
+            	hotFurnitureEshopData: [],
+            	
+            	tradeAndUserData: {},
+                geoCoordMap: {},
             }
         },
 
@@ -38,6 +42,59 @@
                 this.getHotBrandRanking(tradeDate);
                 this.getAreaPlatformFurnitureSales(tradeDate);
                 setTimeout(() => self.initScrollElement(), 300)
+            },
+            
+            // 获取地图所需数据
+            getMapData: async function(date){
+
+                // 获取电商交易总额及用户数
+                await this.getEshopUserAndTradeData(date);
+                // 获取电商海外仓坐标
+                await this.getHotFurnitureEshopData();
+                
+                let self = this;
+                
+                let chartFrame = document.getElementsByClassName('map-frame')[0].contentWindow;
+                chartFrame.onload = function(){ 
+                	self.isWordMapLoadFinished = true;
+            		 chartFrame.tradeAndUserData = self.tradeAndUserData;
+                     chartFrame.chart.setOption({series: [{
+                             data: chartFrame.convertData(self.tradeAndUserData, self.geoCoordMap)
+                     }]});
+                };
+                
+                if(self.isWordMapLoadFinished){
+                	chartFrame.tradeAndUserData = self.tradeAndUserData;
+                    chartFrame.chart.setOption({series: [{
+                            data: chartFrame.convertData(self.tradeAndUserData, self.geoCoordMap)
+                    }]});
+                }
+                
+            },
+            
+            // 获取电商平
+            getEshopUserAndTradeData: function() {
+            	
+            },
+            
+            // 获取电商平台地理坐标
+            getHotFurnitureEshopData: async function() {
+            	
+            	let self = this;
+            	self.geoCoordMap = {};	
+            	
+            	await this.$http.post(contextPath + '/dashboard/furnitureTrade/getHotFurnitureEshopData',self.hotFurnitureEshop).then(
+            		function(response){
+            			self.hotFurnitureEshopData = response.data;
+            			self.hotFurnitureEshopData.forEach(function(item){
+            				self.geoCoordMap[item.eshopNm] = [item.locationX, item.locationY];
+            			})
+            		},
+            		function(response) {
+            			errorMsg(response.body.reason);
+            		}
+            		
+            	);
             },
 
             getProductTypeList: function () {
@@ -156,7 +213,7 @@
                             errorMsg(response.body.reason);
                         })
             },
-
+            
             calculateTableHeight: function () {
                 let detailAreaHeight = parseInt(getComputedStyle(document.getElementsByClassName('detail-area')[0]).height.replace('px', ''));
                 this.tableHeight = Math.floor((detailAreaHeight / 3 - 12) * 0.9);
@@ -201,6 +258,7 @@
             let self = this;
             this.calculateTableHeight();
             this.getProductTypeList();
+            this.getHotFurnitureEshopData();
             window.onresize = function () {
                 self.calculateTableHeight();
             };

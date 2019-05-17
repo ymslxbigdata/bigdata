@@ -13,10 +13,13 @@ import com.example.demo.entity.FurnitureAreaSaleTradeData;
 import com.example.demo.entity.FurnitureHotSaleProductData;
 import com.example.demo.entity.FurnitureHotSaleTradeData;
 import com.example.demo.entity.FurnitureTypesInfo;
+import com.example.demo.entity.GlobalEshopInfo;
 import com.example.demo.repository.FurnitureAreaSaleTradeDataRepository;
 import com.example.demo.repository.FurnitureHotSaleProductDataRepository;
 import com.example.demo.repository.FurnitureHotSaleTradeDataRepository;
 import com.example.demo.repository.FurnitureTypesInfoRepository;
+import com.example.demo.repository.GlobalEshopInfoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ public class FurnitureTradeService {
     FurnitureHotSaleProductDataRepository furnitureHotSaleProductDataRepository;
     @Autowired
     FurnitureAreaSaleTradeDataRepository furnitureAreaSaleTradeDataRepository;
+    @Autowired
+    GlobalEshopInfoRepository globalEshopInfoRepository;
 
     // 产品类型列表
     public List<FurnitureTypesInfo> getProductTypeList(){
@@ -48,6 +53,10 @@ public class FurnitureTradeService {
             return furnitureHotSaleTradeDataRepository.findAllByTradeDate(filter[0]);
         }
     }
+    
+    public List<GlobalEshopInfo> getHotFurnitureEshopData(List<String> eshopNmList) {
+		return globalEshopInfoRepository.findByEshopNmIn(eshopNmList);
+	}
 
     public List<FurnitureHotSaleProductData> getHotBrandRankingData(){
         return furnitureHotSaleProductDataRepository.findAll();

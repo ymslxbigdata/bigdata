@@ -36,6 +36,12 @@
                 }
             }
         },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
         grid: {
             left: '20%',
             right: '10%'
@@ -50,6 +56,20 @@
     window.addEventListener('resize', function () {
         chart.resize()
     });
+    
+    let timer = null;
+    let count = 0;
+    function autoTip(total) {
+        timer = setInterval(function() {
+            var curr = count % total;
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0, // 因为只有一组数据，所以此处应为0
+                dataIndex: curr
+            });
+            count += 1;
+        }, 3000);
+    };
 </script>
 </body>
 </html>

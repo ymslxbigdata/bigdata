@@ -14,6 +14,7 @@ import com.example.demo.entity.FurnitureAreaSaleTradeData;
 import com.example.demo.entity.FurnitureHotSaleProductData;
 import com.example.demo.entity.FurnitureHotSaleTradeData;
 import com.example.demo.entity.FurnitureTypesInfo;
+import com.example.demo.entity.GlobalEshopInfo;
 import com.example.demo.service.dataDisplay.FurnitureTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -92,4 +94,13 @@ public class FurnitureTradeController {
         return furnitureTradeService.getAreaPlatformFurnitureSales(tradeDate);
     }
 
+    @RequestMapping(value="getHotFurnitureEshopData"
+            , method = RequestMethod.POST
+            , consumes = MediaType.APPLICATION_JSON_VALUE
+            , produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public List<GlobalEshopInfo> getHotFurnitureEshopData(@RequestBody final List<String> eshopNmList){
+        return furnitureTradeService.getHotFurnitureEshopData(eshopNmList);
+    }
 }

@@ -53,14 +53,14 @@
 					<div class="table-headers">
 						<span>热销产品各平台交易数据</span>
 					</div>
-					<vue-table :data="hotSellingOnPlatforms" stripe :height="tableHeight" customTableBorder="0">
-						<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
-						<vue-table-column align="center" prop="tradeAmazon" label="亚马逊"></vue-table-column>
-						<vue-table-column align="center" prop="tradeEbay" label="eBay"></vue-table-column>
-						<vue-table-column align="center" prop="tradeWish" label="wish"></vue-table-column>
-						<vue-table-column align="center" prop="tradeAli" label="阿里巴巴"></vue-table-column>
-						<vue-table-column align="center" prop="tradeOthers" label="其他"></vue-table-column>
-						<vue-table-column align="center" prop="tradeVolume" label="总交易额"></vue-table-column>
+					<vue-table :data="hotSellingOnPlatforms" stripe :height="tableHeight" customTableBorder="0" show-footer>
+						<vue-table-column align="center" prop="productNm" label="热销产品" aggregate-label="合计"></vue-table-column>
+						<vue-table-column align="center" prop="tradeAmazon" label="亚马逊" aggregate="sum" aggregate-label=""></vue-table-column>
+						<vue-table-column align="center" prop="tradeEbay" label="eBay" aggregate="sum" aggregate-label=""></vue-table-column>
+						<vue-table-column align="center" prop="tradeWish" label="wish" aggregate="sum" aggregate-label=""></vue-table-column>
+						<vue-table-column align="center" prop="tradeAli" label="阿里巴巴" aggregate="sum" aggregate-label=""></vue-table-column>
+						<vue-table-column align="center" prop="tradeOthers" label="其他" aggregate="sum" aggregate-label=""></vue-table-column>
+						<vue-table-column align="center" prop="tradeVolume" label="总交易额" aggregate="sum" aggregate-label=""></vue-table-column>
 					</vue-table>
 					</iframe>
 				</div>

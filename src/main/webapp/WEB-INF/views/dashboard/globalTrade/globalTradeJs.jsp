@@ -157,6 +157,7 @@
                         chartFrame.onload = function() {
                         	self.isAreaEshopTradeLoadFinish = true;
                         	chartFrame.chart.setOption({series: [{data: result}]});
+                        	chartFrame.autoTip(7);
                         };
                         if(self.isAreaEshopTradeLoadFinish) {
                         	chartFrame.chart.setOption({series: [{data: result}]});
@@ -179,6 +180,7 @@
                     chartFrame.onload = function() {
                     	self.isMainEshopTradeLoadFinish = true;
                     	chartFrame.chart.setOption({series: [{data: result}]});
+                    	chartFrame.autoTip(result.length);
                     };
                     if(self.isMainEshopTradeLoadFinish) {
                     	chartFrame.chart.setOption({series: [{data: result}]});

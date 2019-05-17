@@ -53,7 +53,7 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 
 
 	@Query(value=" SELECT a.eshopNm AS eshopNm                           "
-			   + "       ,b.userNum AS userNum                           "
+			   + "       ,b.userNumDeveloping AS userNum                 "
 			   + "       ,a.tradeVolumeDeveloped AS tradeVolumeDeveloped "
 			   + "  FROM GlobalEshopTradeData a                          "
 			   + "  LEFT OUTER JOIN GlobalEshopUsersData b               "
@@ -63,7 +63,7 @@ public interface GlobalEshopTradeDataRepository extends JpaRepository<GlobalEsho
 	List<Object[]> getDevelopedData(String tradeDate);
 
 	@Query(value="  SELECT a.eshop_nm                             "
-			   + "          ,b.user_num                           "
+			   + "          ,b.uer_num_develop AS userNum         "
 			   + "          ,a.trade_volume_developing            "
 			   + "     FROM global_eshop_trade_data a             "
 			   + "     LEFT OUTER JOIN global_eshop_users_data b  "

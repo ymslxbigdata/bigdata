@@ -55,6 +55,20 @@
     window.addEventListener('resize', function () {
         chart.resize()
     });
+    
+    let timer = null;
+    let count = 0;
+    function autoTip(total) {
+        timer = setInterval(function() {
+            var curr = count % total;
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0, // 因为只有一组数据，所以此处应为0
+                dataIndex: curr
+            });
+            count += 1;
+        }, 3000);
+    }
 </script>
 </body>
 </html>

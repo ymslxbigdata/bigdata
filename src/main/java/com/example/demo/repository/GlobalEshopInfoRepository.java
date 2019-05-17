@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,5 @@ public interface GlobalEshopInfoRepository extends JpaRepository<GlobalEshopInfo
 	
 	List<GlobalEshopInfo> findByEshopIdContainingAndEshopNmContainingAndCountryNmStartingWith(String eshopId, String eshopNm, String countryNm);
 
+	List<GlobalEshopInfo> findByEshopNmIn(Collection<String> eshopNms);
 }
