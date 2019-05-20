@@ -17,15 +17,15 @@
 					<span>统计时间:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterYear">
+					<vue-select customBgColor='blue' v-model="filterYear">
 						<vue-option v-for="year in years" :key="year.text" :label="year.text" :value="year.text"></vue-option>
 					</vue-select>
 				</div>
 				<div class="filter-item">
-					<vue-input v-model="filterQuarter" readonly></vue-input>
+					<vue-input customBgColor='blue' v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterMonth">
+					<vue-select v-model="filterMonth" customBgColor='blue'>
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>
@@ -71,13 +71,13 @@
 			<vue-col :span="6" class="data-panel-container">
 				<div class="data-panel">
 					<div class="table-headers">
-						<span>各区域跨境电商平台交易额(亿美元)</span>
+						<span>各区域跨境电商平台交易额(美元)</span>
 					</div>
 					<iframe id="xBorderTotalSales" class="chart-frame" :src="xBorderTotalSalesUrl"></iframe>
 				</div>
 				<div class="data-panel">
 					<div class="table-headers">
-						<span>主流跨境电商平台交易额(亿美元)</span>
+						<span>主流跨境电商平台交易额(美元)</span>
 					</div>
 					<iframe id="mainStreamTotalSales" class="chart-frame" :src="mainStreamTotalSalesUrl"></iframe>
 				</div>

@@ -8,7 +8,7 @@
 	<div id="app" class="background-color-0D1633">
 		<vue-row class="first-class-title">
 			<div class="padding-top-1">
-				<span>全球跨境电商交易大数据</span>
+				<span>全球家具产品跨境电商交易大数据</span>
 			</div>
 		</vue-row>
 
@@ -18,15 +18,15 @@
 					<span>统计时间:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterYear">
+					<vue-select customBgColor='blue' v-model="filterYear">
 						<vue-option v-for="year in years" :key="year.text" :label="year.text" :value="year.text"></vue-option>
 					</vue-select>
 				</div>
 				<div class="filter-item">
-					<vue-input v-model="filterQuarter" readonly></vue-input>
+					<vue-input customBgColor='blue' v-model="filterQuarter" readonly></vue-input>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="filterMonth">
+					<vue-select customBgColor='blue' v-model="filterMonth">
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>
@@ -34,7 +34,7 @@
 					<span>产品类型:</span>
 				</div>
 				<div class="filter-item">
-					<vue-select v-model="selectedFurnitureTypeId" placeholder="全部" clearable>
+					<vue-select customBgColor='blue' v-model="selectedFurnitureTypeId" placeholder="全部" clearable>
 						<vue-option v-for="type in furnitureTypeList" :key="type.typeId" :label="type.typeNm" :value="type.typeId"></vue-option>
 					</vue-select>
 				</div>
@@ -51,7 +51,7 @@
 			<vue-col :span="12" class="data-panel-container">
 				<div class="data-panel">
 					<div class="table-headers">
-						<span>热销产品各平台交易数据</span>
+						<span>热销产品各平台交易数据（美元）</span>
 					</div>
 					<vue-table :data="hotSellingOnPlatforms" stripe :height="tableHeight" customTableBorder="0" show-footer>
 						<vue-table-column align="center" prop="productNm" label="热销产品" aggregate-label="合计"></vue-table-column>
@@ -68,7 +68,7 @@
 					<vue-col :span="12" class="height-100">
 						<div class="data-panel">
 							<div class="table-headers">
-								<span>各类产品交易情况</span>
+								<span>各类产品交易情况（美元）</span>
 							</div>
 							<vue-table :data="productTradingSituation" stripe :height="tableHeight" customTableBorder="0">
 								<vue-table-column align="center" prop="productNm" label="热销产品"></vue-table-column>
@@ -89,7 +89,7 @@
 				</div>
 				<div class="data-panel">
 					<div class="table-headers">
-						<span>各地区跨境电商平台家具产品交易额(亿美元)</span>
+						<span>各地区跨境电商平台家具产品交易额（美元）</span>
 					</div>
 					<iframe id="areaPlatformFurnitureSales" class="chart-frame" :src="areaPlatformFurnitureSales"></iframe>
 				</div>

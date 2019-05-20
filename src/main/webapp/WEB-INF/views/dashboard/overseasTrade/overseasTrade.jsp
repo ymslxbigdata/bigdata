@@ -18,7 +18,7 @@
 				<span>电商平台:</span>
 			</div>
 			<div class="filter-item">
-				<vue-select v-model="filterPlatForm" placeholder="全部" clearable>
+				<vue-select customBgColor='blue' v-model="filterPlatForm" placeholder="全部" clearable>
 					<vue-option v-for="platForm in platFormList" :key="platForm.eshopId" :label="platForm.eshopNm" :value="platForm.eshopId" ></vue-option>
 				</vue-select>
 			</div>
