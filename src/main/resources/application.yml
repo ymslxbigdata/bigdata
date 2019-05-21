@@ -1,0 +1,49 @@
+
+#Server
+server:
+  port: 8881
+  servlet:
+    context-path: /bigdata
+
+#JPA + Hibernate + PostgreSQL
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: ymslx-2019
+    url: jdbc:postgresql://10.191.6.52:5432/bigdata
+    username: bigdata
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        connection:
+          charSet: UTF-8
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+        temp:
+          use_jdbc_metadata_defaults: false
+    show-sql: false
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  servlet:
+    #设置接收文件大小
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+spring.thymeleaf.cache: false
+spring.thymeleaf.enabled: false
+
+#Devtool    
+spring.devtools.livereload.enabled: false
+spring.devtools.restart.enabled: false
+
+--- # 发布服务器用
+spring.profiles: development
+logging:
+  level:
+    com.example.demo: warn
+        
