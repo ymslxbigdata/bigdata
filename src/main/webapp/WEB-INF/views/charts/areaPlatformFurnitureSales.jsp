@@ -10,7 +10,7 @@
 
     var chart = echarts.init(document.getElementById('chart'));
 
-    var countries = ['非洲', '亚洲','欧洲', '北美洲', '大洋洲', '南美洲', '中国'];
+    var countries = ['亚洲','欧洲','非洲', '大洋洲','北美洲', '南美洲', '中国'];
     var turnover = [];
 
     option = {
@@ -22,6 +22,7 @@
             type: 'category',
             data: countries,
             axisLabel:{
+            	 
             },
             axisLine:{
                 lineStyle:{

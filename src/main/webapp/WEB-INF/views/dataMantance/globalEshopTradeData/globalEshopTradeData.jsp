@@ -24,8 +24,8 @@
   			<vue-table-column prop="eshopNm" label="电商平台" width="120" show-overflow-tooltip></vue-table-column>
   			<vue-table-column prop="tradeDate" label="年月" width="90" show-overflow-tooltip></vue-table-column>
   			<vue-table-column prop="tradeVolume" label="交易额"  width="150" show-overflow-tooltip></vue-table-column>
-  			<vue-table-column prop="tradeVolumeDeveloped" label="交易额-发展中国家"  width="150" show-overflow-tooltip></vue-table-column>
-  			<vue-table-column prop="tradeVolumeDeveloping" label="交易额-发达国家"  width="150" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeDeveloping" label="交易额-发展中国家"  width="150" show-overflow-tooltip></vue-table-column>
+  			<vue-table-column prop="tradeVolumeDeveloped" label="交易额-发达国家"  width="150" show-overflow-tooltip></vue-table-column>
   			<vue-table-column prop="tradeVolumeAsia" label="交易额-亚洲" width="110" show-overflow-tooltip></vue-table-column>
   			<vue-table-column prop="tradeVolumeEurope" label="交易额-欧洲" width="110" show-overflow-tooltip></vue-table-column>
   			<vue-table-column prop="tradeVolumeAfrica" label="交易额-非洲" width="110" show-overflow-tooltip></vue-table-column>

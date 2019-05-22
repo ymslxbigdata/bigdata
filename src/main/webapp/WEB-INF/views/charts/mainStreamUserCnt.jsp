@@ -17,7 +17,10 @@
 
     option = {
         tooltip:{
-          trigger: 'axis'
+          trigger: 'axis',
+          formatter: function (params) {
+        	  return "用户数量："+ params.value[2];
+          }
         },
         xAxis3D: {
             type: 'category',
@@ -32,6 +35,9 @@
                 margin: 14,
                 color:'#FFFFFF',
                 fontSize: 14,
+                interval: 0,
+                rotate: -30
+                
             }
         },
         yAxis3D: {
