@@ -32,9 +32,9 @@ public class GlobalEshopTradeData  implements java.io.Serializable {
 	 @Excel(name = "交易额", orderNum = "4")
 	 private BigDecimal tradeVolume;
 	 @Excel(name = "交易额（发展中国家）", orderNum = "5")
-	 private BigDecimal tradeVolumeDeveloped;
-	 @Excel(name = "交易额（发达国家）", orderNum = "6")
 	 private BigDecimal tradeVolumeDeveloping;
+	 @Excel(name = "交易额（发达国家）", orderNum = "6")
+	 private BigDecimal tradeVolumeDeveloped;
 	 @Excel(name = "交易额（亚洲）", orderNum = "7")
 	 private BigDecimal tradeVolumeAsia;
 	 @Excel(name = "交易额（欧洲）", orderNum = "8")
