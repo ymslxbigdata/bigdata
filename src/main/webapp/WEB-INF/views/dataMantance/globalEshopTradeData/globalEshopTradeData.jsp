@@ -70,10 +70,10 @@
     				<vue-input v-model="currentData.tradeVolume" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(发展中国家)">
-    				<vue-input v-model="currentData.tradeVolumeDeveloped" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeDeveloping" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(发达国家)">
-    				<vue-input v-model="currentData.tradeVolumeDeveloping" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
+    				<vue-input v-model="currentData.tradeVolumeDeveloped" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
  				 </vue-form-item>
  				 <vue-form-item label="交易额(亚洲)">
     				<vue-input v-model="currentData.tradeVolumeAsia" :cleave="{numeral:true,}" :maxlength="12"></vue-input>
