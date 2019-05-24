@@ -110,3 +110,56 @@ var numberFormatMixin = {
         }
     }
 };
+
+//获取日期yyyyMMdd字符串 传进去一个日期类型
+function getDateYYYYMMDDStringCH(date) {
+
+    var month = "";
+    if (date.getMonth() + 1 < 10) {
+        month = "0" + (date.getMonth() + 1);
+    } else {
+        month = date.getMonth() + 1;
+    }
+
+    var day = "";
+    if (date.getDate() < 10) {
+        day = "0" + date.getDate();
+    } else {
+        day = date.getDate();
+    }
+    return date.getFullYear() + "年" + month + "月" + day + "日";
+}
+
+//获取时间HHmmSS字符串 传进去一个日期类型
+function getDateHHmmSSStringCH(date) {
+
+    var hours = "";
+    if (date.getHours() < 10) {
+        hours = "0" + date.getHours();
+    } else {
+        hours = date.getHours();
+    }
+
+    var minutes = "";
+    if (date.getMinutes() < 10) {
+        minutes = "0" + date.getMinutes();
+    } else {
+        minutes = date.getMinutes();
+    }
+
+    var seconds = "";
+    if (date.getSeconds() < 10) {
+        seconds = "0" + date.getSeconds();
+    } else {
+        seconds = date.getSeconds();
+    }
+    return hours + ":" + minutes + ":" + seconds;
+}
+
+//根据时间获取星期几
+function getWeek(date) {
+
+    var dt = new Date(date.replace(/-/g, '/'));
+    var a = [ '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六' ];
+    return a[dt.getDay()];
+}
