@@ -77,7 +77,7 @@
         for (var i = 0; i < data.value.length; i++) {
         	var dataItem = data.value[i];
             var toCoord = geoCoordMap[dataItem.repoNm];
-            if (fromCoord && toCoord) {
+            if (fromCoord && toCoord[0] && toCoord[1]) {
                 res.push({
                     fromName:data.eshopNm,
                     toName:dataItem.repoNm,
@@ -87,6 +87,20 @@
             }
         }
         return res;
+    };
+    
+    var convertData2 = function() {
+    	var data = [];
+    	var repoValue =  overseasRepoData.value;
+    	for(var i in repoValue) {
+    		if(geoCoordMap[repoValue[i].repoNm][0]==null || geoCoordMap[repoValue[i].repoNm][1]==null){
+    			continue;
+    		}
+    		else {
+    			data.push({"name":repoValue[i].repoNm,"value":geoCoordMap[repoValue[i].repoNm].concat(repoValue[i])})
+    		}
+    	}
+    	return data;
     };
     
     var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
@@ -200,12 +214,7 @@
                     color: '#f00'
                 }
             },
-            data: overseasRepoData.value.map(function(dataItem) {
-        			return { 
-        				name:dataItem.repoNm,
-        				value:geoCoordMap[dataItem.repoNm].concat(dataItem)
-        			}
-        	}),
+            data: [],
         },
 		{
 			name: '起点',
@@ -282,12 +291,7 @@
          option.series[0].data = convertData(overseasRepoData);   
          option.series[1].data = convertData(overseasRepoData);
          
-         option.series[2].data = overseasRepoData.value.map(function(dataItem) {
- 		 	return { 
-				name:dataItem.repoNm,
-				value:geoCoordMap[dataItem.repoNm].concat(dataItem)
-			}
-		 });
+         option.series[2].data = null;
          
          option.series[3].data = [{
 			name: overseasRepoData.eshopNm,
