@@ -8,6 +8,10 @@
                 filterMonth: '',
                 filterQuarter: '',
 
+                // 当前时间
+                curDate: getDateYYYYMMDDStringCH(new Date()),
+                curTime: getDateHHmmSSStringCH(new Date()),
+
                 tradeAndUserData: {},
                 geoCoordMap: {},
                 mapUrl: contextPath + '/dashboard/globalTrade/worldMap',
@@ -319,7 +323,15 @@
             setTimeout(()=>{
                 self.filterYear = today.getFullYear();
                 self.filterMonth = self.months[today.getMonth()].index;
-            },800)
+            },800);
+
+            setInterval(function() {
+                self.curDate = getDateYYYYMMDDStringCH(new Date());
+            }, 360000);
+            setInterval(function() {
+                self.curTime = getDateHHmmSSStringCH(new Date());
+            }, 1000);
+
         },
 
     }).$mount("#app")

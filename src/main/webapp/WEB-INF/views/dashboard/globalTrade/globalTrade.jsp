@@ -8,11 +8,11 @@
 	<div id="app" class="background-color-0D1633" v-cloak>
 		<vue-row class="first-class-title">
 			<div class="padding-top-1">
-				<span>全球跨境电商交易大数据</span>
+				<span>中国南康家具全球跨境电商交易大数据</span>
 			</div>
 		</vue-row>
 		<vue-row class="second-class-title">
-			<div class="margin-left10 width-50" >
+			<div class="margin-left10 width-100-10" >
 				<div class="filter-text">
 					<span>统计时间:</span>
 				</div>
@@ -29,6 +29,7 @@
 						<vue-option v-for="month in months" :key="month.index" :label="month.text" :value="month.index"></vue-option>
 					</vue-select>
 				</div>
+				<div class="time-panel"> {{curDate}} {{curTime}}</div>
 			</div>
 		</vue-row>
 		<vue-row class="detail-area">
