@@ -8,7 +8,7 @@
 <div id="app" class="background-color-0D1633">
 	<vue-row class="first-class-title">
 		<div class="padding-top-1">
-			<span>全球跨境电商交易大数据</span>
+			<span>全球跨境电商海外仓大数据</span>
 		</div>
 	</vue-row>
 
