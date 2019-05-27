@@ -27,7 +27,7 @@
                 let self = this;
 
                 this.getPlatFormList();
-                this.getOverSeasInventoryData();
+                //this.getOverSeasInventoryData();
                 setTimeout(() => self.initScrollElement(), 800);
             },
 
@@ -39,6 +39,7 @@
                     .then(
                         function(response){
                             self.platFormList = response.body;
+                            self.filterPlatForm = 'amazon';
                         },
                         function(response){
                             errorMsg(response.body.reason);
@@ -99,6 +100,7 @@
             		chartFrame.overseasRepoData = self.wordMapData;
                     chartFrame.geoCoordMap = self.geoCoordMap;
                     chartFrame.refreshData(); 
+                    
                 };  
                 
                 if(self.isWordMapLoadFinished) {
@@ -129,7 +131,7 @@
         mounted: function () {
 
             let self = this;
-
+            
             self.calculateTableHeight();
             window.onresize = function () {
                 self.calculateTableHeight();

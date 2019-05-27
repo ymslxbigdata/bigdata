@@ -214,7 +214,7 @@
                     color: '#f00'
                 }
             },
-            data: [],
+            data: convertData2(),
         },
 		{
 			name: '起点',
@@ -291,7 +291,7 @@
          option.series[0].data = convertData(overseasRepoData);   
          option.series[1].data = convertData(overseasRepoData);
          
-         option.series[2].data = null;
+         option.series[2].data = convertData2();
          
          option.series[3].data = [{
 			name: overseasRepoData.eshopNm,
