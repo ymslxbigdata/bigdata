@@ -16,7 +16,7 @@
     option = {
         tooltip : {
             trigger: 'item',
-            formatter: "{b} : {c} 亿美元"
+            formatter: "{b} : {c} 美元"
         },
         xAxis: {
             type: 'category',
